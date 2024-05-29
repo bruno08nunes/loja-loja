@@ -168,6 +168,10 @@ O objetivo do projeto é criar uma loja virtual não funcional. Porém deve ter 
 
 ## Design
 
+* Cores
+*
+*
+
 ## Ideias de Produtos
 
 * Aperto de mão de aleatório

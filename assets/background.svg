@@ -1,0 +1,13 @@
+﻿<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2000 1500'>
+<style type="text/css">
+    use {
+        animation-name: girar;
+        animation-duration: .5s;
+        animation-iteration-count: infinite;
+    }
+    @keyframes girar {
+        from {transform: rotate(0deg);}
+        to {transform: rotate(360deg);}
+    }
+</style>
+<rect fill='#000000' width='2000' height='1500'/><defs><ellipse fill='none' stroke-width='200' id='a' rx='600' ry='450'/></defs><g style='transform-origin:center'><g transform='' style='transform-origin:center'><g transform='' style='transform-origin:center'><g transform='translate(1000 750)'><use stroke='#27002B' href='#a' transform=''/><use stroke='#340331' href='#a' transform=''/><use stroke='#420436' href='#a' transform=''/><use stroke='#51063b' href='#a' transform=''/><use stroke='#5f093f' href='#a' transform=''/><use stroke='#6e0d42' href='#a' transform=''/><use stroke='#7c1244' href='#a' transform=''/><use stroke='#8b1945' href='#a' transform=''/><use stroke='#992045' href='#a' transform=''/><use stroke='#a62945' href='#a' transform=''/><use stroke='#b33244' href='#a' transform=''/><use stroke='#c03c42' href='#a' transform=''/><use stroke='#cb4740' href='#a' transform=''/><use stroke='#d5523c' href='#a' transform=''/><use stroke='#df5f39' href='#a' transform=''/><use stroke='#e76b34' href='#a' transform=''/><use stroke='#ef792f' href='#a' transform=''/><use stroke='#f58729' href='#a' transform=''/><use stroke='#fa9522' href='#a' transform=''/><use stroke='#fda31a' href='#a' transform=''/><use stroke='#ffb210' href='#a' transform=''/><use stroke='#ffc106' href='#a' transform=''/><use stroke='#FFD000' href='#a' transform=''/></g></g></g></g></svg>
