@@ -3,3 +3,44 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+:root {
+    --rosa-escuro: #f205c7;
+    --rosa-claro: #fc2aec;
+    --verde: #7cf47c;
+    --azul: #5d90b5;
+}
+
+.svg-background {
+    background-image: url(assets/background.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    min-height: 100svh;
+}
+
+.cabecalho-principal {
+    display: flex;
+    flex-direction: column;
+}
+
+.div-cabeçalho {
+    background-color: var(--verde);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-carrinho {
+    background-color: var(--verde);
+    clip-path: polygon(0 0, 100% 0, 100% 0%, 60% 100%, 40% 100%, 0 0%);
+    padding: 10px;
+    font-size: 1.7em;
+    text-align: center;
+}
+
+.logo {
+    max-width: 125px;
+    width: 100%;
+    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.466));
+}
