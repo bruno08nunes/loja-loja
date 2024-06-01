@@ -1,0 +1,522 @@
+[
+    {
+        "id": 1,
+        "name": "Aperto de mão aleatório",
+        "description": "Aperto de mão de uma pessoa aleatória. A mesma vai até o endereço de sua casa e aperta a sua mão.",
+        "categories": [
+            "services"
+        ],
+        "price": 14.99,
+        "promotionalPrice": null,
+        "rating": 3.8,
+        "stock": 28,
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Mão muito macia. Adorei!",
+                "date": "2024-05-23",
+                "reviewerName": "Bruno"
+            },
+            {
+                "rating": 4.5,
+                "comment": "Poderia colocar mais hidratante na mão antes de fazer o serviço. Tirando isso, muito bom!",
+                "date": "2024-04-28",
+                "reviewerName": "Felipe"
+            },
+            {
+                "rating": 2,
+                "comment": "Mão muito oleosa e áspera. Não curti",
+                "date": "2024-04-14",
+                "reviewerName": "Leonardo"
+            }
+        ],
+        "image": ""
+    },
+    {
+        "id": 2,
+        "name": "Unhas de anão",
+        "description": "Unhas de um anão. Obs: Esse anão não é apenas um ser humano baixo, mas um ser mitológico!",
+        "categories": [
+            "decoration",
+            "fantasy"
+        ],
+        "price": 8.99,
+        "promotionalPrice": 5.99,
+        "rating": 4.3,
+        "stock": 105,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 3,
+        "name": "Nada",
+        "description": "Unidades exclusivas de Nada™️. Contém a ausência de todas as coisas.",
+        "categories": [
+            "concept"
+        ],
+        "price": 159.99,
+        "promotionalPrice": null,
+        "rating": 5,
+        "stock": 0,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 4,
+        "name": "Frases motivacionais",
+        "description": "Frases motivacionais vindo de uma pessoa aleatória. Caso você queira reouvir, deve gravar a fala.",
+        "categories": [
+            "services"
+        ],
+        "price": 17.99,
+        "promotionalPrice": 6.99,
+        "rating": 5,
+        "stock": 13,
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Ele recitou todas as frases do filme do Rocky Balboa. Hoje comecei a malhar.",
+                "date": "2016-04-13",
+                "reviewerName": "Ramon Dino"
+            }
+        ],
+        "image": ""
+    },
+    {
+        "id": 5,
+        "name": "Plano cartesiano",
+        "description": "Um conceito de plano cartesiano, para esfregar na cara do professor que você sabe sobre o assunto.",
+        "categories": [
+            "concept",
+            "classes"
+        ],
+        "price": 59.99,
+        "promotionalPrice": null,
+        "rating": 4.2,
+        "stock": 8,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 6,
+        "name": "Teorema de Pitágoras",
+        "description": "A patente do conceito do Teorema de Pitágora. Obs: Não é possível comprar apenas a hipotenusa.",
+        "categories": [
+            "concept",
+            "classes"
+        ],
+        "price": 59.99,
+        "promotionalPrice": null,
+        "rating": 4.6,
+        "stock": 0,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 7,
+        "name": "'Indo Ali' esmagado",
+        "description": "O famoso personagem 'Indo Ali', porém esmagado.",
+        "categories": [
+            "famous",
+            "decoration",
+            "fantasy"
+        ],
+        "price": 299.99,
+        "promotionalPrice": 249.99,
+        "rating": 4.8,
+        "stock": 3,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 8,
+        "name": "Careca",
+        "description": "Uma careca. Só a careca (pessoa não inclusa).",
+        "categories": [
+            "decoration",
+            "style",
+            "fashion"
+        ],
+        "price": 249.99,
+        "promotionalPrice": 199.99,
+        "rating": 4.2,
+        "stock": 14,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 9,
+        "name": "Rosa Choque",
+        "description": "A cor rosa, porém muito chocante!",
+        "categories": [
+            "decoration",
+            "style",
+            "fashion",
+            "concept"
+        ],
+        "price": 149.99,
+        "promotionalPrice": null,
+        "rating": 3.7,
+        "stock": 1,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 10,
+        "name": "Salada de Chupeta",
+        "description": "Uma salada feita com os melhores alimentos possíveis. Ideal para seu filho e para você!",
+        "categories": [
+            "food"
+        ],
+        "price": 17.99,
+        "promotionalPrice": 14.99,
+        "rating": 4.7,
+        "stock": 104,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 11,
+        "name": "Nerd 🤓",
+        "description": "Seja para jogar RPG ou ajudar em um trabalho, um nerd (emoji) pode ser sempre um bom companheiro.",
+        "categories": [
+            "style",
+            "companion",
+            "fashion",
+            "decoration",
+            "classes"
+        ],
+        "price": 34.99,
+        "promotionalPrice": 24.99,
+        "rating": 4.2,
+        "stock": 37,
+        "reviews": [
+            {
+                "rating": 4,
+                "comment": "Não fez meus temas. Estou indignado",
+                "date": "2022-08-01",
+                "reviewerName": "Marcelo"
+            }
+        ],
+        "image": ""
+    },
+    {
+        "id": 12,
+        "name": "Garantia de Compra",
+        "description": "Não é ruim quando você faz uma compra e tem medo de que ela não se concretize? Compre agora uma Garantia de Compra, com os melhores benefícios.",
+        "categories": [
+            "tools",
+            "receipt"
+        ],
+        "price": 24.99,
+        "promotionalPrice": null,
+        "rating": 4.7,
+        "stock": 239,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 13,
+        "name": "Entupidor de Nariz",
+        "description": "Você é o único entre seus amigos que não tem rinite? Seus problemas acabaram!",
+        "categories": [
+            "medicine"
+        ],
+        "price": 54.99,
+        "promotionalPrice": 39.99,
+        "rating": 3.2,
+        "stock": 239,
+        "reviews": [
+            {
+                "rating": 2,
+                "comment": "Parece que meu nariz ficou pior do que quando comecei a usar. Péssimo!",
+                "date": "2023-06-27",
+                "reviewerName": "Isabelle"
+            }
+        ],
+        "image": ""
+    },
+    {
+        "id": 14,
+        "name": "Trailer da música 'Thriller'",
+        "description": "Trailer de uma das mais famosas músicas do cantor Michael Jackson. Obs: Música não inclusa.",
+        "categories": [
+            "famous"
+        ],
+        "price": 499.99,
+        "promotionalPrice": null,
+        "rating": 5,
+        "stock": 1,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 15,
+        "name": "Bruno Emo™️",
+        "description": "O mais famoso de todos: Bruno Emo™️.",
+        "categories": [
+            "famous",
+            "idol",
+            "beauty",
+            "fashion",
+            "style",
+            "companion"
+        ],
+        "price": 999.99,
+        "promotionalPrice": null,
+        "rating": 5,
+        "stock": 1,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 16,
+        "name": "Susto",
+        "description": "Um susto, escondido dentro de uma caixa a escolha. A pessoa que abrir terá uma surpresa.",
+        "categories": [
+            "tools",
+            "services"
+        ],
+        "price": 14.99,
+        "promotionalPrice": null,
+        "rating": 3.6,
+        "stock": 36,
+        "reviews": [
+            {
+                "rating": 1,
+                "comment": "Encomenda chegou e não lembrava o que era. Tomei um susto.",
+                "date": "2021-09-11",
+                "reviewerName": "Márcia"
+            }
+        ],
+        "image": ""
+    },
+    {
+        "id": 17,
+        "name": "Pílula de Dilema",
+        "description": "Ao tomar essa pílula, você vive um dilema moral, como o Dilema do Trem.",
+        "categories": [
+            "medicine",
+            "concept"
+        ],
+        "price": 94.99,
+        "promotionalPrice": 69.99,
+        "rating": 4.2,
+        "stock": 71,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 18,
+        "name": "Pílula de Aula de Filosofia e Sociologia",
+        "description": "Você faltou a aula de Filosofia e Sociologia do professor Árlan e da professora Rafa? Não tem problema, veja a aula através desses maravilhosos remédios.",
+        "categories": [
+            "medicine",
+            "concept",
+            "classes"
+        ],
+        "price": 34.99,
+        "promotionalPrice": null,
+        "rating": 5,
+        "stock": 0,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 19,
+        "name": "Sopro do Norte",
+        "description": "Um vento gélido. Vindo dos mais distantes reinos nas regiões mais geladas do planeta.",
+        "categories": [
+            "fantasy",
+            "power"
+        ],
+        "price": 99.99,
+        "promotionalPrice": 84.99,
+        "rating": 4.6,
+        "stock": 6,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 20,
+        "name": "Microonda",
+        "description": "Uma onda de um microondas. Obs: Não é o aparelho, apenas a onda.",
+        "categories": [
+            "physics",
+            "concept"
+        ],
+        "price": 4.99,
+        "promotionalPrice": null,
+        "rating": 4.2,
+        "stock": 132,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 21,
+        "name": "Ansiedade",
+        "description": "Você sempre foi uma pessoa calma? Mude isso para sempre. Agora eles não te amam mais (você acha). Contém inseguranças de brinde!",
+        "categories": [
+            "concept"
+        ],
+        "price": 9.99,
+        "promotionalPrice": null,
+        "rating": 0,
+        "stock": 139082,
+        "reviews": [
+            {
+                "rating": 0,
+                "comment": "Não gostei",
+                "date": "2024-06-01",
+                "reviewerName": "Letícia"
+            }
+        ],
+        "image": ""
+    },
+    {
+        "id": 22,
+        "name": "Letra do Alfabeto Árabe",
+        "description": "Aprenda a pronunciar uma letra do alfabeto árabe a escolha.",
+        "categories": [
+            "concept",
+            "classes",
+            "services"
+        ],
+        "price": 4.99,
+        "promotionalPrice": null,
+        "rating": 4.6,
+        "stock": 132,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 23,
+        "name": "Dado de infinitos lados.",
+        "description": "Um dado com todas as possibilidades do mundo. Ao jogá-lo, pode sair todas as obras de Shakespeare ou o número 8 (entre outras possibilidades).",
+        "categories": [
+            "tools",
+            "fantasy"
+        ],
+        "price": 399.99,
+        "promotionalPrice": null,
+        "rating": 3.2,
+        "stock": 3,
+        "reviews": [
+            {
+                "rating": 2,
+                "comment": "Acabei sem querer rompendo o conceito do espaço tempo. Não gostei.",
+                "date": "2028-03-01",
+                "reviewerName": "Bartolomeu"
+            }
+        ],
+        "image": ""
+    },
+    {
+        "id": 24,
+        "name": "Sapatos Gelados",
+        "description": "Você agora pode andar na água, usando esses sapatos que congelam onde você pisa.",
+        "categories": [
+            "clothes",
+            "style",
+            "fantasy",
+            "fashion"
+        ],
+        "price": 149.99,
+        "promotionalPrice": 99.99,
+        "rating": 4.7,
+        "stock": 9,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 25,
+        "name": "Divin(h)o",
+        "description": "Um cálice com um vinho divino do divo Dionísio. Ao beber dele, você fica muito poderoso, porém, claramente bêbado.",
+        "categories": [
+            "beauty",
+            "style",
+            "famous",
+            "fantasy",
+            "food"
+        ],
+        "price": 199.99,
+        "promotionalPrice": null,
+        "rating": 4.7,
+        "stock": 4,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 26,
+        "name": "Protetor Solar FPS 100",
+        "description": "Um protetor solar que protege 100% contra os raios ultra-violentos. Passá-lo no corpo o torna imune a queimaduras.",
+        "categories": [
+            "physics",
+            "medicine"
+        ],
+        "price": 199.99,
+        "promotionalPrice": 149.99,
+        "rating": 4.1,
+        "stock": 26,
+        "reviews": [
+        ],
+        "image": ""
+    },
+    {
+        "id": 27,
+        "name": "Pedra Quântica",
+        "description": "Uma pedra comum, porém, ao deixar de olhar para ela, ela teletransporta.",
+        "categories": [
+            "physics",
+            "fantasy",
+            "decoration"
+        ],
+        "price": 99.99,
+        "promotionalPrice": null,
+        "rating": 3,
+        "stock": 26,
+        "reviews": [
+            {
+                "rating": 3,
+                "comment": "Muito bonita, porém ela sumiu.",
+                "date": "2024-04-23",
+                "reviewerName": "Pietro"
+            }
+        ],
+        "image": ""
+    },
+    {
+        "id": 28,
+        "name": "Tira Sombras",
+        "description": "Um produto inovador, que tira a sombras de lugares, deixando o ambiente claro.",
+        "categories": [
+            "physics",
+            "tools"
+        ],
+        "price": 49.99,
+        "promotionalPrice": null,
+        "rating": 4.6,
+        "stock": 28,
+        "reviews": [
+        ],
+        "image": ""
+    }
+]
