@@ -30,7 +30,7 @@
                 "reviewerName": "Leonardo"
             }
         ],
-        "image": ""
+        "image": "aperto-de-mao-aleatorio.jpg"
     },
     {
         "id": 2,
@@ -45,8 +45,20 @@
         "rating": 4.3,
         "stock": 105,
         "reviews": [
+            {
+                "rating": 5,
+                "comment": "Gostei muito. As minhas vieram pintadas, mesmo eu não pagando.",
+                "date": "2023-09-18",
+                "reviewerName": "Sandro"
+            },
+            {
+                "rating": 4,
+                "comment": "Precisava de uma manicure antes do envio.",
+                "date": "2024-01-19",
+                "reviewerName": "Eduarda"
+            }
         ],
-        "image": ""
+        "image": "unhas-de-anao.png"
     },
     {
         "id": 3,
@@ -60,8 +72,20 @@
         "rating": 5,
         "stock": 0,
         "reviews": [
+            {
+                "rating": 5,
+                "comment": "",
+                "date": "2023-11-09",
+                "reviewerName": "Renato"
+            },
+            {
+                "rating": 5,
+                "comment": "Veio nada",
+                "date": "2024-02-29",
+                "reviewerName": "Victoria"
+            }
         ],
-        "image": ""
+        "image": "nada.png"
     },
     {
         "id": 4,
@@ -80,9 +104,15 @@
                 "comment": "Ele recitou todas as frases do filme do Rocky Balboa. Hoje comecei a malhar.",
                 "date": "2016-04-13",
                 "reviewerName": "Ramon Dino"
+            },
+            {
+                "rating": 5,
+                "comment": "OMG. Beautiful words.",
+                "date": "2009-03-09",
+                "reviewerName": "Christopher Bumstead"
             }
         ],
-        "image": ""
+        "image": "frases-motivacionais.webp"
     },
     {
         "id": 5,
@@ -97,8 +127,20 @@
         "rating": 4.2,
         "stock": 8,
         "reviews": [
+            {
+                "rating": 5,
+                "comment": "Gabaritei a prova de matemática.",
+                "date": "2023-12-15",
+                "reviewerName": "José"
+            },
+            {
+                "rating": 2,
+                "comment": "Não entendi nada",
+                "date": "2023-10-12",
+                "reviewerName": "Gustavo"
+            }
         ],
-        "image": ""
+        "image": "plano-cartesiano.webp"
     },
     {
         "id": 6,
@@ -113,8 +155,20 @@
         "rating": 4.6,
         "stock": 0,
         "reviews": [
+            {
+                "rating": 5,
+                "comment": "Muito bom, gabaritei a prova de matemática",
+                "date": "2023-04-23",
+                "reviewerName": "Henrique"
+            },
+            {
+                "rating": 2,
+                "comment": "Não entendi nada.",
+                "date": "2022-06-01",
+                "reviewerName": "Gabriel"
+            }
         ],
-        "image": ""
+        "image": "teorema-de-pitagoras.webp"
     },
     {
         "id": 7,
@@ -130,8 +184,14 @@
         "rating": 4.8,
         "stock": 3,
         "reviews": [
+            {
+                "rating": 4.5,
+                "comment": "Achei muito lindo a decoração. Amei",
+                "date": "2023-08-21",
+                "reviewerName": "Charles"
+            }
         ],
-        "image": ""
+        "image": "indo-ali-esmagado.jpg"
     },
     {
         "id": 8,
@@ -147,8 +207,14 @@
         "rating": 4.2,
         "stock": 14,
         "reviews": [
+            {
+                "rating": 5,
+                "comment": "Muito útil para tampar a calvície.",
+                "date": "2020-04-08",
+                "reviewerName": "Francisco"
+            }
         ],
-        "image": ""
+        "image": "careca.jpeg"
     },
     {
         "id": 9,
@@ -166,7 +232,7 @@
         "stock": 1,
         "reviews": [
         ],
-        "image": ""
+        "image": "rosa-choque.png"
     },
     {
         "id": 10,
@@ -180,8 +246,14 @@
         "rating": 4.7,
         "stock": 104,
         "reviews": [
+            {
+                "rating": 5,
+                "comment": "Adorei o gosto. Muito bom.",
+                "date": "2024-02-19",
+                "reviewerName": "Joaquim"
+            }
         ],
-        "image": ""
+        "image": "salada-de-chupetas.png"
     },
     {
         "id": 11,
@@ -200,13 +272,19 @@
         "stock": 37,
         "reviews": [
             {
-                "rating": 4,
-                "comment": "Não fez meus temas. Estou indignado",
-                "date": "2022-08-01",
-                "reviewerName": "Marcelo"
+                "rating": 3,
+                "comment": "Não fez meus temas. Estou indignada",
+                "date": "2024-06-02",
+                "reviewerName": "Amanda"
+            },
+            {
+                "rating": 5,
+                "comment": "Dei o nome do meu de Bruno.",
+                "date": "2008-03-01",
+                "reviewerName": "Sandra"
             }
         ],
-        "image": ""
+        "image": "nerd.jpg"
     },
     {
         "id": 12,
@@ -221,8 +299,14 @@
         "rating": 4.7,
         "stock": 239,
         "reviews": [
+            {
+                "rating": 5,
+                "comment": "Eu comprei a compra e ela realmente foi feita. 10/10",
+                "date": "2021-10-06",
+                "reviewerName": "Rodolfo"
+            }
         ],
-        "image": ""
+        "image": "garantia-de-compra.webp"
     },
     {
         "id": 13,
@@ -243,7 +327,7 @@
                 "reviewerName": "Isabelle"
             }
         ],
-        "image": ""
+        "image": "entupidor-de-nariz.webp"
     },
     {
         "id": 14,
@@ -257,13 +341,19 @@
         "rating": 5,
         "stock": 1,
         "reviews": [
+            {
+                "rating": 5,
+                "comment": "Adorei o trailer, porém achei um pouco caro.",
+                "date": "2019-07-24",
+                "reviewerName": "Miguel"
+            }
         ],
-        "image": ""
+        "image": "thriller.jpg"
     },
     {
         "id": 15,
         "name": "Bruno Emo™️",
-        "description": "O mais famoso de todos: Bruno Emo™️.",
+        "description": "O mais famoso (e lindo) de todos: Bruno Emo™️.",
         "categories": [
             "famous",
             "idol",
@@ -277,8 +367,20 @@
         "rating": 5,
         "stock": 1,
         "reviews": [
+            {
+                "rating": 5,
+                "comment": "Adorei a maquiagem.",
+                "date": "2008-04-03",
+                "reviewerName": "Amanda"
+            },
+            {
+                "rating": 5,
+                "comment": "Achei muito bonita a franja",
+                "date": "2008-04-03",
+                "reviewerName": "Letícia"
+            }
         ],
-        "image": ""
+        "image": "bruno-emo.jpg"
     },
     {
         "id": 16,
@@ -300,7 +402,7 @@
                 "reviewerName": "Márcia"
             }
         ],
-        "image": ""
+        "image": "susto.png"
     },
     {
         "id": 17,
@@ -316,7 +418,7 @@
         "stock": 71,
         "reviews": [
         ],
-        "image": ""
+        "image": "pilula-dilema.jpeg"
     },
     {
         "id": 18,
@@ -332,8 +434,14 @@
         "rating": 5,
         "stock": 0,
         "reviews": [
+            {
+                "rating": 5,
+                "comment": "Muito útil. Usei durante a prova e tirei PD!",
+                "date": "2023-09-22",
+                "reviewerName": "Arthur"
+            }
         ],
-        "image": ""
+        "image": "pilula-filosofia-sociologia.jpeg"
     },
     {
         "id": 19,
@@ -349,7 +457,7 @@
         "stock": 6,
         "reviews": [
         ],
-        "image": ""
+        "image": "vento.webp"
     },
     {
         "id": 20,
@@ -364,8 +472,14 @@
         "rating": 4.2,
         "stock": 132,
         "reviews": [
+            {
+                "rating": 2,
+                "comment": "Não esquentou a minha comida.",
+                "date": "2024-04-17",
+                "reviewerName": "Maria"
+            }
         ],
-        "image": ""
+        "image": "microonda.png"
     },
     {
         "id": 21,
@@ -384,9 +498,15 @@
                 "comment": "Não gostei",
                 "date": "2024-06-01",
                 "reviewerName": "Letícia"
+            },
+            {
+                "rating": 0,
+                "comment": "Veio repetida.",
+                "date": "2021-09-16",
+                "reviewerName": "Ricardo"
             }
         ],
-        "image": ""
+        "image": "ansiedade.webp"
     },
     {
         "id": 22,
@@ -402,8 +522,14 @@
         "rating": 4.6,
         "stock": 132,
         "reviews": [
+            {
+                "rating": 4.5,
+                "comment": "Facilitou para eu ensinar aos meus alunos como se pronuncia ي",
+                "date": "2023-12-03",
+                "reviewerName": "Cláudia"
+            }
         ],
-        "image": ""
+        "image": "alfabeto-arabe.jpg"
     },
     {
         "id": 23,
@@ -421,11 +547,11 @@
             {
                 "rating": 2,
                 "comment": "Acabei sem querer rompendo o conceito do espaço tempo. Não gostei.",
-                "date": "2028-03-01",
+                "date": "2032-03-01",
                 "reviewerName": "Bartolomeu"
             }
         ],
-        "image": ""
+        "image": "dados-de-infinitos-lados.jpg"
     },
     {
         "id": 24,
@@ -442,8 +568,20 @@
         "rating": 4.7,
         "stock": 9,
         "reviews": [
+            {
+                "rating": 2,
+                "comment": "Achei meio inútil.",
+                "date": "2014-01-03",
+                "reviewerName": "Elsa"
+            },
+            {
+                "rating": 3,
+                "comment": "Não entendi a utilidade",
+                "date": "2007-12-25",
+                "reviewerName": "Jesus"
+            }
         ],
-        "image": ""
+        "image": "sapato-gelado.jpeg"
     },
     {
         "id": 25,
@@ -461,8 +599,14 @@
         "rating": 4.7,
         "stock": 4,
         "reviews": [
+            {
+                "rating": 3,
+                "comment": "Miuto boom o gosto ma s nao~ fique bebado.",
+                "date": "2023-09-06",
+                "reviewerName": "Junior"
+            }
         ],
-        "image": ""
+        "image": "divinho.jpg"
     },
     {
         "id": 26,
@@ -477,8 +621,14 @@
         "rating": 4.1,
         "stock": 26,
         "reviews": [
+            {
+                "rating": 2,
+                "comment": "Passei no meu computador, mas o FPS continuou em 30.",
+                "date": "2021-07-12",
+                "reviewerName": "Leonidas"
+            }
         ],
-        "image": ""
+        "image": "protetor-solar.webp"
     },
     {
         "id": 27,
@@ -501,7 +651,7 @@
                 "reviewerName": "Pietro"
             }
         ],
-        "image": ""
+        "image": "pedra-quantica.jpeg"
     },
     {
         "id": 28,
@@ -516,7 +666,13 @@
         "rating": 4.6,
         "stock": 28,
         "reviews": [
+            {
+                "rating": 4,
+                "comment": "Gostei bastante. Ainda bem que isso existe, já que não tem nada parecido no mercado.",
+                "date": "2024-28-05",
+                "reviewerName": "Robson"
+            }
         ],
-        "image": ""
+        "image": "tira-sombras.jpeg"
     }
 ]
