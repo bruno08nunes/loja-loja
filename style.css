@@ -1,24 +1,112 @@
+@charset "UTF-8";
+
+/* Importações */
+@import url("https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap");
+
+/* Fontes */
+@font-face {
+    font-family: "QuiteMagical";
+    src: url("assets/fonts/QuiteMagicalRegular-8VA2.ttf") format("truetype");
+}
+
+/* Resets */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Variáveis */
 :root {
     --rosa-escuro: #f205c7;
     --rosa-claro: #fc2aec;
     --verde: #7cf47c;
     --azul: #5d90b5;
+    --preto: #242424;
+
+    --fonte-principal: "Henny Penny", "QuiteMagical";
 }
 
-.svg-background {
+/* Hero */
+.section-hero {
     background-image: url(assets/background.svg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    min-height: 100svh;
+
+    border-image-source: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.452),
+        rgba(0, 0, 0, 0.267)
+    );
+    border-image-slice: 1 fill;
+
+    min-height: 80vh;
+    min-height: 80svh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+
+    color: white;
+    font-size: 2em;
+    font-family: var(--fonte-principal), fantasy, Arial;
+    text-transform: capitalize;
+
+    & > * {
+        animation-name: aparecer;
+        animation-duration: 0.5s;
+        animation-timing-function: cubic-bezier(0.69, 2.01, 0.46, 0.95);
+    }
+
+    & h1 {
+        font-size: 3em;
+
+        animation-name: aparecer, cor-degrade;
+        animation-duration: 0.5s, 1.5s;
+        animation-timing-function: cubic-bezier(0.69, 2.01, 0.46, 0.95), linear;
+        animation-iteration-count: 1, infinite;
+        animation-direction: alternate;
+
+        background-image: linear-gradient(
+            90deg,
+            rgba(255, 0, 0, 1) 0%,
+            rgba(255, 154, 0, 1) 10%,
+            rgba(208, 222, 33, 1) 20%,
+            rgba(79, 220, 74, 1) 30%,
+            rgba(63, 218, 216, 1) 40%,
+            rgba(47, 201, 226, 1) 50%,
+            rgba(28, 127, 238, 1) 60%,
+            rgba(95, 21, 242, 1) 70%,
+            rgba(186, 12, 248, 1) 80%,
+            rgba(251, 7, 217, 1) 90%,
+            rgba(255, 0, 0, 1) 100%
+        );
+        background-clip: text;
+        background-size: 50vw;
+    }
 }
 
+@keyframes aparecer {
+    from {
+        font-size: 0.4em;
+    }
+}
+
+@keyframes cor-degrade {
+    from {
+        color: transparent;
+        background-position: 100%;
+    }
+    to {
+        color: transparent;
+        background-position: 0%;
+    }
+}
+
+/* Header */
 .cabecalho-principal {
     display: flex;
     flex-direction: column;
@@ -31,7 +119,54 @@
     justify-content: space-between;
 }
 
+.logo {
+    max-width: 125px;
+    width: 100%;
+    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.466));
+}
+
+.pesquisa-principal {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    gap: 5px;
+
+    background-color: white;
+    border-radius: 50px;
+    overflow: hidden;
+    padding: 5px;
+
+    &:focus-within {
+        border: 1px solid black;
+    }
+}
+
+.pesquisa-principal input {
+    border: none;
+    outline: none;
+    font-size: 1.1em;
+}
+
+.pesquisa-principal label {
+    display: flex;
+}
+
+.nav-header {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-header img {
+    transition: 0.3s;
+    &:hover {
+        scale: 1.2;
+    }
+}
+
 .nav-carrinho {
+    position: sticky;
+    top: 0;
     background-color: var(--verde);
     clip-path: polygon(0 0, 100% 0, 100% 0%, 60% 100%, 40% 100%, 0 0%);
     padding: 10px;
@@ -39,8 +174,15 @@
     text-align: center;
 }
 
-.logo {
-    max-width: 125px;
-    width: 100%;
-    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.466));
+.nav-carrinho button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-carrinho img {
+    transition: 0.3s;
+    &:hover {
+        scale: 1.2;
+    }
 }
