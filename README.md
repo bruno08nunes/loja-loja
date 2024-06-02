@@ -168,9 +168,17 @@ O objetivo do projeto é criar uma loja virtual não funcional. Porém deve ter 
 
 ## Design
 
-* Cores
-*
-*
+* Cores:
+    * Rosa - #f205c7;
+    * Rosa Claro - #fc2aec;
+    * Verde - #7cf47c;
+    * Azul - #5d90b5;
+* Fontes:
+    * Henny Penny
+    * Quite Magical
+    * Outras possibilidades:
+        * https://fonts.google.com/specimen/Srisakdi?classification=Display&preview.text=Loja%20Loja
+        * https://fonts.google.com/specimen/Style+Script?classification=Display&preview.text=Loja%20Loja
 
 ## Ideias de Produtos
 
