@@ -190,3 +190,16 @@
         scale: 1.2;
     }
 }
+
+/* Produtos */
+
+.nota-produto {
+    --porcentagem-nota: 50%;
+    --porcentagem-branco: 50%;
+
+    font-size: 2em;
+    background-image: linear-gradient(to right, var(--rosa-claro) var(--porcentagem-nota), white var(--porcentagem-branco));
+    background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 1px black;
+}
