@@ -12,10 +12,17 @@ const criarElementoImagemProduto = (produto) => {
 }
 
 const criarTituloNomeProduto = (produto) => {
-    const h3NomeProduto = document.createElement("h3");
-    h3NomeProduto.classList.add("nome-produto");
-    h3NomeProduto.textContent = produto.name;
-    return h3NomeProduto;
+    const nomeProduto = document.createElement("figcaption");
+    nomeProduto.classList.add("nome-produto");
+    nomeProduto.textContent = produto.name;
+    return nomeProduto;
+}
+
+const criarFigureImagem = (imagem, texto) => {
+    const figure = document.createElement("figure");
+    figure.classList.add("figure-img");
+    figure.append(imagem, texto);
+    return figure;
 }
 
 const criarParagrafoDescricao = (produto) => {
@@ -28,14 +35,15 @@ const criarParagrafoDescricao = (produto) => {
 const criarSpanPreco = (produto) => {
     const spanPreco = document.createElement("span");
     spanPreco.classList.add("preco-produto");
-    spanPreco.append(`R$${produto.price}`);
-
+    
     if (produto.promotionalPrice !== null) {
         const spanPrecoPromocional = document.createElement("span");
-        spanPrecoPromocional.classList.add("preco-promocional");
-        spanPrecoPromocional.textContent = `R$${produto.promotionalPrice}`;
-        spanPreco.append(" ", spanPrecoPromocional);
+        spanPrecoPromocional.classList.add("preco-antes-promocao");
+        spanPrecoPromocional.textContent = `R$ ${produto.promotionalPrice}`;
+        spanPreco.append(spanPrecoPromocional, " ");
     }
+
+    spanPreco.append(`R$ ${produto.price}`);
     return spanPreco;
 }
 
@@ -53,41 +61,83 @@ const criarSpanNota = (produto) => {
     return spanNota;
 }
 
-const criarBotoesProduto = () => {
-    const divBotoesProduto = document.createElement("div");
-    divBotoesProduto.classList.add("botoes-produto");
+const criarDivInformacoesProduto = ({spanNota, spanPreco}) => {
+    const divInformacoes = document.createElement("div");
+    divInformacoes.classList.add("informacoes-adicionais-produto");
+    divInformacoes.append(spanPreco, spanNota)
+    return divInformacoes;
+}
 
+const criarBotaoCarrinho = () => {
     const botaoCarrinho = document.createElement("button");
     botaoCarrinho.classList.add("botao-carrinho");
 
+    const imgCarrinho = document.createElement("img");
+    imgCarrinho.src = "assets/icons/cart.svg";
+    imgCarrinho.alt = "Adicionar ao carrinho de compras";
+
+    botaoCarrinho.append(imgCarrinho);
+
+    return botaoCarrinho;
+}
+
+const criarBotaoFavorito = () => {
     const botaoFavorito = document.createElement("button");
     botaoFavorito.classList.add("botao-favorito");
+    
+    const imgFavorito = document.createElement("img");
+    imgFavorito.src = "assets/icons/favorite.svg";
+    imgFavorito.alt = "Adicionar aos favoritos";
+    
+    botaoFavorito.append(imgFavorito);
 
+    return botaoFavorito;
+}
+
+const criarBotoesProduto = ({botaoCarrinho, botaoFavorito}) => {
+    const divBotoesProduto = document.createElement("div");
+    divBotoesProduto.classList.add("botoes-produto");
     divBotoesProduto.append(botaoCarrinho, botaoFavorito);
     return divBotoesProduto;
 }
 
 const criarProduto = (produto) => {
     const divProduto = document.createElement("div");
-    divProduto.classList.add("produto")
+    divProduto.classList.add("produto");
 
+    const linkProduto = document.createElement("a");
+    linkProduto.href = "pages/product.html?produto=" + produto.name.toLowerCase().replaceAll(" ", "-");
+    linkProduto.classList.add("link-produto")
+
+    // Imagem e nome
     const img = criarElementoImagemProduto(produto);
-
-    const h3NomeProduto = criarTituloNomeProduto(produto);
+    const nomeProduto = criarTituloNomeProduto(produto);
+    const figure = criarFigureImagem(img, nomeProduto);
     
+    // Descrição
     const pDescricao = criarParagrafoDescricao(produto);
     
+    // Informações adicionais
     const spanPreco = criarSpanPreco(produto);
-    
     const spanNota = criarSpanNota(produto);
-    document.body.append(spanNota);
+    const divInformacoes = criarDivInformacoesProduto({spanNota, spanPreco});
 
-    const botoesProduto = criarBotoesProduto();
+    // Botões
+    const botaoCarrinho = criarBotaoCarrinho();
+    const botaoFavorito = criarBotaoFavorito();
+    const botoesProduto = criarBotoesProduto({botaoCarrinho, botaoFavorito});
+
+    linkProduto.append(figure, pDescricao, divInformacoes)
+    divProduto.append(linkProduto, botoesProduto)
+
+    divProdutos[0].append(divProduto)
 }
 
 // Inicialização e Eventos
 fetch("db.json")
     .then(dados => dados.json())
     .then(dados => {
-        criarProduto(dados[5])
+        for (let i = 0; i < 4; i++) {
+            criarProduto(dados[i])
+        }
     })
