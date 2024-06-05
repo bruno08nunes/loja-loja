@@ -30,5 +30,57 @@
             <img src="assets/icons/cart.svg" alt="Carrinho">
         </button>
     </nav>
+    <main class="main-form-product">
+        <form class="form-product">
+            <div class="div-inputs">
+                <div class="div-input">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" autocomplete="cc-given-name" required placeholder="Nome">
+                </div>
+                <div class="div-input">
+                    <label for="sobrenome">Sobrenome:</label>
+                    <input type="text" id="sobrenome" name="sobrenome" autocomplete="cc-family-name" required placeholder="Sobrenome">
+                </div>
+            </div>
+            <div class="div-inputs">
+                <div class="div-input">
+                    <label for="numero-cartao">Número do Cartão:</label>
+                    <input type="text" id="numero-cartao" name="numero-cartao" autocomplete="cc-number" required placeholder="xxxx xxxx xxxx xxxx">
+                </div>
+                <div class="div-input">
+                    <label for="cvv-cartao">CVV</label>
+                    <input type="text" id="cvv-cartao" name="cvv-cartao" autocomplete="cc-csc" required placeholder="xxx">
+                </div>
+            </div>
+            <div class="div-inputs">
+                <div class="div-input">
+                    <label for="vencimento-cartao">Vencimento do Cartão:</label>
+                    <input type="date" id="vencimento-cartao" name="vencimento-cartao" autocomplete="cc-exp" required placeholder="dd-mm-aaaa">
+                </div>
+                <div class="div-input">
+                    <label for="tipo-cartao">Tipo de Pagamento:</label>
+                    <input type="text" id="tipo-cartao" name="tipo-cartao" autocomplete="cc-type" required placeholder="Tipo do cartao">
+                </div>
+            </div>
+            <div class="div-input">
+                <label for="cpf">CPF:</label>
+                <input type="text" name="cpf" id="cpf" required placeholder="xxxxxxxxxxx">
+            </div>
+            <div class="div-input">
+                <label for="cep">CEP:</label>
+                <input type="text" name="cep" id="cep" required placeholder="xxxxx-xxx">
+            </div>
+            <div class="div-botao-envio">
+                <button type="submit">Confirmar Pedido</button>
+            </div>
+        </form>
+    </main>
+    <div class="backdrop"></div>
+    <aside class="sidebar-carrinho">
+        <div class="titulo-carrinho">
+            <h2 class="h2-carrinho">Carrinho</h2>
+            <button class="fecharCarrinho">X</button>
+        </div>
+    </aside>
 </body>
 </html>
