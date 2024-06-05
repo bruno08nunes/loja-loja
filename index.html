@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <script src="script.js" type="module"></script>
 
     <title>Loja Loja</title>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
@@ -55,20 +55,12 @@
             </div>
         </section>
     </main>
+    <div class="backdrop"></div>
     <aside class="sidebar-carrinho">
-        <h2 class="h2-carrinho">Carrinho</h2>
-        <div class="produto-carrinho">
-            <img src="assets/products/alfabeto-arabe.jpg" alt="" class="img-produto-carrinho">
-            <div class="informacoes-produto-carrinho">
-                <h2 class="nome-produto-carrinho">Texto</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, minima libero nobis sunt perspiciatis officia</p>
-                <span class="preco-produto-carrinho">R$ 30,00</span>
-            </div>
-            <div>
-                <button class="botao-remover">X</button>
-            </div>
+        <div class="titulo-carrinho">
+            <h2 class="h2-carrinho">Carrinho</h2>
+            <button class="fecharCarrinho">X</button>
         </div>
-        <p class="preco-carrinho-total">Preço total: </p>
     </aside>
 </body>
 </html>
