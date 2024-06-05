@@ -48,7 +48,7 @@ const criarDivBotaoProdutoCarrinho = (produto) => {
         localStorage.setItem("carrinho", JSON.stringify(produtosFiltrados));
 
         precoTotal -= produto.promotionalPrice ?? produto.price;
-        document.querySelector(".preco-carrinho-total").textContent = "Preço Total: R$ " + precoTotal;
+        document.querySelector(".preco-carrinho-total").textContent = "Preço Total: R$ " + precoTotal.toFixed(2);
 
         const botoesProdutoMenu = [...document.querySelectorAll("[data-id]")].filter((botao) => botao.dataset.id === produto.id.toString());
         botoesProdutoMenu.forEach((botao) => {

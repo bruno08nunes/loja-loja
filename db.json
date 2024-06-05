@@ -490,7 +490,7 @@
         ],
         "price": 9.99,
         "promotionalPrice": null,
-        "rating": 0,
+        "rating": 2.5,
         "stock": 139082,
         "reviews": [
             {
@@ -533,7 +533,7 @@
     },
     {
         "id": 23,
-        "name": "Dado de infinitos lados.",
+        "name": "Dado de infinitos lados",
         "description": "Um dado com todas as possibilidades do mundo. Ao jogá-lo, pode sair todas as obras de Shakespeare ou o número 8 (entre outras possibilidades).",
         "categories": [
             "tools",
