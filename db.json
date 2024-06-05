@@ -279,7 +279,7 @@
             },
             {
                 "rating": 5,
-                "comment": "Dei o nome do meu de Bruno.",
+                "comment": "Gostei.",
                 "date": "2008-03-01",
                 "reviewerName": "Sandra"
             }
@@ -364,7 +364,7 @@
         ],
         "price": 999.99,
         "promotionalPrice": null,
-        "rating": 5,
+        "rating": 4.8,
         "stock": 1,
         "reviews": [
             {
@@ -423,7 +423,7 @@
     {
         "id": 18,
         "name": "Pílula de Aula de Filosofia e Sociologia",
-        "description": "Você faltou a aula de Filosofia e Sociologia do professor Árlan e da professora Rafa? Não tem problema, veja a aula através desses maravilhosos remédios.",
+        "description": "Você faltou a aula de Filosofia e Sociologia? Não tem problema, veja a aula através desses maravilhosos remédios.",
         "categories": [
             "medicine",
             "concept",

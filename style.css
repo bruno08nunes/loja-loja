@@ -377,6 +377,8 @@ button.adicionado-ao-carrinho {
     max-width: 100%;
     width: 100px;
     aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 30px;
 }
 
 .informacoes-produto-carrinho {
