@@ -68,6 +68,17 @@ fetch("db.json")
             }
 
         }
+        if (document.title === "Conta - Loja Loja") {
+            const itensCarrinhos = JSON.parse(localStorage.getItem("carrinho"));
+            
+            const produtosCompletosNoCarrinho = dados.filter((produto) => itensCarrinhos.includes(produto.id));
+            for (let produto of produtosCompletosNoCarrinho) {
+                const divProduto = criarProduto(produto);
+                sectionsCategorias[1].querySelector(".div-produtos").append(divProduto);
+            }
+            sectionsCategorias.forEach((section) => {
+            })
+        }
         botaoToggleCarrinho.addEventListener("click", (e) => {
             atualizarCarrinho(dados);
             sidebarCarrinho.classList.toggle("open");
