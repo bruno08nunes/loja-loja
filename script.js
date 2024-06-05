@@ -141,3 +141,4 @@ fetch("db.json")
             criarProduto(dados[i])
         }
     })
+
