@@ -434,6 +434,7 @@ button.adicionado-ao-carrinho {
     border-radius: 20px;
     background-color: var(--verde);
     padding: 30px;
+    box-shadow: -3px 3px 20px rgba(0, 0, 0, 0.432);
 }
 
 .div-input-login {
@@ -510,4 +511,13 @@ input {
     border-radius: 10px;
     background-color: rgba(79, 220, 74, 1);
     color: black;
+}
+
+.section-carrinho-conta .div-produtos {
+    flex-wrap: wrap-reverse;
+    & .produto {
+        flex: 1;
+        max-width: 300px;
+        flex-basis: 200px;
+    }
 }
