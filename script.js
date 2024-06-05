@@ -65,13 +65,6 @@ fetch("db.json")
                         divProdutos.append(divProduto);
                     }
                 }
-                // Medicine
-                // style
-                // services
-                // Classes
-                // tools
-                // concept
-                // fantasy
             }
 
         }

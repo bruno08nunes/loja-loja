@@ -10,6 +10,7 @@ const criarElementoImagemProduto = (produto) => {
 const criarTituloNomeProduto = (produto) => {
     const nomeProduto = document.createElement("figcaption");
     nomeProduto.classList.add("nome-produto");
+    nomeProduto.title = produto.name
     nomeProduto.textContent = produto.name;
     return nomeProduto;
 }
