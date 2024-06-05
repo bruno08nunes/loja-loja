@@ -468,6 +468,46 @@ input {
 }
 
 .label-login {
-    font-size: 20px;
+    font-size: 1.2em;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/* Account */
+
+.img-account {
+    border-radius: 50%;
+    width: 150px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.div-account {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 15px;
+    background-color: var(--verde);
+    margin-top: 20px;
+    border-radius: 15px;
+}
+.div-name-account {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.name-account {
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.change-name {
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-decoration: none;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: rgba(79, 220, 74, 1);
+    color: black;
 }
