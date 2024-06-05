@@ -1,4 +1,5 @@
 const sidebarCarrinho = document.querySelector(".sidebar-carrinho");
+let precoTotal;
 
 const criarMensagemCarrinhoVazio = () => {
     const mensagem = document.createElement("p");
@@ -28,7 +29,8 @@ const criarInformacoesProdutoCarrinho = (produto) => {
 
     const spanPrecoProduto = document.createElement("span");
     spanPrecoProduto.classList.add("preco-produto-carrinho");
-    spanPrecoProduto.textContent = "R$ " + (produto.promotionalPrice ?? produto.price);
+    const preco = produto.promotionalPrice ?? produto.price;
+    spanPrecoProduto.textContent = "R$ " + preco;
 
     divInformacoesProduto.append(elementoNomeProduto, pDescricaoProduto, spanPrecoProduto);
     return divInformacoesProduto;
@@ -45,6 +47,9 @@ const criarDivBotaoProdutoCarrinho = (produto) => {
         const produtosFiltrados = produtosNoCarrinho.filter((prod) => prod !== produto.id);
         localStorage.setItem("carrinho", JSON.stringify(produtosFiltrados));
 
+        precoTotal -= produto.promotionalPrice ?? produto.price;
+        document.querySelector(".preco-carrinho-total").textContent = "Preço Total: R$ " + precoTotal;
+
         const botoesProdutoMenu = [...document.querySelectorAll("[data-id]")].filter((botao) => botao.dataset.id === produto.id.toString());
         botoesProdutoMenu.forEach((botao) => {
             botao.classList.remove("adicionado-ao-carrinho");
@@ -52,7 +57,8 @@ const criarDivBotaoProdutoCarrinho = (produto) => {
 
         botaoRemoverProdutoCarrinho.parentElement.parentElement.remove();
 
-        if (sidebarCarrinho.children.length === 1) {
+        if (sidebarCarrinho.children.length === 2) {
+            sidebarCarrinho.lastChild.remove();
             const mensagem = criarMensagemCarrinhoVazio();
             sidebarCarrinho.append(mensagem);
         }
@@ -76,6 +82,13 @@ const criarDivProdutoCarrinho = (produto) => {
     return divProduto;
 }
 
+const criarParagrafoPrecoTotal = () => {
+    const paragrafoPreco = document.createElement("p");
+    paragrafoPreco.classList.add("preco-carrinho-total");
+    paragrafoPreco.textContent = "Preço Total: R$ " + precoTotal.toFixed(2);
+    return paragrafoPreco;
+}
+
 const atualizarCarrinho = (produtos) => {
     const produtosNoCarrinho = JSON.parse(localStorage.getItem("carrinho")) ?? [];
     while (sidebarCarrinho.children.length > 1) {
@@ -89,10 +102,14 @@ const atualizarCarrinho = (produtos) => {
     }
 
     const produtosCompletosNoCarrinho = produtos.filter((produto) => produtosNoCarrinho.includes(produto.id));
+    precoTotal = produtosCompletosNoCarrinho.reduce((prev, produto) => prev + (produto.promotionalPrice ?? produto.price), 0);
     for (let produto of produtosCompletosNoCarrinho) {
         const divProduto = criarDivProdutoCarrinho(produto);
         sidebarCarrinho.append(divProduto);
     }
+
+    const paragrafoPrecoTotal = criarParagrafoPrecoTotal();
+    sidebarCarrinho.append(paragrafoPrecoTotal);
 }
 
 export default atualizarCarrinho;
