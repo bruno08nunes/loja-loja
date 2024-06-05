@@ -33,16 +33,26 @@
 
     <main class="main-login">
         <div class="login">
-            <div class="div-input-login">
-                <input type="text" class="first-name-login" placeholder="First Name">
-                <input type="text" class="last-name-login" placeholder="Last Name">
-                <input type="text" class="email-login" placeholder="E-mail">
-                <input type="password" class="password-login" placeholder="Password">
-            </div>
-            <div class="div-button-login">
-                <button class="button-login" type="submit">Login</button>
-            </div>
+            <form>
+                <div class="div-input-login">
+                    <input type="text" placeholder="Primeiro Nome" id="primeiro-nome" name="primeiro-nome" autocomplete="name">
+                    <input type="text" placeholder="Sobrenome" id="sobrenome" name="sobrenome" autocomplete="family-name">
+                    <input type="email" placeholder="E-mail" id="email" name="email" autocomplete="email">
+                    <input type="password" placeholder="Senha" id="senha" name="senha" autocomplete="new-password">
+                </div>
+                <div class="div-button-login">
+                    <button class="button-login" type="submit">Login</button>
+                </div>
+            </form>
         </div>
     </main>
+
+    <div class="backdrop"></div>
+    <aside class="sidebar-carrinho">
+        <div class="titulo-carrinho">
+            <h2 class="h2-carrinho">Carrinho</h2>
+            <button class="fecharCarrinho">X</button>
+        </div>
+    </aside>
 </body>
 </html>

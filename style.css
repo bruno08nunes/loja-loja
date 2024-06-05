@@ -251,7 +251,7 @@
 .nome-produto {
     text-align: center;
     color: white;
-    background-color: rgba(0, 0, 0, 0.685);
+    background-color: color-mix(in srgb, var(--rosa-escuro), rgba(255, 255, 255, 0.603) 30%);
     align-items: center;
 
     grid-column: 1 / 2;
@@ -419,19 +419,19 @@ button.adicionado-ao-carrinho {
     text-align: center;
 }
 
-// Login
+/* Login */
 .main-login {
     display: flex;
     justify-content: center;
+    padding: 30px;
 }
 
 .login {
-    margin-top: 30px;
-    width: 500px;
+    max-width: 500px;
+    width: 100%;
     border-radius: 20px;
-    border: none;
-    height: 300px;
     background-color: var(--verde);
+    padding: 30px;
 }
 
 .div-input-login {
@@ -440,14 +440,14 @@ button.adicionado-ao-carrinho {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 500px;
+    width: 100%;
     justify-content: center;
 }
 
 input {
     border: none;
     border-radius: 5px;
-    font-size: 17px;
+    font-size: 1.1em;
     padding: 5px;
 }
 

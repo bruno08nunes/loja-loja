@@ -26,11 +26,11 @@ fetch("db.json")
             for (let i = 0; i < 4; i++) {
                 criarProduto(dados[i])
             }
-            botaoToggleCarrinho.addEventListener("click", (e) => {
-                atualizarCarrinho(dados);
-                sidebarCarrinho.classList.toggle("open");
-                backdrop.classList.toggle("open");
-            })
         }
+        botaoToggleCarrinho.addEventListener("click", (e) => {
+            atualizarCarrinho(dados);
+            sidebarCarrinho.classList.toggle("open");
+            backdrop.classList.toggle("open");
+        })
     })
 
