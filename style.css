@@ -524,34 +524,62 @@ button.adicionado-ao-carrinho {
 
 /* Página Produto */
 
+.main-produto {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+    padding: 30px;
+}
+
 .container-produto {
     display: flex;
-    justify-content: start;
-    align-items: center;
-    border-bottom: 1px solid #242424 ;
+    gap: 15px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.div-dados-produto {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.imagem-pagina-produto {
+    max-width: 300px;
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
 }
 
 .nome-pagina-produto {
-    font-size: 100px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 4em;
 }
 
 .descricao-pagina-produto {
-    font-size: 20px;
-    margin: 5px;
+    font-size: 1.25em;
 }
 
-.icons-pagina-produto img {
+.valor-pagina-produto {
+    font-size: 1.6em;
+}
+
+.nota-produto-numero {
+    font-size: 1.4em;
+}
+
+.buttons-pagina-produto {
+    display: flex;
+    gap: 15px;
+}
+
+.buttons-pagina-produto button {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
     transition: 0.3s;
     &:hover {
         scale: 1.2;
     }
-}
-
-.valor-pagina-produto{
-    font-size: 77px;
-    border-bottom: #36c436 3px solid;
-    margin-bottom: 4px;
 }
 
 .container-preco {
@@ -561,25 +589,45 @@ button.adicionado-ao-carrinho {
     margin: 10px;
 }
 
-.icons-pagina-produto {
-    display: flex;
-    margin: 20px;
-    gap: 200px;
-    height: 100px;
-}
-
-.carrinho-pagina-produto {
-    display: flex;
-    margin: 20px;
-    gap: 200px;
-    height: 98px;
-}
-
 .carrinho-pagina-produto:hover {
     transition: 0.3s;
     &:hover {
         scale: 1.2;
     }
+}
+
+.section-comentarios {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    max-width: 800px;
+    width: 100%;
+}
+
+.comentario {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.dados-comentario {
+    font-size: 1.5em;
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+}
+
+.data-comentario {
+    color: color-mix(in srgb, currentColor, white 60%);
+    font-style: italic;
+    font-size: 0.75em;
+}
+
+.mensagem-comentario {
+    font-size: 1.3em;
+    text-align: justify;
+    padding: 10px;
 }
 
 /* Account */
