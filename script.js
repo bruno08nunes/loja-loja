@@ -226,6 +226,22 @@ fetch("db.json")
                 });
             });
 
+            const itensFavoritos = JSON.parse(localStorage.getItem("favoritos")) ?? [];
+            const produtosFavoritosCompletos = dados.filter((produto) =>
+                itensFavoritos.includes(produto.id)
+            );
+            const divProdutosFavoritos = sectionsCategorias[0].querySelector(".div-produtos");
+            for (let produto of produtosFavoritosCompletos) {
+                const divProduto = criarProduto(produto);
+                divProdutosFavoritos.append(divProduto);
+            }
+            if (produtosFavoritosCompletos.length === 0) {
+                const pMensagemVazio = document.createElement("p");
+                pMensagemVazio.textContent = "Você não tem itens favoritos";
+                pMensagemVazio.classList.add("pMensagemVazioSection");
+                divProdutosFavoritos.append(pMensagemVazio);
+            }
+
             const itensCarrinhos =
                 JSON.parse(localStorage.getItem("carrinho")) ?? [];
 

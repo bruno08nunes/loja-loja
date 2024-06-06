@@ -84,7 +84,7 @@ const criarBotaoCarrinho = (produto) => {
 
     botaoCarrinho.addEventListener("click", (e) => {
         const produtosNoCarrinho = JSON.parse(localStorage.getItem("carrinho")) ?? [];
-        const botoesProduto = document.querySelectorAll("[data-id]");
+        const botoesProduto = document.querySelectorAll(".botao-carrinho[data-id]");
         if (produtosNoCarrinho.includes(produto.id)) {
             botoesProduto.forEach(botao => {
                 if (botao.dataset.id === produto.id.toString()) {
@@ -107,19 +107,44 @@ const criarBotaoCarrinho = (produto) => {
     return botaoCarrinho;
 }
 
-const criarBotaoFavorito = () => {
+const criarBotaoFavorito = (produto) => {
     const botaoFavorito = document.createElement("button");
     botaoFavorito.classList.add("botao-favorito");
+    botaoFavorito.dataset.id = produto.id;
 
-    botaoFavorito.addEventListener("click", (e) => {
-        
-    })
+    const itensFavoritos = JSON.parse(localStorage.getItem("favoritos")) ?? [];
+    if (itensFavoritos.includes(produto.id)) {
+        botaoFavorito.classList.add("adicionado-ao-carrinho")
+    }
+
     
     const imgFavorito = document.createElement("img");
     imgFavorito.src = "assets/icons/favorite.svg";
     imgFavorito.alt = "Adicionar aos favoritos";
     
     botaoFavorito.append(imgFavorito);
+    
+    botaoFavorito.addEventListener("click", (e) => {
+        const itensFavoritos = JSON.parse(localStorage.getItem("favoritos")) ?? [];
+        const botoesFavoritos = document.querySelectorAll(".botao-favorito[data-id]");
+        if (itensFavoritos.includes(produto.id)) {
+            botoesFavoritos.forEach(botao => {
+                if (botao.dataset.id === produto.id.toString()) {
+                    botao.classList.remove("adicionado-ao-carrinho");
+                }
+            })
+            const produtosFiltrados = itensFavoritos.filter((prod) => prod !== produto.id);
+            localStorage.setItem("favoritos", JSON.stringify(produtosFiltrados));
+            return;
+        }
+        itensFavoritos.push(produto.id);
+        botoesFavoritos.forEach(botao => {
+            if (botao.dataset.id === produto.id.toString()) {
+                botao.classList.add("adicionado-ao-carrinho");
+            }
+        })
+        localStorage.setItem("favoritos", JSON.stringify(itensFavoritos));
+    })
 
     return botaoFavorito;
 }
@@ -158,7 +183,7 @@ const criarProduto = (produto) => {
 
     // Botões
     const botaoCarrinho = criarBotaoCarrinho(produto);
-    const botaoFavorito = criarBotaoFavorito();
+    const botaoFavorito = criarBotaoFavorito(produto);
     const botoesProduto = criarBotoesProduto({botaoCarrinho, botaoFavorito});
 
     linkProduto.append(figure, pDescricao, divInformacoes)
