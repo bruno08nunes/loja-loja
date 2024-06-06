@@ -1,6 +1,7 @@
 // Importações
 import atualizarCarrinho from "./modules/atualizarCarrinho.js";
 import criarProduto from "./modules/criarProduto.js";
+import iniciarPaginaPrincipal from "./modules/iniciarPaginaPrincipal.js";
 
 // Variáveis
 const botaoToggleCarrinho = document.querySelector(".nav-carrinho button");
@@ -25,67 +26,7 @@ fetch("db.json")
     .then((dados) => dados.json())
     .then((dados) => {
         if (document.title === "Loja Loja") {
-            for (let i = 0; i < sectionsCategorias.length; i++) {
-                const section = sectionsCategorias[i];
-                const categoria = section.dataset.categoria;
-                let produtosCategoria;
-                const divProdutos = section.querySelector(".div-produtos");
-                if (categoria === "Melhor Avaliado") {
-                    produtosCategoria = dados.toSorted(
-                        (a, b) => b.rating - a.rating
-                    );
-                }
-                if (categoria === "Mais Baratos") {
-                    produtosCategoria = dados.toSorted(
-                        (a, b) =>
-                            (a.promotionalPrice ?? a.price) -
-                            (b.promotionalPrice ?? b.price)
-                    );
-                }
-                if (categoria === "Em Promoção") {
-                    const repetidos = ["Frases motivacionais", "Unhas de anão"];
-                    produtosCategoria = dados.filter(
-                        (dado) =>
-                            dado.promotionalPrice !== null &&
-                            !repetidos.includes(dado.name)
-                    );
-                }
-                const categorias = {
-                    Remédios: "medicine",
-                    Estilo: "style",
-                    Serviços: "services",
-                    Aulas: "classes",
-                    Ferramentas: "tools",
-                    Conceitos: "concept",
-                    Fantásticos: "fantasy",
-                };
-                if (categorias[categoria]) {
-                    produtosCategoria = dados.filter((dado) =>
-                        dado.categories.includes(categorias[categoria])
-                    );
-                    if (categoria === "Conceitos") {
-                        produtosCategoria.unshift(
-                            dados.filter((dado) => dado.name === "Ansiedade")[0]
-                        );
-                    }
-                    if (categoria === "Fantásticos") {
-                        const repetidos = [
-                            "Unhas de anão",
-                            "'Indo Ali' esmagado",
-                            "Dado de infinitos lados",
-                        ];
-                        produtosCategoria = produtosCategoria.filter(
-                            (dado) => !repetidos.includes(dado.name)
-                        );
-                    }
-                }
-                if (produtosCategoria?.length >= 4) {
-                    for (let i = 0; i < 4; i++) {
-                        const divProduto = criarProduto(produtosCategoria[i]);
-                        divProdutos.append(divProduto);
-                    }
-                }
-            }
+            iniciarPaginaPrincipal(dados);
         }
         if (document.title === "Logar - Loja Loja") {
             const parametrosURL = new URLSearchParams(location.search);
