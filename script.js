@@ -140,6 +140,12 @@ fetch("db.json")
                 formData.append(...pos);
             }
 
+            document.title =
+                formData.get("nome") +
+                " " +
+                formData.get("sobrenome") +
+                " - Loja Loja";
+
             const nomeConta = document.querySelector(".name-account");
             let textoNomeConta = "Desconhecido";
             let email = "";
@@ -238,15 +244,36 @@ fetch("db.json")
                 pMensagemVazio.classList.add("pMensagemVazioSection");
                 divProdutosCarrinho.append(pMensagemVazio);
             }
+
+            const itensHistorico =
+                JSON.parse(localStorage.getItem("itensComprados")) ?? [];
+            const itensCompletosHistorico = dados.filter((produto) =>
+                itensHistorico.includes(produto.id)
+            );
+            const divProdutosHistorico =
+                sectionsCategorias[2].querySelector(".div-produtos");
+            for (let produto of itensCompletosHistorico) {
+                const divProduto = criarProduto(produto);
+                divProdutosHistorico.append(divProduto);
+            }
+            if (itensCompletosHistorico.length === 0) {
+                const pMensagemVazio = document.createElement("p");
+                pMensagemVazio.textContent = "Você não tem itens no histórico";
+                pMensagemVazio.classList.add("pMensagemVazioSection");
+                divProdutosHistorico.append(pMensagemVazio);
+            }
         }
         if (document.title.startsWith("Produto")) {
             const parametrosURL = new URLSearchParams(location.search);
             const id = Number(parametrosURL.get("produto"));
             const produto = dados.filter((dado) => dado.id === id)[0];
 
+            document.title = produto.name + " - Loja Loja";
+
             const imagem = document.querySelector(".imagem-pagina-produto");
             imagem.src = "assets/products/" + produto?.image;
-            imagem.alt = "Imagem de " + (produto?.name ?? "Produto Desconhecido");
+            imagem.alt =
+                "Imagem de " + (produto?.name ?? "Produto Desconhecido");
 
             const nomeProduto = document.querySelector(".nome-pagina-produto");
             nomeProduto.textContent = produto?.name ?? "Produto desconhecido";
@@ -264,7 +291,10 @@ fetch("db.json")
             );
             let precoAtual = produto?.price ?? "";
 
-            if (produto?.promotionalPrice !== null && produto?.promotionalPrice !== undefined) {
+            if (
+                produto?.promotionalPrice !== null &&
+                produto?.promotionalPrice !== undefined
+            ) {
                 elementoPrecoPrePromocao.textContent = "R$ " + produto?.price;
                 precoAtual = produto?.promotionalPrice ?? "";
             }
@@ -323,9 +353,10 @@ fetch("db.json")
             const comentarios = document.querySelector(".section-comentarios");
             if (produto?.reviews.length === 0 || produto === undefined) {
                 const mensagem = document.createElement("p");
-                mensagem.textContent = "Nenhum comentário disponível no momento.";
-                mensagem.classList.add("comentarios-vazio")
-                
+                mensagem.textContent =
+                    "Nenhum comentário disponível no momento.";
+                mensagem.classList.add("comentarios-vazio");
+
                 comentarios.append(mensagem);
             }
             for (let review of produto?.reviews ?? []) {
@@ -375,22 +406,27 @@ fetch("db.json")
                 pMensagem.classList.add("mensagem-comentario");
                 pMensagem.textContent = review.comment;
 
-                comentario.append(dadosComentario, avaliacaoComentario, pMensagem);
+                comentario.append(
+                    dadosComentario,
+                    avaliacaoComentario,
+                    pMensagem
+                );
                 comentarios.append(comentario);
             }
         }
 
         if (document.title === "Finalizar Compra - Loja Loja") {
-            const estaLogado = localStorage.getItem("estaLogado");
-            if (!estaLogado) {
-                location.pathname = "pages/form-account.html"
-            }
-
+            
             const informacoesConta = new FormData();
-            const informacoesContaLocalStorage = JSON.parse(localStorage.getItem("informacoesConta")) ?? [];
+            const informacoesContaLocalStorage =
+            JSON.parse(localStorage.getItem("informacoesConta")) ?? [];
+            const estaLogado = localStorage.getItem("estaLogado");
+            if (estaLogado === "false") {
+                location.pathname = "pages/form-account.html";
+            }
             informacoesContaLocalStorage.forEach((informacao) => {
-                informacoesConta.append(informacao[0], informacao[1])
-            })
+                informacoesConta.append(informacao[0], informacao[1]);
+            });
 
             const nome = document.querySelector("#nome");
             nome.value = informacoesConta.get("nome");
@@ -401,25 +437,34 @@ fetch("db.json")
             const form = document.querySelector("form");
             form.addEventListener("submit", (e) => {
                 e.preventDefault();
-                const itensCarrinhos = JSON.parse(localStorage.getItem("carrinho"));
-                const itensComprados = JSON.parse(localStorage.getItem("itensComprados")) ?? [];
+                const itensCarrinhos = JSON.parse(
+                    localStorage.getItem("carrinho")
+                );
+                const itensComprados =
+                    JSON.parse(localStorage.getItem("itensComprados")) ?? [];
                 itensCarrinhos.forEach((item) => {
                     if (!itensComprados.includes(item)) {
                         itensComprados.push(item);
                     }
-                })
-                localStorage.setItem("itensComprados", JSON.stringify(itensComprados));
+                });
+                localStorage.setItem(
+                    "itensComprados",
+                    JSON.stringify(itensComprados)
+                );
                 localStorage.setItem("carrinho", JSON.stringify([]));
 
                 const mensagemCompraFinalizada = document.createElement("p");
-                mensagemCompraFinalizada.textContent = "Compra Concluída com Sucesso";
-                mensagemCompraFinalizada.classList.add("mensagem-compra-finalizada");
+                mensagemCompraFinalizada.textContent =
+                    "Compra Concluída com Sucesso";
+                mensagemCompraFinalizada.classList.add(
+                    "mensagem-compra-finalizada"
+                );
                 document.body.append(mensagemCompraFinalizada);
 
                 setTimeout(() => {
                     location.pathname = "";
-                }, 2000)
-            })
+                }, 2000);
+            });
         }
 
         botaoToggleCarrinho.addEventListener("click", (e) => {

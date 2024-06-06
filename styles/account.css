@@ -54,7 +54,7 @@
     cursor: pointer;
 }
 
-.section-carrinho-conta .div-produtos {
+:is(.section-carrinho-conta, .section-historico-conta) .div-produtos {
     flex-wrap: wrap;
     & .produto {
         flex: 1;
