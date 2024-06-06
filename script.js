@@ -130,6 +130,9 @@ fetch("db.json")
             });
         }
         if (document.title === "Conta - Loja Loja") {
+            if (location.search !== "") {
+                location.search = "";
+            }
             const informacoesConta =
                 JSON.parse(localStorage.getItem("informacoesConta")) ?? [];
             const formData = new FormData();

@@ -57,7 +57,8 @@ const criarDivBotaoProdutoCarrinho = (produto) => {
 
         botaoRemoverProdutoCarrinho.parentElement.parentElement.remove();
 
-        if (sidebarCarrinho.children.length === 2) {
+        if (sidebarCarrinho.children.length === 3) {
+            sidebarCarrinho.lastChild.remove();
             sidebarCarrinho.lastChild.remove();
             const mensagem = criarMensagemCarrinhoVazio();
             sidebarCarrinho.append(mensagem);
@@ -89,6 +90,16 @@ const criarParagrafoPrecoTotal = () => {
     return paragrafoPreco;
 }
 
+const criarBotaoCompra = () => {
+    const botaoComprar = document.createElement("a");
+    botaoComprar.href = location.href;
+    botaoComprar.pathname = "pages/form-product.html";
+    botaoComprar.classList.add("botao-comprar");
+    botaoComprar.textContent = "Fazer Pedido";
+    
+    return botaoComprar;
+}
+
 const atualizarCarrinho = (produtos) => {
     const produtosNoCarrinho = JSON.parse(localStorage.getItem("carrinho")) ?? [];
     while (sidebarCarrinho.children.length > 1) {
@@ -110,6 +121,9 @@ const atualizarCarrinho = (produtos) => {
 
     const paragrafoPrecoTotal = criarParagrafoPrecoTotal();
     sidebarCarrinho.append(paragrafoPrecoTotal);
+    
+    const botaoComprar = criarBotaoCompra();
+    sidebarCarrinho.append(botaoComprar);
 }
 
 export default atualizarCarrinho;
