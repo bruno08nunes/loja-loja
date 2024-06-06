@@ -31,13 +31,17 @@
         </button>
     </nav>
 
-    <main>
-
+    <main class="main-conta">
         <div class="div-account">
-            <img class="img-account" src="/assets/foto-lobo.jpg" alt="">
+            <img class="img-account" src="" alt="Foto de perfil">
             <div class="div-name-account">
-                <p class="name-account">Felipe Coimbra Rocha dos Santos</p>
-                <a class="change-name" href="">Alterar Nome</a>
+                <p class="name-account"></p>
+                <p class="email-account"></p>
+                <div class="buttons-account">
+                    <label for="inp-foto-conta" class="botao-foto-conta">Mudar Foto de Perfil</label>
+                    <input type="file" id="inp-foto-conta" name="inp-foto-conta" style="display: none;" accept="image/*">
+                    <a class="deslogar" href="pages/form-account.html?logout=true">Deslogar</a>
+                </div>
             </div>
         </div>
 
