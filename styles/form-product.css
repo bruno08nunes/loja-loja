@@ -1,0 +1,45 @@
+/* Formulario Produto */
+.main-form-product {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.form-product {
+    background-color: var(--verde);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 1.3em;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.div-inputs {
+    display: flex;
+    gap: 15px;
+}
+
+.div-input {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+}
+
+.div-input input {
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    padding: 5px;
+}
+
+.form-product button {
+    padding: 15px;
+    background-color: var(--azul);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
