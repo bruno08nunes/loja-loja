@@ -242,16 +242,16 @@ fetch("db.json")
             const produto = dados.filter((dado) => dado.id === id)[0];
 
             const imagem = document.querySelector(".imagem-pagina-produto");
-            imagem.src = "assets/products/" + produto.image;
-            imagem.alt = "Imagem de " + produto.name;
+            imagem.src = "assets/products/" + produto?.image;
+            imagem.alt = "Imagem de " + (produto?.name ?? "Produto Desconhecido");
 
             const nomeProduto = document.querySelector(".nome-pagina-produto");
-            nomeProduto.textContent = produto.name;
+            nomeProduto.textContent = produto?.name ?? "Produto desconhecido";
 
             const descricaoProduto = document.querySelector(
                 ".descricao-pagina-produto"
             );
-            descricaoProduto.textContent = produto.description;
+            descricaoProduto.textContent = produto?.description ?? "";
 
             const elementoPrecoPrePromocao = document.querySelector(
                 ".preco-antes-promocao"
@@ -259,22 +259,22 @@ fetch("db.json")
             const elementoPreco = document.querySelector(
                 ".preco-pagina-produto"
             );
-            let precoAtual = produto.price;
+            let precoAtual = produto?.price ?? "";
 
-            if (produto.promotionalPrice !== null) {
-                elementoPrecoPrePromocao.textContent = "R$ " + produto.price;
-                precoAtual = produto.promotionalPrice;
+            if (produto?.promotionalPrice !== null && produto?.promotionalPrice !== undefined) {
+                elementoPrecoPrePromocao.textContent = "R$ " + produto?.price;
+                precoAtual = produto?.promotionalPrice ?? "";
             }
             elementoPreco.textContent = "R$ " + precoAtual;
 
             const avaliacaoNumero = document.querySelector(
                 ".nota-produto-numero"
             );
-            avaliacaoNumero.textContent = produto.rating;
+            avaliacaoNumero.textContent = produto?.rating ?? "";
 
             const avaliacaoEstrela = document.querySelector(".nota-produto");
 
-            const notaEmPorcentagem = produto.rating * 20;
+            const notaEmPorcentagem = produto?.rating * 20;
             const restoPorcentagem = 100 - notaEmPorcentagem;
 
             avaliacaoEstrela.style.setProperty(
@@ -289,10 +289,10 @@ fetch("db.json")
             const botaoCarrinho = document.querySelector(
                 "#botao-carrinho-produto"
             );
-            botaoCarrinho.dataset.id = produto.id;
+            botaoCarrinho.dataset.id = produto?.id;
             const idItensNoCarrinho =
                 JSON.parse(localStorage.getItem("carrinho")) ?? [];
-            if (idItensNoCarrinho.includes(produto.id)) {
+            if (idItensNoCarrinho.includes(produto?.id)) {
                 botaoCarrinho.classList.add("adicionado-ao-carrinho");
             }
 
@@ -300,9 +300,9 @@ fetch("db.json")
                 const idItensNoCarrinho =
                     JSON.parse(localStorage.getItem("carrinho")) ?? [];
                 botaoCarrinho.classList.toggle("adicionado-ao-carrinho");
-                if (idItensNoCarrinho.includes(produto.id)) {
+                if (idItensNoCarrinho.includes(produto?.id)) {
                     const novoCarrinho = idItensNoCarrinho.filter(
-                        (id) => id !== produto.id
+                        (id) => id !== produto?.id
                     );
                     localStorage.setItem(
                         "carrinho",
@@ -310,7 +310,7 @@ fetch("db.json")
                     );
                     return;
                 }
-                idItensNoCarrinho.push(produto.id);
+                idItensNoCarrinho.push(produto?.id);
                 localStorage.setItem(
                     "carrinho",
                     JSON.stringify(idItensNoCarrinho)
@@ -318,14 +318,14 @@ fetch("db.json")
             });
 
             const comentarios = document.querySelector(".section-comentarios");
-            if (produto.reviews.length === 0) {
+            if (produto?.reviews.length === 0 || produto === undefined) {
                 const mensagem = document.createElement("p");
                 mensagem.textContent = "Nenhum comentário disponível no momento.";
                 mensagem.classList.add("comentarios-vazio")
                 
                 comentarios.append(mensagem);
             }
-            for (let review of produto.reviews) {
+            for (let review of produto?.reviews ?? []) {
                 const comentario = document.createElement("article");
                 comentario.classList.add("comentario");
 
