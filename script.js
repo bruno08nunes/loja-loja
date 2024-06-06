@@ -380,6 +380,48 @@ fetch("db.json")
             }
         }
 
+        if (document.title === "Finalizar Compra - Loja Loja") {
+            const estaLogado = localStorage.getItem("estaLogado");
+            if (!estaLogado) {
+                location.pathname = "pages/form-account.html"
+            }
+
+            const informacoesConta = new FormData();
+            const informacoesContaLocalStorage = JSON.parse(localStorage.getItem("informacoesConta")) ?? [];
+            informacoesContaLocalStorage.forEach((informacao) => {
+                informacoesConta.append(informacao[0], informacao[1])
+            })
+
+            const nome = document.querySelector("#nome");
+            nome.value = informacoesConta.get("nome");
+
+            const sobrenome = document.querySelector("#sobrenome");
+            sobrenome.value = informacoesConta.get("sobrenome");
+
+            const form = document.querySelector("form");
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const itensCarrinhos = JSON.parse(localStorage.getItem("carrinho"));
+                const itensComprados = JSON.parse(localStorage.getItem("itensComprados")) ?? [];
+                itensCarrinhos.forEach((item) => {
+                    if (!itensComprados.includes(item)) {
+                        itensComprados.push(item);
+                    }
+                })
+                localStorage.setItem("itensComprados", JSON.stringify(itensComprados));
+                localStorage.setItem("carrinho", JSON.stringify([]));
+
+                const mensagemCompraFinalizada = document.createElement("p");
+                mensagemCompraFinalizada.textContent = "Compra Concluída com Sucesso";
+                mensagemCompraFinalizada.classList.add("mensagem-compra-finalizada");
+                document.body.append(mensagemCompraFinalizada);
+
+                setTimeout(() => {
+                    location.pathname = "";
+                }, 2000)
+            })
+        }
+
         botaoToggleCarrinho.addEventListener("click", (e) => {
             atualizarCarrinho(dados);
             sidebarCarrinho.classList.toggle("open");

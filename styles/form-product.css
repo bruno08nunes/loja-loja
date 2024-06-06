@@ -35,6 +35,11 @@
     padding: 5px;
 }
 
+.div-botao-envio {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .form-product button {
     padding: 15px;
     background-color: var(--azul);
@@ -42,4 +47,26 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
+}
+
+.mensagem-compra-finalizada {
+    position: fixed;
+    bottom: calc(100% - 120px);
+    left: 50%;
+    translate: -50% 0;
+    background-color: white;
+    border: 2px solid var(--rosa-escuro);
+    padding: 30px;
+    max-width: 400px;
+    z-index: 15;
+    border-radius: 15px;
+    font-size: 1.6em;
+    animation-name: mensagem-compra;
+    animation-duration: .5s;
+}
+
+@keyframes mensagem-compra {
+    from {
+        bottom: 100%;
+    }
 }

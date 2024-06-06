@@ -110,6 +110,10 @@ const criarBotaoCarrinho = (produto) => {
 const criarBotaoFavorito = () => {
     const botaoFavorito = document.createElement("button");
     botaoFavorito.classList.add("botao-favorito");
+
+    botaoFavorito.addEventListener("click", (e) => {
+        
+    })
     
     const imgFavorito = document.createElement("img");
     imgFavorito.src = "assets/icons/favorite.svg";
@@ -133,7 +137,11 @@ const criarProduto = (produto) => {
 
     const linkProduto = document.createElement("a");
     linkProduto.href = "pages/product.html?produto=" + produto.id;
-    linkProduto.classList.add("link-produto")
+    linkProduto.classList.add("link-produto");
+
+    if (produto.stock === 0) {
+        linkProduto.classList.add("esgotado");
+    }
 
     // Imagem e nome
     const img = criarElementoImagemProduto(produto);

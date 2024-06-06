@@ -237,6 +237,24 @@
     text-decoration: none;
 }
 
+.esgotado {
+    position: relative;
+    & img {
+        z-index: -1;
+        filter: grayscale(100%);
+    }
+    &::after {
+        content: "Esgotado";
+        background-color: red;
+        color: white;
+        position: absolute;
+        padding: 5px;
+        rotate: 50deg;
+        right: -30px;
+        top: 10px;
+    }
+}
+
 .figure-img {
     display: grid;
     grid-template-columns: 1fr;
