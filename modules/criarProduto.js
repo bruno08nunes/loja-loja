@@ -132,7 +132,7 @@ const criarProduto = (produto) => {
     divProduto.classList.add("produto");
 
     const linkProduto = document.createElement("a");
-    linkProduto.href = "pages/product.html?produto=" + produto.name.toLowerCase().replaceAll(" ", "-");
+    linkProduto.href = "pages/product.html?produto=" + produto.id;
     linkProduto.classList.add("link-produto")
 
     // Imagem e nome

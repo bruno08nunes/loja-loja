@@ -232,8 +232,148 @@ fetch("db.json")
             if (produtosCompletosNoCarrinho.length === 0) {
                 const pMensagemVazio = document.createElement("p");
                 pMensagemVazio.textContent = "Seu carrinho está vazio.";
-                pMensagemVazio.classList.add("pMensagemVazioSection")
+                pMensagemVazio.classList.add("pMensagemVazioSection");
                 divProdutosCarrinho.append(pMensagemVazio);
+            }
+        }
+        if (document.title.startsWith("Produto")) {
+            const parametrosURL = new URLSearchParams(location.search);
+            const id = Number(parametrosURL.get("produto"));
+            const produto = dados.filter((dado) => dado.id === id)[0];
+
+            const imagem = document.querySelector(".imagem-pagina-produto");
+            imagem.src = "assets/products/" + produto.image;
+            imagem.alt = "Imagem de " + produto.name;
+
+            const nomeProduto = document.querySelector(".nome-pagina-produto");
+            nomeProduto.textContent = produto.name;
+
+            const descricaoProduto = document.querySelector(
+                ".descricao-pagina-produto"
+            );
+            descricaoProduto.textContent = produto.description;
+
+            const elementoPrecoPrePromocao = document.querySelector(
+                ".preco-antes-promocao"
+            );
+            const elementoPreco = document.querySelector(
+                ".preco-pagina-produto"
+            );
+            let precoAtual = produto.price;
+
+            if (produto.promotionalPrice !== null) {
+                elementoPrecoPrePromocao.textContent = "R$ " + produto.price;
+                precoAtual = produto.promotionalPrice;
+            }
+            elementoPreco.textContent = "R$ " + precoAtual;
+
+            const avaliacaoNumero = document.querySelector(
+                ".nota-produto-numero"
+            );
+            avaliacaoNumero.textContent = produto.rating;
+
+            const avaliacaoEstrela = document.querySelector(".nota-produto");
+
+            const notaEmPorcentagem = produto.rating * 20;
+            const restoPorcentagem = 100 - notaEmPorcentagem;
+
+            avaliacaoEstrela.style.setProperty(
+                "--porcentagem-nota",
+                `${notaEmPorcentagem}%`
+            );
+            avaliacaoEstrela.style.setProperty(
+                "--porcentagem-branco",
+                `${restoPorcentagem}%`
+            );
+
+            const botaoCarrinho = document.querySelector(
+                "#botao-carrinho-produto"
+            );
+            botaoCarrinho.dataset.id = produto.id;
+            const idItensNoCarrinho =
+                JSON.parse(localStorage.getItem("carrinho")) ?? [];
+            if (idItensNoCarrinho.includes(produto.id)) {
+                botaoCarrinho.classList.add("adicionado-ao-carrinho");
+            }
+
+            botaoCarrinho.addEventListener("click", (e) => {
+                const idItensNoCarrinho =
+                    JSON.parse(localStorage.getItem("carrinho")) ?? [];
+                botaoCarrinho.classList.toggle("adicionado-ao-carrinho");
+                if (idItensNoCarrinho.includes(produto.id)) {
+                    const novoCarrinho = idItensNoCarrinho.filter(
+                        (id) => id !== produto.id
+                    );
+                    localStorage.setItem(
+                        "carrinho",
+                        JSON.stringify(novoCarrinho)
+                    );
+                    return;
+                }
+                idItensNoCarrinho.push(produto.id);
+                localStorage.setItem(
+                    "carrinho",
+                    JSON.stringify(idItensNoCarrinho)
+                );
+            });
+
+            const comentarios = document.querySelector(".section-comentarios");
+            if (produto.reviews.length === 0) {
+                const mensagem = document.createElement("p");
+                mensagem.textContent = "Nenhum comentário disponível no momento.";
+                mensagem.classList.add("comentarios-vazio")
+                
+                comentarios.append(mensagem);
+            }
+            for (let review of produto.reviews) {
+                const comentario = document.createElement("article");
+                comentario.classList.add("comentario");
+
+                const dadosComentario = document.createElement("div");
+                dadosComentario.classList.add("dados-comentario");
+
+                const comentarista = document.createElement("p");
+                comentarista.classList.add("comentarista");
+                comentarista.textContent = review.reviewerName;
+
+                const data = document.createElement("time");
+                data.classList.add("data-comentario");
+                data.textContent = review.date;
+
+                dadosComentario.append(comentarista, data);
+
+                const avaliacaoComentario = document.createElement("p");
+                avaliacaoComentario.classList.add(
+                    "avaliacao-pagina-produto",
+                    "avaliacao-comentario"
+                );
+
+                const notaNumero = document.createElement("span");
+                notaNumero.classList.add("nota-produto-numero");
+                notaNumero.textContent = review.rating;
+
+                const notaEstrela = document.createElement("span");
+                notaEstrela.classList.add("nota-produto");
+                notaEstrela.textContent = "★".repeat(5);
+                const notaEmPorcentagem = review.rating * 20;
+                const restoPorcentagem = 100 - notaEmPorcentagem;
+                notaEstrela.style.setProperty(
+                    "--porcentagem-nota",
+                    `${notaEmPorcentagem}%`
+                );
+                notaEstrela.style.setProperty(
+                    "--porcentagem-branco",
+                    `${restoPorcentagem < 50 ? restoPorcentagem : 0}%`
+                );
+
+                avaliacaoComentario.append(notaNumero, " ", notaEstrela);
+
+                const pMensagem = document.createElement("p");
+                pMensagem.classList.add("mensagem-comentario");
+                pMensagem.textContent = review.comment;
+
+                comentario.append(dadosComentario, avaliacaoComentario, pMensagem);
+                comentarios.append(comentario);
             }
         }
 

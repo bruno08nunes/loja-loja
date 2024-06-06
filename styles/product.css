@@ -12,6 +12,7 @@
     display: flex;
     gap: 15px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    max-width: 1000px;
 }
 
 .div-dados-produto {
@@ -52,6 +53,8 @@
     background-color: transparent;
     cursor: pointer;
     border: none;
+    padding: 5px;
+    border-radius: 10px;
     transition: 0.3s;
     &:hover {
         scale: 1.2;
@@ -63,13 +66,6 @@
     justify-content: start;
     align-items: center;
     margin: 10px;
-}
-
-.carrinho-pagina-produto:hover {
-    transition: 0.3s;
-    &:hover {
-        scale: 1.2;
-    }
 }
 
 .section-comentarios {
@@ -104,4 +100,8 @@
     font-size: 1.3em;
     text-align: justify;
     padding: 10px;
+}
+
+.comentarios-vazio {
+    font-size: 1.25em;
 }
