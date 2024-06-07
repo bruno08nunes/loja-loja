@@ -183,7 +183,7 @@ const criarMensagemComentario = (review) => {
     return pMensagem;
 }
 
-const criarInputComentario = () => {
+const criarInputComentario = (produto) => {
     const divComentar = document.createElement("div");
     divComentar.classList.add("div-comentar");
 
@@ -229,8 +229,13 @@ const criarInputComentario = () => {
             reviewerName: JSON.parse(localStorage.getItem("informacoesConta"))[0][1] ?? "Anônimo",
             rating: form.elements["nota"].value,
             comment: form.elements["comentar"].value,
-            date: `${ano}-${mes}-${dia}`
+            date: `${ano}-${mes}-${dia}`,
+            product: produto.id,
         }
+
+        const comentariosArray = JSON.parse(localStorage.getItem("comentarios")) ?? [];
+        comentariosArray.push(infomacoes);
+        localStorage.setItem("comentarios", JSON.stringify(comentariosArray));
 
         const comentario = criarComentario();
 
@@ -273,19 +278,9 @@ const criarInputComentario = () => {
     return divComentar;
 }
 
-const criarComentarios = (produto) => {
+const gerarComentarios = (reviews) => {
     const comentarios = document.querySelector(".section-comentarios");
-
-    if (localStorage.getItem("estaLogado") !== "false") {
-        const inputComentario = criarInputComentario();
-        comentarios.append(inputComentario)
-    }
-
-    if (produto?.reviews.length === 0 || produto === undefined) {
-        const mensagem = criarMensagemSemComentarios();
-        comentarios.append(mensagem);
-    }
-    for (let review of produto?.reviews ?? []) {
+    for (let review of reviews) {
         const comentario = criarComentario();
 
         const dadosComentario = criarDadosComentario(review);
@@ -297,6 +292,26 @@ const criarComentarios = (produto) => {
         comentario.append(dadosComentario, avaliacaoComentario, pMensagem);
         comentarios.append(comentario);
     }
+}
+
+const criarComentarios = (produto) => {
+    const comentarios = document.querySelector(".section-comentarios");
+
+    if (localStorage.getItem("estaLogado") !== "false") {
+        const inputComentario = criarInputComentario(produto);
+        comentarios.append(inputComentario)
+    }
+
+    if (produto?.reviews.length === 0 || produto === undefined) {
+        const mensagem = criarMensagemSemComentarios();
+        comentarios.append(mensagem);
+    }
+
+    const comentariosArray = JSON.parse(localStorage.getItem("comentarios")) ?? [];
+    const comentariosProduto = comentariosArray.filter((comentario) => comentario.product === produto.id);
+    gerarComentarios(comentariosProduto);
+
+    gerarComentarios(produto?.reviews ?? []);
 };
 
 const iniciarPaginaProduto = (dados) => {
