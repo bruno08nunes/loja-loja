@@ -56,22 +56,29 @@ if (footer) {
     const mensagem = document.createElement("p");
     mensagem.textContent = "Email cadastrado com sucesso";
     mensagem.classList.add("mensagem-compra-finalizada");
-    
+
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         document.body.append(mensagem);
         setTimeout(() => {
             mensagem.remove();
-        }, 3000)
+        }, 3000);
     });
-
 }
+
+let bancoDeDados;
+const openRequest = indexedDB.open("img_db", 1);
+openRequest.addEventListener("upgradeneeded", (e) => {
+    bancoDeDados = e.target.result;
+    console.log(e.target.result)
+    const objectStore = bancoDeDados.createObjectStore("img_os", {
+        keyPath: "id"
+    });
+});
 
 if (header) {
     const imagem = header.querySelector("img[alt=Conta]");
     imagem.classList.add("img-conta");
-    let bancoDeDados;
-    const openRequest = indexedDB.open("img_db", 1);
     openRequest.addEventListener("error", () => {
         imagem.src = "assets/icons/account.svg";
         console.error("Banco de dados falhou ao abrir.");

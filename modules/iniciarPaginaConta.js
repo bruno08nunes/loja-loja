@@ -63,7 +63,9 @@ const exibirImagem = () => {
             keyPath: "id",
         });
     });
-
+    setTimeout(() => {
+        
+    })
     botaoEnviarFoto.addEventListener("change", (e) => {
         const transaction = bancoDeDados.transaction(["img_os"], "readwrite");
         const objectStore = transaction.objectStore("img_os");

@@ -269,8 +269,14 @@ const criarInputComentario = (produto) => {
     inputComentar.placeholder = "Adicione um comentário...";
     inputComentar.required = "true";
 
+    const produtosComprados = JSON.parse(localStorage.getItem("itensComprados")) ?? [];
+
     const botao = document.createElement("button");
     botao.textContent = "Comentar";
+
+    if (!produtosComprados.includes(produto.id)) {
+        botao.disabled = true;
+    }
 
     form.append(selectNota, inputComentar, botao);
     divComentar.append(imagem, form);
@@ -299,7 +305,7 @@ const criarComentarios = (produto) => {
 
     if (localStorage.getItem("estaLogado") !== "false") {
         const inputComentario = criarInputComentario(produto);
-        comentarios.append(inputComentario)
+        comentarios.append(inputComentario);
     }
 
     if (produto?.reviews.length === 0 || produto === undefined) {
