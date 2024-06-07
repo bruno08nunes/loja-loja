@@ -43,6 +43,13 @@
     background-color: color-mix(in srgb, var(--fundo), black 10%);
     padding: 10px;
     border-radius: 50px;
+    color: black;
+    text-decoration: none;
+    transition: .4s;
+}
+
+.produto-carrinho:hover {
+    background-color: var(--verde);
 }
 
 .img-produto-carrinho {

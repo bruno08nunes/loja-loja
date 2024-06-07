@@ -70,8 +70,11 @@ const criarDivBotaoProdutoCarrinho = (produto) => {
 }
 
 const criarDivProdutoCarrinho = (produto) => {
-    const divProduto = document.createElement("div");
+    const divProduto = document.createElement("a");
     divProduto.classList.add("produto-carrinho");
+    divProduto.href = location.href;
+    divProduto.pathname = "pages/product.html";
+    divProduto.search = "produto=" + produto.id;
 
     const img = criarImagemProdutoCarrinho(produto);
 
