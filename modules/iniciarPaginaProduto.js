@@ -127,7 +127,7 @@ const criarData = (review) => {
     elementoData.classList.add("data-comentario");
 
     const anoReview = review.date.split("-")[0].padStart(2, 0);
-    const mesReview = (Number(review.date.split("-")[1]) - 1).toString().padStart(2, 0);
+    const mesReview = (Number(review.date.split("-")[1]) + 1).toString().padStart(2, 0);
     const diaReview = review.date.split("-")[2].padStart(2, 0);
 
     elementoData.textContent = `${diaReview}/${mesReview}/${anoReview}`;
@@ -183,8 +183,89 @@ const criarMensagemComentario = (review) => {
     return pMensagem;
 }
 
+const criarInputComentario = () => {
+    const divComentar = document.createElement("div");
+    divComentar.classList.add("div-comentar");
+
+    const imagem = document.createElement("img");
+    imagem.src = "";
+    let bancoDeDados;
+    const openRequest = indexedDB.open("img_db", 1);
+    openRequest.addEventListener("error", () => {
+        imagem.src = "assets/icons/account.svg";
+        console.error("Banco de dados falhou ao abrir.");
+    });
+    openRequest.addEventListener("success", () => {
+        bancoDeDados = openRequest.result;
+        const objectStore = bancoDeDados
+            .transaction("img_os")
+            .objectStore("img_os");
+        const getRequest = objectStore.get(1);
+        getRequest.addEventListener("success", (e) => {
+            if (!e?.target?.result?.img) {
+                imagem.src = "assets/icons/account.svg";
+                return;
+            }
+            const fr = new FileReader();
+            fr.onload = () => {
+                imagem.src = fr.result;
+            };
+            fr.readAsDataURL(e.target.result.img);
+        });
+    });
+
+    const form = document.createElement("form");
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const comentarios = document.querySelector(".section-comentarios");
+
+        const hoje = new Date();
+        const ano = hoje.getFullYear();
+        const mes = hoje.getMonth();
+        const dia = hoje.getDate();
+        const infomacoes = {
+            reviewerName: JSON.parse(localStorage.getItem("informacoesConta"))[0][1] ?? "Anônimo",
+            rating: 5,
+            comment: form.elements["comentar"].value,
+            date: `${ano}-${mes}-${dia}`
+        }
+
+        const comentario = criarComentario();
+
+        const dadosComentario = criarDadosComentario(infomacoes);
+
+        const avaliacaoComentario = criarAvaliacaoComentario(infomacoes);
+
+        const pMensagem = criarMensagemComentario(infomacoes);
+
+        comentario.append(dadosComentario, avaliacaoComentario, pMensagem);
+        comentarios.append(comentario);
+    })
+
+    const inputComentar = document.createElement("input");
+    inputComentar.name = "comentar";
+    inputComentar.id = "comentar";
+    inputComentar.placeholder = "Adicione um comentário...";
+
+    const botao = document.createElement("button");
+    botao.textContent = "Comentar";
+
+    form.append(inputComentar, botao);
+    divComentar.append(imagem, form);
+
+    return divComentar;
+}
+
 const criarComentarios = (produto) => {
     const comentarios = document.querySelector(".section-comentarios");
+
+    if (localStorage.getItem("estaLogado") !== "false") {
+        const inputComentario = criarInputComentario();
+        comentarios.append(inputComentario)
+    }
+
     if (produto?.reviews.length === 0 || produto === undefined) {
         const mensagem = criarMensagemSemComentarios();
         comentarios.append(mensagem);

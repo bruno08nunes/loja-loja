@@ -12,6 +12,7 @@ const sidebarCarrinho = document.querySelector(".sidebar-carrinho");
 const botaoFecharCarrinho = document.querySelector(".titulo-carrinho button");
 const backdrop = document.querySelector(".backdrop");
 const footer = document.querySelector(".footer");
+const header = document.querySelector(".cabecalho-principal");
 
 // Inicialização e Eventos
 botaoFecharCarrinho.addEventListener("click", (e) => {
@@ -64,4 +65,33 @@ if (footer) {
         }, 3000)
     });
 
+}
+
+if (header) {
+    const imagem = header.querySelector("img[alt=Conta]");
+    imagem.classList.add("img-conta");
+    let bancoDeDados;
+    const openRequest = indexedDB.open("img_db", 1);
+    openRequest.addEventListener("error", () => {
+        imagem.src = "assets/icons/account.svg";
+        console.error("Banco de dados falhou ao abrir.");
+    });
+    openRequest.addEventListener("success", () => {
+        bancoDeDados = openRequest.result;
+        const objectStore = bancoDeDados
+            .transaction("img_os")
+            .objectStore("img_os");
+        const getRequest = objectStore.get(1);
+        getRequest.addEventListener("success", (e) => {
+            if (!e?.target?.result?.img) {
+                imagem.src = "assets/icons/account.svg";
+                return;
+            }
+            const fr = new FileReader();
+            fr.onload = () => {
+                imagem.src = fr.result;
+            };
+            fr.readAsDataURL(e.target.result.img);
+        });
+    });
 }

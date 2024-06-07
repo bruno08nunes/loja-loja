@@ -11,7 +11,7 @@
 .container-produto {
     display: flex;
     gap: 15px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
     max-width: 1000px;
 }
 
@@ -89,9 +89,47 @@
     display: flex;
     flex-direction: column;
     gap: 25px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
     max-width: 800px;
     width: 100%;
+}
+
+.div-comentar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    & img {
+        max-width: 65px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    & form {
+        display: flex;
+        gap: 10px;
+        flex: 1;
+    }
+    & input {
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.514);
+        font-size: 1.3em;
+        padding: 5px 15px;
+        flex: 1;
+        &:focus {
+            outline: none;
+        }
+    }
+    & button {
+        border: 2px solid var(--verde);
+        font-size: 1.3em;
+        padding: 5px;
+        background-color: transparent;
+        cursor: pointer;
+        transition: 0.4s;
+        &:hover {
+            background-color: var(--verde);
+        }
+    }
 }
 
 .comentario {

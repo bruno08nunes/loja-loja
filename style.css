@@ -179,6 +179,13 @@
     }
 }
 
+.img-conta {
+    max-width: 42px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
 .nav-carrinho {
     position: sticky;
     top: 0;
