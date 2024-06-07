@@ -6,8 +6,8 @@ const exibirDadosConta = () => {
     const informacoesConta =
         JSON.parse(localStorage.getItem("informacoesConta")) ?? [];
     const formData = new FormData();
-    for (let pos of informacoesConta) {
-        formData.append(...pos);
+    for (let pos in informacoesConta) {
+        formData.append(...informacoesConta[pos]);
     }
 
     document.title =

@@ -115,10 +115,15 @@ const criarComentarista = (review) => {
 };
 
 const criarData = (review) => {
-    const data = document.createElement("time");
-    data.classList.add("data-comentario");
-    data.textContent = review.date;
-    return data
+    const elementoData = document.createElement("time");
+    elementoData.classList.add("data-comentario");
+
+    const anoReview = review.date.split("-")[0].padStart(2, 0);
+    const mesReview = (Number(review.date.split("-")[1]) - 1).toString().padStart(2, 0);
+    const diaReview = review.date.split("-")[2].padStart(2, 0);
+
+    elementoData.textContent = `${diaReview}/${mesReview}/${anoReview}`;
+    return elementoData
 };
 
 const criarDadosComentario = (review) => {

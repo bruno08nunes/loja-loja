@@ -62,6 +62,34 @@ const iniciarPaginaPrincipal = (dados) => {
             }
         }
     }
+
+    const pesquisar = document.querySelector("#pesquisar");
+    pesquisar.addEventListener("input", (e) => {
+        const q = pesquisar.value;
+        const sectionPesquisa = document.querySelector(".section-pesquisa");
+        const divProdutos = sectionPesquisa.querySelector(".div-produtos");
+
+        while (divProdutos.children.length > 0) {
+            divProdutos.firstChild.remove();
+        }
+        
+        if (pesquisar.value.length === 0) {
+            sectionPesquisa.classList.add("escondida");
+            sectionsCategorias.forEach((section) => {
+                section.classList.remove("escondida");
+            })
+            return;
+        }
+        
+        const produtosFiltrados = dados.filter((produto) => produto.name.toLowerCase().includes(q) || produto.description.toLowerCase().includes(q));
+        sectionPesquisa.classList.remove("escondida");
+        sectionsCategorias.forEach((section) => {
+            section.classList.add("escondida");
+        })
+        for (let produto of produtosFiltrados ?? []) {
+            divProdutos.append(criarProduto(produto));
+        }
+    })
 };
 
 export default iniciarPaginaPrincipal
