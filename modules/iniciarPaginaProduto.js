@@ -78,10 +78,12 @@ const atualizarInformacoesProduto = (produto) => {
 const atualizarBotoes = (produto, tipo) => {
     const botao = document.querySelector(`#botao-${tipo}-produto`);
     botao.dataset.id = produto.id;
+    botao.ariaLabel = "Adicionar ao " + tipo;
 
     const idItens = JSON.parse(localStorage.getItem(tipo)) ?? [];
     if (idItens.includes(produto?.id)) {
         botao.classList.add("adicionado-ao-carrinho");
+        botao.ariaLabel = "Remover do " + tipo;
     }
 
     if (tipo === "carrinho" && produto.stock === 0) {
@@ -95,8 +97,10 @@ const atualizarBotoes = (produto, tipo) => {
         if (idItens.includes(produto?.id)) {
             const novaLista = idItens.filter((id) => id !== produto?.id);
             localStorage.setItem(tipo, JSON.stringify(novaLista));
+            botao.ariaLabel = "Adicionar ao " + tipo;
             return;
         }
+        botao.ariaLabel = "Remover do " + tipo;
         idItens.push(produto?.id);
         localStorage.setItem(tipo, JSON.stringify(idItens));
     });
@@ -255,11 +259,13 @@ const criarInputComentario = (produto) => {
     selectNota.id = "nota";
     const option = document.createElement("option");
     option.textContent = "0";
+    option.ariaLabel = "Nota 0"
     selectNota.append(option);
     for (let i = 0; i < 5; i++) {
         const option = document.createElement("option");
         option.textContent = "★".repeat(i+1);
         option.value = i + 1;
+        option.ariaLabel = "Nota " + Number(i + 1);
         selectNota.append(option);
     }
 
@@ -303,7 +309,7 @@ const gerarComentarios = (reviews) => {
 const criarComentarios = (produto) => {
     const comentarios = document.querySelector(".section-comentarios");
 
-    if (localStorage.getItem("estaLogado") !== "false") {
+    if ((localStorage.getItem("estaLogado") ?? "false") !== "false") {
         const inputComentario = criarInputComentario(produto);
         comentarios.append(inputComentario);
     }

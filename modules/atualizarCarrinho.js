@@ -41,6 +41,7 @@ const criarDivBotaoProdutoCarrinho = (produto) => {
     const botaoRemoverProdutoCarrinho = document.createElement("button");
     botaoRemoverProdutoCarrinho.classList.add("botao-remover");
     botaoRemoverProdutoCarrinho.textContent = "X";
+    botaoRemoverProdutoCarrinho.ariaLabel = "Remover produto do carrinho";
 
     botaoRemoverProdutoCarrinho.addEventListener("click", (e) => {
         const produtosNoCarrinho = JSON.parse(localStorage.getItem("carrinho")) ?? [];
@@ -53,6 +54,7 @@ const criarDivBotaoProdutoCarrinho = (produto) => {
         const botoesProdutoMenu = [...document.querySelectorAll(".botao-carrinho[data-id]")].filter((botao) => botao.dataset.id === produto.id.toString());
         botoesProdutoMenu.forEach((botao) => {
             botao.classList.remove("adicionado-ao-carrinho");
+            botao.ariaLabel = "Adicionar ao carrinho";
         })
 
         botaoRemoverProdutoCarrinho.parentElement.parentElement.remove();

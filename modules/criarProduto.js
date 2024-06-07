@@ -70,6 +70,7 @@ const criarBotaoCarrinho = (produto) => {
     const botaoCarrinho = document.createElement("button");
     botaoCarrinho.classList.add("botao-carrinho");
     botaoCarrinho.dataset.id = produto.id;
+    botaoCarrinho.ariaLabel = "Adicionar ao carrinho";
 
     if (produto.stock === 0) {
         botaoCarrinho.disabled = "true";
@@ -78,11 +79,11 @@ const criarBotaoCarrinho = (produto) => {
     const produtosNoCarrinho = JSON.parse(localStorage.getItem("carrinho")) ?? [];
     if (produtosNoCarrinho.includes(produto.id)) {
         botaoCarrinho.classList.add("adicionado-ao-carrinho");
+        botaoCarrinho.ariaLabel = "Remover do carrinho";
     }
 
     const imgCarrinho = document.createElement("img");
     imgCarrinho.src = "assets/icons/cart.svg";
-    imgCarrinho.alt = "Adicionar ao carrinho de compras";
 
     botaoCarrinho.append(imgCarrinho);
 
@@ -94,6 +95,7 @@ const criarBotaoCarrinho = (produto) => {
                 botoesProduto.forEach(botao => {
                     if (botao.dataset.id === produto.id.toString()) {
                         botao.classList.remove("adicionado-ao-carrinho");
+                        botao.ariaLabel = "Adicionar ao carrinho";
                     }
                 })
                 const produtosFiltrados = produtosNoCarrinho.filter((prod) => prod !== produto.id);
@@ -104,6 +106,7 @@ const criarBotaoCarrinho = (produto) => {
             botoesProduto.forEach(botao => {
                 if (botao.dataset.id === produto.id.toString()) {
                     botao.classList.add("adicionado-ao-carrinho");
+                    botao.ariaLabel = "Remover do carrinho";
                 }
             })
             localStorage.setItem("carrinho", JSON.stringify(produtosNoCarrinho));
@@ -117,16 +120,17 @@ const criarBotaoFavorito = (produto) => {
     const botaoFavorito = document.createElement("button");
     botaoFavorito.classList.add("botao-favorito");
     botaoFavorito.dataset.id = produto.id;
+    botaoFavorito.ariaLabel = "Adicionar ao favoritos";
 
     const itensFavoritos = JSON.parse(localStorage.getItem("favoritos")) ?? [];
     if (itensFavoritos.includes(produto.id)) {
         botaoFavorito.classList.add("adicionado-ao-carrinho")
+        botaoFavorito.ariaLabel = "Remover do favoritos";
     }
 
     
     const imgFavorito = document.createElement("img");
     imgFavorito.src = "assets/icons/favorite.svg";
-    imgFavorito.alt = "Adicionar aos favoritos";
     
     botaoFavorito.append(imgFavorito);
     
@@ -137,6 +141,7 @@ const criarBotaoFavorito = (produto) => {
             botoesFavoritos.forEach(botao => {
                 if (botao.dataset.id === produto.id.toString()) {
                     botao.classList.remove("adicionado-ao-carrinho");
+                    botao.ariaLabel = "Adicionar ao favoritos";
                 }
             })
             const produtosFiltrados = itensFavoritos.filter((prod) => prod !== produto.id);
@@ -147,6 +152,7 @@ const criarBotaoFavorito = (produto) => {
         botoesFavoritos.forEach(botao => {
             if (botao.dataset.id === produto.id.toString()) {
                 botao.classList.add("adicionado-ao-carrinho");
+                botao.ariaLabel = "Remover do favoritos"
             }
         })
         localStorage.setItem("favoritos", JSON.stringify(itensFavoritos));
