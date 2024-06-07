@@ -26,23 +26,23 @@ _Loja Loja: A Loja mais Loja de Todas_ é uma loja virtual em que é possível v
 
 ## Lista de Tarefas
 
-- [ ] Documentação
+- [x] Documentação
     - [x] Tutorial de como usar o git para desenvolver
     - [x] Requisitos
     - [x] Objetivos, descrição, linguagens utilizadas
     - [x] Ideias de produtos
     - [x] Formatação e convenções
-    - [ ] Documentação final (imagens, etc)
-- [ ] Design
-    - [ ] Escolha de paleta de cores
-    - [ ] Escolha de fontes
-    - [ ] Design UI/UX
-- [ ] Implementação
-    - [ ] Base HTML
-    - [ ] Estilização base CSS
-    - [ ] Código JavaScript
-    - [ ] JSON informações produtos
-- [ ] Testes
+    - [x] Documentação final (imagens, etc)
+- [x] Design
+    - [x] Escolha de paleta de cores
+    - [x] Escolha de fontes
+    - [x] Design UI/UX
+- [x] Implementação
+    - [x] Base HTML
+    - [x] Estilização base CSS
+    - [x] Código JavaScript
+    - [x] JSON informações produtos
+- [x] Testes
 
 ## Desenvolvimento
 
@@ -87,14 +87,6 @@ git add .
 git commit -m "Mensagem descrevendo as alterações"
 ```
 
-Após as alterações serem concluídas, você deve voltar para a branch principal, fazer um pull para caso o repositório remoto tenha sido alterado e fazer um merge com a branch dev.
-
-```
-git checkout main
-git pull origin main
-git merge dev
-```
-
 Depois é necessário apenas enviar para o repositório remoto. Caso você já esteja conectado entre o git e o github, você deve executar o primeiro código, se não, o segundo.
 
 1.
@@ -115,20 +107,18 @@ Esta seção mostra as funcionalidades que o site precisa ter.
 ### Requisitos Funcionais
 
 * [rf1] - Página inicial com produtos à venda
-* [rf2] - Header com nome do site, barra de pesquisa, link para conta do usuário, link para a página de lista de desejos e botão para vizualizar o carrinho
+* [rf2] - Header com nome do site, barra de pesquisa, link para conta do usuário e botão para vizualizar o carrinho
 * [rf3] - Sidebar com produtos do carrinho que pode ser aberta e fechada. Os itens do carrinho são adicionados no Local Storage, permanecendo após fechar a página
 * [rf4] - Produtos terem:
     * Nome
     * Descrição
-    * Descrição da imagem do produto
     * ID
     * Categorias
     * Preço
-    * Estado de estar favoritado
-    * Estado de estar no carrinho
-    * Estado de estoque; URL de imagens
-    * Nota do produto;
-* [rf5] - Pesquisa de produtos, aparecendo algum que tenha nome, descrição  ou categoria condizente com o pesquisado
+    * Unidades em estoque
+    * URL de imagens
+    * Nota do produto
+* [rf5] - Pesquisa de produtos, aparecendo algum que tenha nome ou descrição condizente com o pesquisado
 * [rf6] - Exibição de itens na página principal, divido por categorias, mostrando:
     * Nome do produto
     * Parte da descrição
@@ -176,9 +166,7 @@ O objetivo do projeto é criar uma loja virtual não funcional. Porém deve ter 
 * Fontes:
     * Henny Penny
     * Quite Magical
-    * Outras possibilidades:
-        * https://fonts.google.com/specimen/Srisakdi?classification=Display&preview.text=Loja%20Loja
-        * https://fonts.google.com/specimen/Style+Script?classification=Display&preview.text=Loja%20Loja
+    * Franklin Gothic Medium
 
 ## Ideias de Produtos
 
@@ -229,3 +217,7 @@ Por padrão, os códigos do projeto devem seguir:
     * Variáveis declaradas apenas com `let` e `const`
 
 ## Imagens
+
+![Imagem página inicial do site Loja Loja](assets/examples/example1.png)
+![Imagem produtos na página inicial do site Loja Loja](assets/examples/example2.png)
+![Imagem carrinho do site Loja Loja](assets/examples/example3.png)
