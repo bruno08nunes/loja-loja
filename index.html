@@ -9,6 +9,12 @@
 
     <title>Loja Loja</title>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+    <link
+        rel="preload"
+        href="assets/fonts/HennyPenny-Regular.ttf"
+        as="font"
+        type="font/ttf"
+        crossorigin />
 </head>
 <body>
     <section class="section-hero">
@@ -30,7 +36,7 @@
     </header>
     <nav class="nav-carrinho">
         <button>
-            <img src="assets/icons/cart.svg" alt="Carrinho">
+            <img src="assets/icons/cart.svg" alt="Carrinho" loading="eager" fetchpriority="high">
         </button>
     </nav>
     <main class="main-home">

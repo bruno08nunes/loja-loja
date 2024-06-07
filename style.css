@@ -15,6 +15,11 @@
     src: url("assets/fonts/QuiteMagicalRegular-8VA2.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "Henny-Penny";
+    src: url("assets/fonts/HennyPenny-Regular.ttf") format("truetype");
+}
+
 /* Resets */
 * {
     margin: 0;
@@ -30,7 +35,7 @@
     --azul: #5d90b5;
     --preto: #242424;
 
-    --fonte-principal: "Henny Penny", "QuiteMagical";
+    --fonte-principal: "Henny-Penny", "Henny Penny", "QuiteMagical";
 }
 
 /* Hero */
