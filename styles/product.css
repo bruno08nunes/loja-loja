@@ -46,7 +46,7 @@
 }
 
 .nome-pagina-produto {
-    font-size: 4em;
+    font-size: clamp(2em, 5vw, 4em);
 }
 
 .descricao-pagina-produto {
@@ -110,11 +110,12 @@
         flex: 1;
     }
     .selecionar-nota {
-        font-size: 1.3em;
+        font-size: 1.8em;
         text-align: center;
         border: none;
         border-bottom: 2px solid var(--verde);
         outline: none;
+        color: rgba(0, 0, 0, 0.445);
         &:focus-visible {
             border-bottom: 4px solid var(--rosa-escuro);
         }
@@ -122,10 +123,11 @@
             color: var(--rosa-escuro);
         }
         &:has(option[value]:checked) {
+            -webkit-text-stroke: 1px black;
             color: var(--rosa-escuro);
         }
         & option:not([value]) {
-            color: black;
+            color: rgba(0, 0, 0, 0.445);
         }
     }
     & input {
@@ -136,6 +138,7 @@
         flex: 1;
         &:focus {
             outline: none;
+            border-bottom: 2px solid var(--rosa-escuro);
         }
     }
     & button {

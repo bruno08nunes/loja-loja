@@ -62,7 +62,7 @@
     gap: 30px;
 
     color: white;
-    font-size: 2em;
+    font-size: clamp(1.4em, 5vw, 2em);
     font-family: var(--fonte-principal), fantasy, Arial;
     text-transform: capitalize;
 
@@ -73,7 +73,7 @@
     }
 
     & h1 {
-        font-size: 3em;
+        font-size: clamp(2em, 5vw, 3em);
 
         animation-name: aparecer, cor-degrade;
         animation-duration: 0.5s, 1.5s;
@@ -390,7 +390,7 @@ button.adicionado-ao-carrinho {
     flex-direction: column;
     padding: 30px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 1.3em;
+    font-size: 1.25em;
 }
 
 .div-footer {
@@ -450,4 +450,5 @@ button.adicionado-ao-carrinho {
     padding-bottom: 0;
     font-size: 1.4em;
     font-style: italic;
+    text-wrap: nowrap;
 }

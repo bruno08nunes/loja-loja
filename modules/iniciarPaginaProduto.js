@@ -249,7 +249,7 @@ const criarInputComentario = () => {
     selectNota.name = "nota";
     selectNota.id = "nota";
     const option = document.createElement("option");
-    option.textContent = "Avalie";
+    option.textContent = "0";
     selectNota.append(option);
     for (let i = 0; i < 5; i++) {
         const option = document.createElement("option");

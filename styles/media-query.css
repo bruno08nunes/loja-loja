@@ -3,3 +3,85 @@
         flex-basis: 300px !important;
     }
 }
+
+@media screen and (width < 992px) {
+    .produto {
+        flex-basis: 300px !important;
+    }
+    .div-footer {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px !important;
+    }
+}
+
+@media screen and (width < 768px) {
+    .produto {
+        font-size: 0.95em !important;
+        flex-basis: 210px !important;
+    }
+    .container-produto {
+        flex-direction: column;
+        align-items: center;
+        text-wrap: pretty;
+    }
+    .div-comentar {
+        .selecionar-nota {
+            font-size: 1.6em !important;
+        }
+        & input {
+            font-size: 1em !important;
+        }
+        & button {
+            font-size: 1.1em !important;
+        }
+    }
+    .main-form-product {
+        padding: 0;
+        padding-top: 15px;
+    }
+    
+    .div-inputs {
+        flex-direction: column;
+    }
+}
+
+@media screen and (width < 576px) {
+    .cabecalho-principal {
+        & .div-cabeçalho {
+            justify-content: space-around;
+        }
+        & .pesquisa-principal {
+            display: none;
+        }
+    }
+    .produto {
+        font-size: 1.1em !important;
+        flex-basis: 300px !important;
+    }
+    .div-comentar {
+        & img {
+            display: none;
+        }
+        & form {
+            flex-wrap: wrap;
+        }
+        .selecionar-nota {
+            width: 100%;
+            font-size: 1.8em !important;
+            max-width: 100%;
+        }
+        & input {
+            font-size: 1.3em !important;
+            max-width: 100%;
+        }
+    }
+    .div-account {
+        flex-direction: column;
+    }
+
+    .main-login {
+        padding: 0;
+        padding-top: 15px;
+    }
+}
