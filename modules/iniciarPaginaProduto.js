@@ -227,7 +227,7 @@ const criarInputComentario = () => {
         const dia = hoje.getDate();
         const infomacoes = {
             reviewerName: JSON.parse(localStorage.getItem("informacoesConta"))[0][1] ?? "Anônimo",
-            rating: 5,
+            rating: form.elements["nota"].value,
             comment: form.elements["comentar"].value,
             date: `${ano}-${mes}-${dia}`
         }
@@ -244,15 +244,30 @@ const criarInputComentario = () => {
         comentarios.append(comentario);
     })
 
+    const selectNota = document.createElement("select");
+    selectNota.classList.add("selecionar-nota")
+    selectNota.name = "nota";
+    selectNota.id = "nota";
+    const option = document.createElement("option");
+    option.textContent = "Avalie";
+    selectNota.append(option);
+    for (let i = 0; i < 5; i++) {
+        const option = document.createElement("option");
+        option.textContent = "★".repeat(i+1);
+        option.value = i + 1;
+        selectNota.append(option);
+    }
+
     const inputComentar = document.createElement("input");
     inputComentar.name = "comentar";
     inputComentar.id = "comentar";
     inputComentar.placeholder = "Adicione um comentário...";
+    inputComentar.required = "true";
 
     const botao = document.createElement("button");
     botao.textContent = "Comentar";
 
-    form.append(inputComentar, botao);
+    form.append(selectNota, inputComentar, botao);
     divComentar.append(imagem, form);
 
     return divComentar;

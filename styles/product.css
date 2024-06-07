@@ -109,6 +109,25 @@
         gap: 10px;
         flex: 1;
     }
+    .selecionar-nota {
+        font-size: 1.3em;
+        text-align: center;
+        border: none;
+        border-bottom: 2px solid var(--verde);
+        outline: none;
+        &:focus-visible {
+            border-bottom: 4px solid var(--rosa-escuro);
+        }
+        & option[value] {
+            color: var(--rosa-escuro);
+        }
+        &:has(option[value]:checked) {
+            color: var(--rosa-escuro);
+        }
+        & option:not([value]) {
+            color: black;
+        }
+    }
     & input {
         border: none;
         border-bottom: 1px solid rgba(0, 0, 0, 0.514);
