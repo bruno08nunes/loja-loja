@@ -9,6 +9,9 @@ const atualizarImagemProduto = (produto) => {
     const imagem = document.querySelector(".imagem-pagina-produto");
     imagem.src = "assets/products/" + produto?.image;
     imagem.alt = "Imagem de " + (produto?.name ?? "Produto Desconhecido");
+    if (produto.stock === 0) {
+        imagem.classList.add("esgotado");
+    }
 };
 
 const atualizarNomeProduto = (produto) => {
@@ -79,6 +82,11 @@ const atualizarBotoes = (produto, tipo) => {
     const idItens = JSON.parse(localStorage.getItem(tipo)) ?? [];
     if (idItens.includes(produto?.id)) {
         botao.classList.add("adicionado-ao-carrinho");
+    }
+
+    if (tipo === "carrinho" && produto.stock === 0) {
+        botao.disabled = true;
+        return;
     }
 
     botao.addEventListener("click", () => {

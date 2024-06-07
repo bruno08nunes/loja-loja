@@ -71,6 +71,10 @@ const criarBotaoCarrinho = (produto) => {
     botaoCarrinho.classList.add("botao-carrinho");
     botaoCarrinho.dataset.id = produto.id;
 
+    if (produto.stock === 0) {
+        botaoCarrinho.disabled = "true";
+    }
+
     const produtosNoCarrinho = JSON.parse(localStorage.getItem("carrinho")) ?? [];
     if (produtosNoCarrinho.includes(produto.id)) {
         botaoCarrinho.classList.add("adicionado-ao-carrinho");
@@ -85,23 +89,25 @@ const criarBotaoCarrinho = (produto) => {
     botaoCarrinho.addEventListener("click", (e) => {
         const produtosNoCarrinho = JSON.parse(localStorage.getItem("carrinho")) ?? [];
         const botoesProduto = document.querySelectorAll(".botao-carrinho[data-id]");
-        if (produtosNoCarrinho.includes(produto.id)) {
+        if (produto.stock !== 0) {
+            if (produtosNoCarrinho.includes(produto.id)) {
+                botoesProduto.forEach(botao => {
+                    if (botao.dataset.id === produto.id.toString()) {
+                        botao.classList.remove("adicionado-ao-carrinho");
+                    }
+                })
+                const produtosFiltrados = produtosNoCarrinho.filter((prod) => prod !== produto.id);
+                localStorage.setItem("carrinho", JSON.stringify(produtosFiltrados));
+                return;
+            }
+            produtosNoCarrinho.push(produto.id);
             botoesProduto.forEach(botao => {
                 if (botao.dataset.id === produto.id.toString()) {
-                    botao.classList.remove("adicionado-ao-carrinho");
+                    botao.classList.add("adicionado-ao-carrinho");
                 }
             })
-            const produtosFiltrados = produtosNoCarrinho.filter((prod) => prod !== produto.id);
-            localStorage.setItem("carrinho", JSON.stringify(produtosFiltrados));
-            return;
+            localStorage.setItem("carrinho", JSON.stringify(produtosNoCarrinho));
         }
-        produtosNoCarrinho.push(produto.id);
-        botoesProduto.forEach(botao => {
-            if (botao.dataset.id === produto.id.toString()) {
-                botao.classList.add("adicionado-ao-carrinho");
-            }
-        })
-        localStorage.setItem("carrinho", JSON.stringify(produtosNoCarrinho));
     })
 
     return botaoCarrinho;

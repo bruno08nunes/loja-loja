@@ -15,6 +15,23 @@
     max-width: 1000px;
 }
 
+.container-produto:has(img.esgotado) {
+    position: relative;
+    & img {
+        filter: grayscale(100%);
+    }
+    &::after {
+        content: "Esgotado";
+        background-color: red;
+        color: white;
+        position: absolute;
+        padding: 5px;
+        rotate: -50deg;
+        left: -30px;
+        top: 10px;
+    }
+}
+
 .div-dados-produto {
     display: flex;
     flex-direction: column;
