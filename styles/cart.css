@@ -6,6 +6,9 @@
     background-color: rgba(0, 0, 0, 0.445);
     z-index: 4;
     display: none;
+    transition: 0.4s;
+    transition-behavior: allow-discrete;
+    opacity: 0;
 }
 
 .sidebar-carrinho {
@@ -20,9 +23,12 @@
     display: none;
     flex-direction: column;
     gap: 15px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
     z-index: 5;
     overflow: auto;
+    opacity: 0;
+    transition: display 0.4s ease-in-out;
+    transition-behavior: allow-discrete;
 }
 
 .titulo-carrinho {
@@ -43,12 +49,16 @@
     background-color: color-mix(in srgb, var(--fundo), black 10%);
     padding: 10px;
     border-radius: 50px;
-    color: black;
-    text-decoration: none;
-    transition: .4s;
 }
 
-.produto-carrinho:hover {
+.produto-carrinho a {
+    color: black;
+    text-decoration: none;
+    transition: 0.4s;
+    background-color: transparent;
+}
+
+.produto-carrinho:has(a:hover) {
     background-color: var(--verde);
 }
 
@@ -75,7 +85,8 @@
     font-size: 1.2em;
 }
 
-.botao-remover, .titulo-carrinho button {
+.botao-remover,
+.titulo-carrinho button {
     font-size: 1.7em;
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.605);
@@ -91,6 +102,11 @@
 
 .open {
     display: flex;
+    opacity: 1;
+
+    @starting-style {
+        opacity: 0;
+    }
 }
 
 .carrinho-vazio-mensagem {

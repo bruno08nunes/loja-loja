@@ -70,11 +70,13 @@ const criarDivBotaoProdutoCarrinho = (produto) => {
 }
 
 const criarDivProdutoCarrinho = (produto) => {
-    const divProduto = document.createElement("a");
+    const divProduto = document.createElement("div");
     divProduto.classList.add("produto-carrinho");
-    divProduto.href = location.href;
-    divProduto.pathname = "pages/product.html";
-    divProduto.search = "produto=" + produto.id;
+    const aProduto = document.createElement("a");
+    aProduto.classList.add("produto-carrinho")
+    aProduto.href = location.href;
+    aProduto.pathname = "pages/product.html";
+    aProduto.search = "produto=" + produto.id;
 
     const img = criarImagemProdutoCarrinho(produto);
 
@@ -82,7 +84,8 @@ const criarDivProdutoCarrinho = (produto) => {
 
     const divBotaoProdutoCarrinho = criarDivBotaoProdutoCarrinho(produto);
 
-    divProduto.append(img, informacoesCarrinho, divBotaoProdutoCarrinho);
+    aProduto.append(img, informacoesCarrinho)
+    divProduto.append(aProduto, divBotaoProdutoCarrinho);
     return divProduto;
 }
 
