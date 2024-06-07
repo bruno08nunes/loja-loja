@@ -17,6 +17,15 @@ Esta é a documentação da loja virtual _Loja Loja: A Loja mais Loja de Todas_.
 1. [Linguagens Utilizadas](#linguagens-utilizadas)
 1. [Design](#design)
 1. [Ideias de Produtos](#ideias-de-produtos)
+1. [Explicação do Código](#explicação-do-código)
+    1. [HTML](#html)
+    1. [CSS](#css)
+    1. [JavaScript](#javascript)
+    1. [db.json](#dbjson)
+    1. [README.md](#readmemd)
+    1. [Licença](#license)
+    1. [Prettier](#prettierrc)
+    1. [Assets](#assets)
 1. [Formatação e Convenções](#formatação-e-convenções)
 1. [Imagens](#imagens)
 
@@ -197,6 +206,60 @@ O objetivo do projeto é criar uma loja virtual não funcional. Porém deve ter 
 * Micro-onda (onda, não aparelho)
 * Ansiedade
 * Letra do alfabeto árabe
+
+## Explicação do Código
+
+### HTML
+
+Há cinco páginas html, cada uma com uma funcionalidade. Elas estão dentro da pasta pages. Elas são:
+* Index - página principal, que mostra os produtos que podem ser comprados. Não está na pasta pages;
+* Form-account - página de login, acessada através do header;
+* Account - página da conta, acessada através do header após logar;
+* Product - página que mostra um produto de forma individual, com todas as informações e comentários; 
+* Form-product - página de formulário para compra de itens. Acessível através do carrinho, caso haja produtos.
+
+Todas as páginas possuem o mesmo cabeçalho, mesmo footer e mesmo carrinho, mudando apenas o main de cada parte e o hero na página principal
+
+### CSS
+
+O código css da página principal está no style.css, contendo também as partes de footer e header. As demais estão em arquivos dentro da pasta style, que contém o mesmo nome do css. Eles ainda seguem o style.css como base, sendo importados nessa folha de estilo.
+
+Também há os arquivos cart.css para o carrinho e o media-query.css para responsividade de todo o site. Ambos são importados no style.css.
+
+### JavaScript
+
+O código é separado em diversos módulos, que apararecem na pasta módulos. Há um para a inicialização de cada página, que pode alterar a página com base em dados vindo do local storage ou de um json.
+
+São separados também em criarProduto, que é usado na página principal e na conta e atualizarCarrinho que é usado em todas as páginas.
+
+No arquivo principal (script.js) é feita uma requisição para um json com os dados do produto e funcionalidades para o header e footer.
+
+### db.json
+
+Arquivo com as informações de cada produto
+
+### README.md
+
+Documentação do projeto
+
+### LICENSE
+
+Licença de copyright do site
+
+### .prettierrc
+
+Arquivo com estilização padrão do site, usado em conjunto com a extensão presente no Visual Studio Code e outras IDEs: Prettier.
+
+### assets
+
+Pasta que contém as imagens, vídeos e fontes usadas. Separada em
+* fonts - Fontes
+* examples - Prints do site para documentação 
+* products - imagem dos produtos
+* icons - ícones como carrinho, coração, conta, entre outros
+* background.svg - Fundo do hero do index
+* favicon.png - Imagem favicon do site
+* logo.png - Logo que aparece no header
 
 ## Formatação e Convenções
 
