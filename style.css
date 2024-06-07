@@ -374,3 +374,73 @@ button.adicionado-ao-carrinho {
     scale: 0.9;
     filter: grayscale(70%);
 }
+
+/* Footer */
+
+.footer {
+    background-color: var(--verde);
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.3em;
+}
+
+.div-footer {
+    display: flex;
+    gap: 20px;
+    & > * {
+        flex: 1;
+    }
+}
+
+.form-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-footer > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-footer input {
+    padding: 5px;
+    font-size: 0.8em;
+    max-width: 400px;
+}
+
+.form-footer button {
+    max-width: 400px;
+    border: 3px solid var(--azul);
+    background-color: transparent;
+    padding: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.4s;
+    &:hover {
+        background-color: var(--azul);
+    }
+}
+
+.informacoes-criadores ul {
+    display: flex;
+    flex-direction: column;
+    list-style-position: inside;
+    padding: 15px;
+    gap: 10px;
+    font-size: 1.3em;
+    & li {
+        padding: 5px;
+    }
+}
+
+.copyright {
+    text-align: center;
+    padding: 30px;
+    padding-bottom: 0;
+    font-size: 1.4em;
+    font-style: italic;
+}

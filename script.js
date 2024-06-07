@@ -11,6 +11,7 @@ const botaoToggleCarrinho = document.querySelector(".nav-carrinho button");
 const sidebarCarrinho = document.querySelector(".sidebar-carrinho");
 const botaoFecharCarrinho = document.querySelector(".titulo-carrinho button");
 const backdrop = document.querySelector(".backdrop");
+const footer = document.querySelector(".footer");
 
 // Inicialização e Eventos
 botaoFecharCarrinho.addEventListener("click", (e) => {
@@ -48,3 +49,19 @@ fetch("db.json")
             backdrop.classList.toggle("open");
         });
     });
+
+if (footer) {
+    const form = footer.querySelector(".form-footer");
+    const mensagem = document.createElement("p");
+    mensagem.textContent = "Email cadastrado com sucesso";
+    mensagem.classList.add("mensagem-compra-finalizada");
+    
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        document.body.append(mensagem);
+        setTimeout(() => {
+            mensagem.remove();
+        }, 3000)
+    });
+
+}
