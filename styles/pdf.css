@@ -1,0 +1,111 @@
+.header-pdf {
+    display: flex;
+    font-size: 1.2em;
+    font-family: "Times New Roman", Times, serif;
+    gap: 15px;
+    background-color: var(--verde);
+    padding: 10px;
+    & img {
+        max-width: 200px;
+    }
+    & h2 {
+        font-size: 2.5em;
+        font-family: var(--fonte-principal);
+        color: var(--rosa-escuro);
+    }
+    & .cidade::before {
+        content: "Cidade: ";
+        font-weight: bold;
+    }
+    & .contatos-pdf::before {
+        content: "Contatos: ";
+        font-weight: bold;
+    }
+}
+
+.info-header-pdf {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hr-pdf {
+    margin-top: 15px;
+}
+
+.main-pdf {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    font-size: 1.2em;
+}
+
+.dados-conta-pdf {
+    display: flex;
+    gap: 30px;
+}
+
+.nome-conta-pdf::before {
+    content: "Nome: ";
+    font-weight: bold;
+}
+
+.email-conta-pdf::before {
+    content: "Email: ";
+    font-weight: bold;
+}
+
+.cpf-conta-pdf::before {
+    content: "CPF: ";
+    font-weight: bold;
+}
+
+.numero-casa-conta-pdf::before {
+    content: "Número da Residência: ";
+    font-weight: bold;
+}
+
+.rua-conta-pdf::before {
+    content: "Rua: ";
+    font-weight: bold;
+}
+
+.bairro-conta-pdf::before {
+    content: "Bairro: ";
+    font-weight: bold;
+}
+
+.cidade-conta-pdf::before {
+    content: "Cidade: ";
+    font-weight: bold;
+}
+
+.estado-conta-pdf::before {
+    content: "Estado: ";
+    font-weight: bold;
+}
+
+.nome-produto-pdf::before {
+    content: "Produto: ";
+    font-weight: bold;
+}
+
+.preco-normal-produto-pdf::before {
+    content: "Preço: ";
+    font-weight: bold;
+}
+
+.preco-produto-pdf::before {
+    content: "Preço com Desconto: ";
+    font-weight: bold;
+}
+
+.quantidade-produto-pdf::before {
+    content: "Quantidade: ";
+    font-weight: bold;
+}
+
+.footer-pdf {
+    padding: 15px;
+}

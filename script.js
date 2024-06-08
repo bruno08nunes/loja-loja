@@ -41,7 +41,7 @@ fetch("db.json")
             iniciarPaginaProduto(dados);
         }
         if (document.title === "Finalizar Compra - Loja Loja") {
-            iniciarPaginaFinalizarCompra();
+            iniciarPaginaFinalizarCompra(dados);
         }
 
         botaoToggleCarrinho.addEventListener("click", (e) => {

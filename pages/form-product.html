@@ -6,6 +6,7 @@
     <base href="../">
 
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="script.js" type="module"></script>
 
     <title>Finalizar Compra - Loja Loja</title>
@@ -66,9 +67,15 @@
                 <label for="cpf">CPF:</label>
                 <input type="text" name="cpf" id="cpf" required placeholder="xxxxxxxxxxx" maxlength="11">
             </div>
-            <div class="div-input">
-                <label for="cep">CEP:</label>
-                <input type="text" name="cep" id="cep" required placeholder="xxxxx-xxx" maxlength="9">
+            <div class="div-inputs">
+                <div class="div-input">
+                    <label for="cep">CEP:</label>
+                    <input type="text" name="cep" id="cep" required placeholder="xxxxx-xxx" maxlength="9">
+                </div>
+                <div class="div-input">
+                    <label for="numero-casa">Número da Residência:</label>
+                    <input type="text" id="numero-casa" name="numero-casa" required placeholder="N° da Residência">
+                </div>
             </div>
             <div class="div-botao-envio">
                 <button type="submit">Confirmar Pedido</button>

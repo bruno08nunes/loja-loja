@@ -131,7 +131,7 @@ const criarData = (review) => {
     elementoData.classList.add("data-comentario");
 
     const anoReview = review.date.split("-")[0].padStart(2, 0);
-    const mesReview = (Number(review.date.split("-")[1]) + 1).toString().padStart(2, 0);
+    const mesReview = (Number(review.date.split("-")[1])).toString().padStart(2, 0);
     const diaReview = review.date.split("-")[2].padStart(2, 0);
 
     elementoData.textContent = `${diaReview}/${mesReview}/${anoReview}`;
@@ -227,7 +227,7 @@ const criarInputComentario = (produto) => {
 
         const hoje = new Date();
         const ano = hoje.getFullYear();
-        const mes = hoje.getMonth();
+        const mes = hoje.getMonth() + 1;
         const dia = hoje.getDate();
         const infomacoes = {
             reviewerName: JSON.parse(localStorage.getItem("informacoesConta"))[0][1] ?? "Anônimo",
