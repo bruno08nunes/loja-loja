@@ -218,7 +218,7 @@ const redirecionar = () => {
 };
 
 const iniciarPaginaFinalizarCompra = (dados) => {
-    const estaLogado = localStorage.getItem("estaLogado");
+    const estaLogado = localStorage.getItem("estaLogado") ?? "false";
     if (estaLogado === "false") {
         location.pathname = "loja-loja/pages/form-account.html";
     }
