@@ -165,7 +165,7 @@ const gerarPDF = async (itensCarrinhos, dados, infoFormulario) => {
         pPrecoNormal.classList.add("preco-normal-produto-pdf");
 
         const pPreco = document.createElement("p");
-        pPreco.textContent = "R$" + item.promotionalPrice ?? item.price;
+        pPreco.textContent = "R$" + (item.promotionalPrice ?? item.price);
         pPreco.classList.add("preco-produto-pdf");
 
         const pQuantidade = document.createElement("p");
