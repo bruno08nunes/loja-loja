@@ -251,6 +251,8 @@ const criarInputComentario = (produto) => {
 
         comentario.append(dadosComentario, avaliacaoComentario, pMensagem);
         comentarios.append(comentario);
+
+        form.reset();
     })
 
     const selectNota = document.createElement("select");
