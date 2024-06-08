@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 /* Importações */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Sedan+SC&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap");
 @import url(styles/cart.css);
 @import url(styles/account.css);
@@ -212,6 +213,10 @@
 
 /* Produtos */
 
+body {
+    background-image: url(assets/fundo-site.png);
+}
+
 .section-categoria, .section-pesquisa {
     padding: 15px 30px;
     display: flex;
@@ -227,7 +232,18 @@
 .nome-categoria {
     font-weight: normal;
     padding-bottom: 5px;
+    background-color: var(--rosa-escuro);
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+    font-family: "Sedan SC", serif;
+    padding: 10px;
     border-bottom: 1px solid black;
+    width: fit-content;
+    box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.386);
+    border: none;
+    text-align: center;
 }
 
 .div-produtos {
