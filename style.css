@@ -388,14 +388,14 @@ button.adicionado-ao-carrinho {
     background-color: var(--verde);
     display: flex;
     flex-direction: column;
-    padding: 30px;
+    padding: 20px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 1.25em;
+    font-size: 1em;
 }
 
 .div-footer {
     display: flex;
-    gap: 20px;
+    gap: 10px;
     & > * {
         flex: 1;
     }
@@ -404,23 +404,23 @@ button.adicionado-ao-carrinho {
 .form-footer {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 .form-footer > div {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
 }
 
 .form-footer input {
     padding: 5px;
     font-size: 0.8em;
-    max-width: 400px;
+    max-width: 300px;
 }
 
 .form-footer button {
-    max-width: 400px;
+    max-width: 330px;
     border: 3px solid var(--azul);
     background-color: transparent;
     padding: 10px;
@@ -437,18 +437,23 @@ button.adicionado-ao-carrinho {
     flex-direction: column;
     list-style-position: inside;
     padding: 15px;
-    gap: 10px;
-    font-size: 1.3em;
+    gap: 8px;
+    border-radius: 20px;
+    font-size: 1.2em;
     & li {
         padding: 5px;
     }
+}
+
+.informacoes-criadores a {
+    color: #086408;
 }
 
 .copyright {
     text-align: center;
     padding: 30px;
     padding-bottom: 0;
-    font-size: 1.4em;
+    font-size: 1.2em;
     font-style: italic;
     text-wrap: nowrap;
 }
