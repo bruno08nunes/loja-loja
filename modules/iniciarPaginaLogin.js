@@ -22,11 +22,8 @@ const iniciarPaginaLogin = () => {
     }
 
     const estaLogado = localStorage.getItem("estaLogado") === "true";
-    if (estaLogado && location.hostname === "bruno08nunes.github.io") {
-        location.pathname = "loja-loja/pages/account.html";
-    }
     if (estaLogado) {
-        location.pathname = "pages/account.html";
+        location.pathname = "loja-loja/pages/account.html";
     }
 
     const form = document.querySelector("form");
@@ -35,10 +32,7 @@ const iniciarPaginaLogin = () => {
         const formData = new FormData(form);
         localStorage.setItem("estaLogado", "true");
         localStorage.setItem("informacoesConta", JSON.stringify([...formData]));
-        if (location.hostname === "bruno08nunes.github.io") {
-            location.pathname = "loja-loja/pages/account.html";
-        }
-        location.pathname = "pages/account.html";
+        location.pathname = "loja-loja/pages/account.html";
     });
 };
 

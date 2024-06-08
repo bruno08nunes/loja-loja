@@ -77,7 +77,7 @@ const criarDivProdutoCarrinho = (produto) => {
     const aProduto = document.createElement("a");
     aProduto.classList.add("produto-carrinho")
     aProduto.href = location.href;
-    aProduto.pathname = "pages/product.html";
+    aProduto.pathname = "loja-loja/pages/product.html";
     aProduto.search = "produto=" + produto.id;
 
     const img = criarImagemProdutoCarrinho(produto);
@@ -101,7 +101,7 @@ const criarParagrafoPrecoTotal = () => {
 const criarBotaoCompra = () => {
     const botaoComprar = document.createElement("a");
     botaoComprar.href = location.href;
-    botaoComprar.pathname = "pages/form-product.html";
+    botaoComprar.pathname = "loja-loja/pages/form-product.html";
     botaoComprar.classList.add("botao-comprar");
     botaoComprar.textContent = "Fazer Pedido";
     

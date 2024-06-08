@@ -213,14 +213,14 @@ const gerarPDF = async (itensCarrinhos, dados, infoFormulario) => {
 
 const redirecionar = () => {
     setTimeout(() => {
-        location.pathname = "";
+        location.pathname = "loja-loja";
     }, 5000);
 };
 
 const iniciarPaginaFinalizarCompra = (dados) => {
     const estaLogado = localStorage.getItem("estaLogado");
     if (estaLogado === "false") {
-        location.pathname = "pages/form-account.html";
+        location.pathname = "loja-loja/pages/form-account.html";
     }
 
     adicionarInformacoesFormulario();
