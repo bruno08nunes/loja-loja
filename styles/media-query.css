@@ -9,8 +9,8 @@
         flex-basis: 300px !important;
     }
     .div-footer {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: column !important;
+        align-items: center !important;
         gap: 30px !important;
     }
 }
@@ -21,9 +21,9 @@
         flex-basis: 210px !important;
     }
     .container-produto {
-        flex-direction: column;
-        align-items: center;
-        text-wrap: pretty;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-wrap: pretty !important;
     }
     .div-comentar {
         .selecionar-nota {
@@ -37,22 +37,22 @@
         }
     }
     .main-form-product {
-        padding: 0;
-        padding-top: 15px;
+        padding: 0 !important;
+        padding-top: 15px !important;
     }
     
     .div-inputs {
-        flex-direction: column;
+        flex-direction: column !important;
     }
 }
 
 @media screen and (width < 576px) {
     .cabecalho-principal {
         & .div-cabeçalho {
-            justify-content: space-around;
+            justify-content: space-around !important;
         }
         & .pesquisa-principal {
-            display: none;
+            display: none !important;
         }
     }
     .produto {
@@ -61,27 +61,27 @@
     }
     .div-comentar {
         & img {
-            display: none;
+            display: none !important;
         }
         & form {
-            flex-wrap: wrap;
+            flex-wrap: wrap !important;
         }
         .selecionar-nota {
-            width: 100%;
+            width: 100% !important;
             font-size: 1.8em !important;
-            max-width: 100%;
+            max-width: 100% !important;
         }
         & input {
             font-size: 1.3em !important;
-            max-width: 100%;
+            max-width: 100% !important;
         }
     }
     .div-account {
-        flex-direction: column;
+        flex-direction: column !important;
     }
 
     .main-login {
-        padding: 0;
-        padding-top: 15px;
+        padding: 0 !important;
+        padding-top: 15px !important;
     }
 }

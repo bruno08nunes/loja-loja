@@ -29,6 +29,11 @@
     border-radius: 5px;
     font-size: 1.1em;
     padding: 5px;
+    &:user-invalid {
+        outline: 2px solid red;
+        color: red;
+        caret-color: red;
+    }
 }
 
 .div-button-login {

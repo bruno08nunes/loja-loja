@@ -365,7 +365,7 @@ body {
 .botoes-produto {
     padding: 10px;
     display: flex;
-    gap: 10px;
+    gap: 15px;
     justify-content: flex-end;
 }
 
@@ -378,6 +378,9 @@ body {
     border-radius: 10px;
     &:hover {
         scale: 1.3;
+    }
+    &:active {
+        scale: 1.5;
     }
 }
 

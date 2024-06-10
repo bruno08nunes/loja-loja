@@ -47,6 +47,7 @@
 
 .nome-pagina-produto {
     font-size: clamp(2em, 5vw, 4em);
+    font-weight: normal;
 }
 
 .descricao-pagina-produto {
