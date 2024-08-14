@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+
+    <meta name="description" content="Loja Loja: A Loja Mais Loja de Todas é uma loja virtual, que vende os produtos mais variados no melhor preço possível.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bruno08nunes.github.io/loja-loja">
+    <meta property="og:title" content="Loja Loja">
+    <meta property="og:image" content="https://bruno08nunes.github.io/loja-loja/logo.png">
+    <meta property="og:description" content="Loja Loja: A Loja Mais Loja de Todas. Uma loja virtual, que vende os produtos mais variados no melhor preço possível.">
+    <meta property="og:site_name" content="Loja Loja">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:image:width" content="619">
+    <meta property="og:image:height" content="496">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="https://bruno08nunes.github.io/loja-loja">
+    <meta name="twitter:title" content="Loja Loja">
+    <meta name="twitter:description" content="Loja Loja: A Loja Mais Loja de Todas. Uma loja virtual, que vende os produtos mais variados no melhor preço possível.">
+    <meta name="twitter:image" content="https://bruno08nunes.github.io/loja-loja/logo.png">
+
+    <meta name="theme-color" content="#f205c7">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" type="module"></script>
+
+    <title>Logar - Loja Loja</title>
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+</head>
+<body>
+    <header class="cabecalho-principal">
+        <div class="div-cabeçalho">
+            <a href="index.html"><img src="assets/logo.png" alt="" class="logo"></a>
+            <search class="pesquisa-principal">
+                <label for="pesquisar"><img src="assets/icons/search.svg" alt="Pesquisar"></label>
+                <input type="search" id="pesquisar" name="pesquisar" placeholder="Buscar...">
+            </search>
+            <nav class="nav-header">
+                <a href="index.html"><img src="assets/icons/home.svg" alt="Home"></a>
+                <a href="pages/form-account.html"><img src="assets/icons/account.svg" alt="Conta"></a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-login">
+        <div class="login">
+            <form>
+                <div class="div-input-login">
+                    <label class="label-login" for="nome">Nome do Produto:</label>
+                    <input type="text" placeholder="Digite o nome do produto..." id="nome" name="nome" autocomplete="name" required>
+                    <label class="label-login" for="sobrenome">Descrição:</label>
+                    <textarea name="nome" type="text" class="textarea-products" placeholder="Escreva a descrição do produto..." id="" cols="30" rows="10" required></textarea>
+                    <label class="label-login" for="email">Preço:</label>
+                    <input type="number" placeholder="Digite o preço..." id="email" name="email" autocomplete="email" required>
+                    <label class="label-login" for="email">Categoria:</label>
+                    <select name="" class="select-categories" required>
+                        <option value="">Escolha sua categoria</option>
+                        <option value="services">Services</option>
+                        <option value="decoration">Decoration</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="concept">Concept</option>
+                        <option value="classes">Classes</option>
+                        <option value="famous">Famous</option>
+                        <option value="style">Style</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="food">Food</option>
+                        <option value="companion">Companion</option>
+                        <option value="tools">Tools</option>
+                        <option value="receipt">Receipt</option>
+                        <option value="medicine">Medicine</option>
+                        <option value="idol">Idol</option>
+                        <option value="beauty">Beauty</option>
+                        <option value="power">Power</option>
+                        <option value="physics">Physics</option>
+                        <option value="clothes">Clothes</option>
+                    </select>
+                    <label class="label-login" for="senha">Quantidade:</label>
+                    <input type="number" placeholder="Digite a quantidade..." id="senha" name="senha" autocomplete="new-password" required>
+                </div>
+                <div class="div-button-login">
+                    <button class="button-login" type="submit">Cadastrar Produto</button>
+                </div>
+            </form>
+        </div>
+    </main>

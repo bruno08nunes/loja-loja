@@ -1,0 +1,20 @@
+.textarea-products {
+    border-radius: 8px;
+    font-size: 18px;
+    padding: 5px;
+    border: none;
+    resize: none;
+    font-family: 'Arial';
+}
+
+.select-categories {
+    padding: 6px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-family: 'Arial';
+}
+
+.select-categories > option {
+    font-size: 15px;
+}
