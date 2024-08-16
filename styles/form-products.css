@@ -11,10 +11,21 @@
     padding: 6px;
     border: none;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 17px;
     font-family: 'Arial';
 }
 
 .select-categories > option {
     font-size: 15px;
+}
+
+.button-images-login {
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+    padding: 10px;
+    text-align: center;
+    width: 410px;
+    background-color: var(--azul);
+    color: white;
 }
