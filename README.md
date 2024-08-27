@@ -290,3 +290,5 @@ Por padrão, os códigos do projeto devem seguir:
 ![Imagem página inicial do site Loja Loja](assets/examples/example1.png)
 ![Imagem produtos na página inicial do site Loja Loja](assets/examples/example2.png)
 ![Imagem carrinho do site Loja Loja](assets/examples/example3.png)
+
+[ ] - Colocar um button na página da conta para deslogar.

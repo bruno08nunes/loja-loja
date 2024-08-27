@@ -62,17 +62,6 @@
                 <a href="index.html"
                     ><img src="assets/logo.png" alt="" class="logo"
                 /></a>
-                <search class="pesquisa-principal">
-                    <label for="pesquisar"
-                        ><img src="assets/icons/search.svg" alt="Pesquisar"
-                    /></label>
-                    <input
-                        type="search"
-                        id="pesquisar"
-                        name="pesquisar"
-                        placeholder="Buscar..."
-                    />
-                </search>
                 <nav class="nav-header">
                     <a href="index.html"
                         ><img src="assets/icons/home.svg" alt="Home"
@@ -85,9 +74,10 @@
         </header>
 
         <main class="main-login">
-            <div class="login">
+            <div class="form-products">
                 <form>
-                    <div class="div-input-login">
+                    <h2 class="title-form-login">Cadastrar produto</h2>
+                    <div class="div-input">
                         <label class="label-login" for="nome"
                             >Nome do Produto:</label
                         >
@@ -96,35 +86,30 @@
                             placeholder="Digite o nome do produto..."
                             id="nome"
                             name="nome"
-                            autocomplete="name"
                             required
                         />
-                        <label class="label-login" for="sobrenome"
+                        <label class="label-login" for="descricao"
                             >Descrição:</label
                         >
                         <textarea
-                            name="nome"
-                            type="text"
+                            name="descricao"
+                            id="descricao"
                             class="textarea-products"
                             placeholder="Escreva a descrição do produto..."
-                            id=""
-                            cols="30"
-                            rows="10"
                             required
                         ></textarea>
-                        <label class="label-login" for="email">Preço:</label>
+                        <label class="label-login" for="preco">Preço:</label>
                         <input
-                            type="number"
+                            type="text"
                             placeholder="Digite o preço..."
-                            id="email"
-                            name="email"
-                            autocomplete="email"
+                            id="preco"
+                            name="preco"
                             required
                         />
-                        <label class="label-login" for="email"
+                        <label class="label-login" for="categoria"
                             >Categoria:</label
                         >
-                        <select name="" class="select-categories" required>
+                        <select name="categoria" id="categoria" class="select-categories" required>
                             <option value="">Escolha sua categoria</option>
                             <option value="services">Services</option>
                             <option value="decoration">Decoration</option>
@@ -145,21 +130,23 @@
                             <option value="physics">Physics</option>
                             <option value="clothes">Clothes</option>
                         </select>
-                        <label class="label-login" for="senha"
+                        <label class="label-login" for="quantidade"
                             >Quantidade:</label
                         >
                         <input
                             type="number"
                             placeholder="Digite a quantidade..."
-                            id="senha"
-                            name="senha"
-                            autocomplete="new-password"
+                            id="quantidade"
+                            name="quantidade"
                             required
                         />
-                        <label class="label-login" for="senha">Imagem:</label>
-                        <button class="button-images-login">
-                            Escolher imagem
-                        </button>
+                        <div class="choose-image">
+                            <label class="label-login" for="image">Imagem:</label>
+                            <label for="image" class="button-images-login">
+                                Escolher imagem
+                            </label>
+                            <input type="file" name="image" id="image" style="display: none;">
+                        </div>
                     </div>
                     <div class="div-button-login">
                         <button class="button-login" type="submit">

@@ -62,17 +62,6 @@
                 <a href="index.html"
                     ><img src="assets/logo.png" alt="" class="logo"
                 /></a>
-                <search class="pesquisa-principal">
-                    <label for="pesquisar"
-                        ><img src="assets/icons/search.svg" alt="Pesquisar"
-                    /></label>
-                    <input
-                        type="search"
-                        id="pesquisar"
-                        name="pesquisar"
-                        placeholder="Buscar..."
-                    />
-                </search>
                 <nav class="nav-header">
                     <a href="index.html"
                         ><img src="assets/icons/home.svg" alt="Home"
@@ -93,7 +82,7 @@
             <div class="login">
                 <form>
                     <h2 class="title-form-login">Cadastrar-se</h2>
-                    <div class="div-input-login">
+                    <div class="div-input">
                         <label class="label-login" for="nome"
                             >Primeiro Nome:</label
                         >
@@ -116,16 +105,14 @@
                             autocomplete="family-name"
                             required
                         />
-                        <label class="label-login" for="cpf"
-                            >CPF:</label
-                        >
+                        <label class="label-login" for="cpf">CPF:</label>
                         <input
                             type="text"
-                            placeholder="Digite seu CPF..."
+                            placeholder="xxxxxxxxxxx"
                             id="cpf"
                             name="cpf"
                             minlength="11"
-                            maxlength="14"
+                            maxlength="11"
                             required
                         />
                         <label class="label-login" for="email">E-mail:</label>
@@ -154,7 +141,9 @@
                         </button>
                     </div>
                 </form>
-                <a href="pages/form-login.html" class="btn-change-form">Já possui uma conta? Conecte-se.</a>
+                <a href="pages/form-login.html" class="btn-change-form"
+                    >Já possui uma conta? Conecte-se.</a
+                >
             </div>
         </main>
 

@@ -17,9 +17,9 @@
     gap: 20px;
 }
 
-.div-input-login {
+.div-input {
     border-radius: 10px;
-    padding: 15px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -27,7 +27,7 @@
     justify-content: center;
 }
 
-.div-input-login input {
+.div-input input {
     border: none;
     border-radius: 5px;
     font-size: 1.1em;
@@ -55,7 +55,8 @@
 
 .label-login {
     font-size: 1.2em;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
 }
 
 .btn-change-form {
@@ -63,7 +64,7 @@
     align-self: center;
     color: inherit;
     font-size: 1.3em;
-    transition: .1s;
+    transition: 0.1s;
     &:hover {
         scale: 1.02;
     }

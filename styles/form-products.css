@@ -1,3 +1,15 @@
+.form-products {
+    max-width: 650px;
+    width: 100%;
+    border-radius: 20px;
+    background-color: var(--verde);
+    padding: 30px;
+    box-shadow: -3px 3px 20px rgba(0, 0, 0, 0.432);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .textarea-products {
     border-radius: 8px;
     font-size: 18px;
@@ -5,6 +17,7 @@
     border: none;
     resize: none;
     font-family: 'Arial';
+    min-height: 100px;
 }
 
 .select-categories {
@@ -22,10 +35,19 @@
 .button-images-login {
     border: none;
     border-radius: 5px;
-    font-size: 17px;
+    font-size: 1.1em;
     padding: 10px;
     text-align: center;
-    width: 410px;
+    flex: 1;
     background-color: var(--azul);
     color: white;
+    cursor: pointer;
+}
+
+.choose-image {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    gap: 15px;
 }
