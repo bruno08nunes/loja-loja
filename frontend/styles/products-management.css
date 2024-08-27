@@ -1,0 +1,31 @@
+.div-buttons-products-menagem {
+    display: flex;
+    gap: 15px;
+}
+
+.div-button-delete {
+    display: flex;
+    justify-content: center;
+}
+
+.button-delete {
+    padding: 15px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.div-button-edit {
+    display: flex;
+    justify-content: center;
+}
+
+.button-edit {
+    padding: 15px;
+    background-color: var(--azul);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
