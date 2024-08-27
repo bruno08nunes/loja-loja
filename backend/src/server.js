@@ -21,7 +21,7 @@ app.post("/usuario/cadastrar", (req, res) => {
         req.body.senha,
         req.body.cpf
     ];
-
+    
     if (params.includes(undefined)) {
         res
                 .status(400)
@@ -80,6 +80,34 @@ app.post("/usuario/login", (req, res) => {
             .json({
                 success: true,
                 message: "Consulta concluída",
+                data: results
+            });
+    });
+});
+
+app.delete("/usuario/deletar/:id", (req, res) => {
+    let params = [
+        req.params.id
+    ];
+
+    let query = "DELETE FROM users WHERE id = ?";
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Erro ao deletar usuário",
+                    data: err
+                });
+            return
+        }
+        res
+            .status(200)
+            .json({
+                success: true,
+                message: "Usuário deletado",
                 data: results
             });
     });
