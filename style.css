@@ -1,12 +1,12 @@
 @charset "UTF-8";
 
 /* Importações */
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Sedan+SC&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Sedan+SC&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap");
 @import url(styles/cart.css);
 @import url(styles/account.css);
-@import url(styles/form-product.css);
-@import url(styles/form-products.css);
+@import url(styles/form-buy.css);
+@import url(styles/form-buy.css);
 @import url(styles/login.css);
 @import url(styles/product.css);
 @import url(styles/media-query.css);
@@ -219,12 +219,13 @@ body {
     background-image: url(assets/fundo-site.png);
 }
 
-.section-categoria, .section-pesquisa {
+.section-categoria,
+.section-pesquisa {
     padding: 15px 30px;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 .escondida {
@@ -262,7 +263,7 @@ body {
     font-size: 1.1em;
     max-width: 800px;
     flex: 1;
-    transition: .3s;
+    transition: 0.3s;
     max-width: 500px;
     flex-basis: 200px;
 }
@@ -312,7 +313,11 @@ body {
 .nome-produto {
     text-align: center;
     color: white;
-    background-color: color-mix(in srgb, var(--rosa-escuro), rgba(255, 255, 255, 0.603) 30%);
+    background-color: color-mix(
+        in srgb,
+        var(--rosa-escuro),
+        rgba(255, 255, 255, 0.603) 30%
+    );
     align-items: center;
     text-wrap: nowrap;
     text-overflow: ellipsis;
@@ -356,7 +361,11 @@ body {
     --porcentagem-branco: 50%;
 
     font-size: 2em;
-    background-image: linear-gradient(to right, var(--rosa-claro) var(--porcentagem-nota), white var(--porcentagem-branco));
+    background-image: linear-gradient(
+        to right,
+        var(--rosa-claro) var(--porcentagem-nota),
+        white var(--porcentagem-branco)
+    );
     background-clip: text;
     color: transparent;
     -webkit-text-stroke: 1px black;
@@ -410,7 +419,7 @@ button.adicionado-ao-carrinho {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
     font-size: 1em;
 }
 

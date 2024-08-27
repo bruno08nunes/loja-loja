@@ -15,7 +15,7 @@ const logout = () => {
         });
 }
 
-const iniciarPaginaLogin = () => {
+const iniciarPaginaCadastro = () => {
     const parametrosURL = new URLSearchParams(location.search);
     if (parametrosURL.get("logout") === "true") {
         logout();
@@ -36,4 +36,4 @@ const iniciarPaginaLogin = () => {
     });
 };
 
-export default iniciarPaginaLogin;
+export default iniciarPaginaCadastro;

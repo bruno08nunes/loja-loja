@@ -49,7 +49,7 @@
         <link rel="stylesheet" href="style.css" />
         <script src="script.js" type="module"></script>
 
-        <title>Logar - Loja Loja</title>
+        <title>Login - Loja Loja</title>
         <link
             rel="shortcut icon"
             href="assets/favicon.png"
@@ -77,97 +77,60 @@
                     <a href="index.html"
                         ><img src="assets/icons/home.svg" alt="Home"
                     /></a>
-                    <a href="pages/form-login.html"
+                    <a href="pages/form-create-account.html"
                         ><img src="assets/icons/account.svg" alt="Conta"
                     /></a>
                 </nav>
             </div>
         </header>
+        <nav class="nav-carrinho">
+            <button aria-label="Mostrar carrinho">
+                <img src="assets/icons/cart.svg" alt="Carrinho" />
+            </button>
+        </nav>
 
         <main class="main-login">
             <div class="login">
+                <h2 class="title-form-login">Fazer Login</h2>
                 <form>
                     <div class="div-input-login">
-                        <label class="label-login" for="nome"
-                            >Nome do Produto:</label
-                        >
+                        <label class="label-login" for="email">E-mail:</label>
                         <input
-                            type="text"
-                            placeholder="Digite o nome do produto..."
-                            id="nome"
-                            name="nome"
-                            autocomplete="name"
-                            required
-                        />
-                        <label class="label-login" for="sobrenome"
-                            >Descrição:</label
-                        >
-                        <textarea
-                            name="nome"
-                            type="text"
-                            class="textarea-products"
-                            placeholder="Escreva a descrição do produto..."
-                            id=""
-                            cols="30"
-                            rows="10"
-                            required
-                        ></textarea>
-                        <label class="label-login" for="email">Preço:</label>
-                        <input
-                            type="number"
-                            placeholder="Digite o preço..."
+                            type="email"
+                            placeholder="Digite seu e-mail..."
                             id="email"
                             name="email"
                             autocomplete="email"
                             required
                         />
-                        <label class="label-login" for="email"
-                            >Categoria:</label
-                        >
-                        <select name="" class="select-categories" required>
-                            <option value="">Escolha sua categoria</option>
-                            <option value="services">Services</option>
-                            <option value="decoration">Decoration</option>
-                            <option value="fantasy">Fantasy</option>
-                            <option value="concept">Concept</option>
-                            <option value="classes">Classes</option>
-                            <option value="famous">Famous</option>
-                            <option value="style">Style</option>
-                            <option value="fashion">Fashion</option>
-                            <option value="food">Food</option>
-                            <option value="companion">Companion</option>
-                            <option value="tools">Tools</option>
-                            <option value="receipt">Receipt</option>
-                            <option value="medicine">Medicine</option>
-                            <option value="idol">Idol</option>
-                            <option value="beauty">Beauty</option>
-                            <option value="power">Power</option>
-                            <option value="physics">Physics</option>
-                            <option value="clothes">Clothes</option>
-                        </select>
-                        <label class="label-login" for="senha"
-                            >Quantidade:</label
-                        >
+                        <label class="label-login" for="senha">Senha:</label>
                         <input
-                            type="number"
-                            placeholder="Digite a quantidade..."
+                            type="password"
+                            placeholder="Digite sua senha..."
                             id="senha"
                             name="senha"
                             autocomplete="new-password"
                             required
                         />
-                        <label class="label-login" for="senha">Imagem:</label>
-                        <button class="button-images-login">
-                            Escolher imagem
-                        </button>
                     </div>
                     <div class="div-button-login">
                         <button class="button-login" type="submit">
-                            Cadastrar Produto
+                            Login
                         </button>
                     </div>
                 </form>
+                <a href="pages/form-create-account.html" class="btn-change-form">Criar Nova Conta</a>
             </div>
         </main>
+
+        <div class="backdrop"></div>
+        <aside class="sidebar-carrinho">
+            <div class="titulo-carrinho">
+                <h2 class="h2-carrinho">Carrinho</h2>
+                <button class="fecharCarrinho" aria-label="Ocultar carrinho">
+                    X
+                </button>
+            </div>
+        </aside>
     </body>
 </html>

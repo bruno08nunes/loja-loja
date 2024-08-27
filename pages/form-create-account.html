@@ -49,7 +49,7 @@
         <link rel="stylesheet" href="style.css" />
         <script src="script.js" type="module"></script>
 
-        <title>Produto - Loja Loja</title>
+        <title>Cadastrar - Loja Loja</title>
         <link
             rel="shortcut icon"
             href="assets/favicon.png"
@@ -89,108 +89,74 @@
             </button>
         </nav>
 
-        <main class="main-produto">
-            <section class="container-produto">
-                <img class="imagem-pagina-produto" src="" alt="" />
-                <div class="div-dados-produto">
-                    <div class="div-descricao">
-                        <h2 class="nome-pagina-produto"></h2>
-                        <p class="descricao-pagina-produto"></p>
-                    </div>
-                    <p class="valor-pagina-produto">
-                        <span class="preco-antes-promocao"></span>
-                        <span class="preco-pagina-produto"></span>
-                    </p>
-                    <p class="avaliacao-pagina-produto">
-                        <span class="nota-produto-numero"></span>
-                        <span
-                            class="nota-produto"
-                            style="
-                                --porcentagem-nota: 100%;
-                                --porcentagem-branco: 0%;
-                            "
-                            >★★★★★</span
+        <main class="main-login">
+            <div class="login">
+                <form>
+                    <h2 class="title-form-login">Cadastrar-se</h2>
+                    <div class="div-input-login">
+                        <label class="label-login" for="nome"
+                            >Primeiro Nome:</label
                         >
-                    </p>
-                    <div class="buttons-pagina-produto">
-                        <button id="botao-favoritos-produto">
-                            <img src="assets/icons/favorite.svg" alt="" />
-                        </button>
-                        <button
-                            class="botao-carrinho"
-                            id="botao-carrinho-produto"
-                        >
-                            <img src="assets/icons/cart.svg" alt="" />
-                        </button>
-                    </div>
-                </div>
-            </section>
-            <section class="section-comentarios">
-                <h2>Comentários</h2>
-            </section>
-        </main>
-        <footer class="footer">
-            <div class="div-footer">
-                <form class="form-footer">
-                    <h2>Receba nossas notificações</h2>
-                    <div>
-                        <label for="nome">Nome Completo:</label>
                         <input
                             type="text"
-                            name="nome"
+                            placeholder="Digite seu nome..."
                             id="nome"
+                            name="nome"
                             autocomplete="name"
-                            placeholder="Nome Completo"
                             required
                         />
-                    </div>
-                    <div>
-                        <label for="email">Email:</label>
+                        <label class="label-login" for="sobrenome"
+                            >Sobrenome:</label
+                        >
+                        <input
+                            type="text"
+                            placeholder="Digite seu sobrenome..."
+                            id="sobrenome"
+                            name="sobrenome"
+                            autocomplete="family-name"
+                            required
+                        />
+                        <label class="label-login" for="cpf"
+                            >CPF:</label
+                        >
+                        <input
+                            type="text"
+                            placeholder="Digite seu CPF..."
+                            id="cpf"
+                            name="cpf"
+                            minlength="11"
+                            maxlength="14"
+                            required
+                        />
+                        <label class="label-login" for="email">E-mail:</label>
                         <input
                             type="email"
-                            name="email"
+                            placeholder="Digite seu e-mail..."
                             id="email"
+                            name="email"
                             autocomplete="email"
-                            placeholder="email@exemplo.com"
+                            required
+                        />
+                        <label class="label-login" for="senha">Senha:</label>
+                        <input
+                            type="password"
+                            placeholder="Digite sua senha..."
+                            id="senha"
+                            name="senha"
+                            autocomplete="new-password"
+                            minlength="8"
                             required
                         />
                     </div>
-                    <button type="submit">Enviar Formulário</button>
+                    <div class="div-button-login">
+                        <button class="button-login" type="submit">
+                            Cadastrar-se
+                        </button>
+                    </div>
                 </form>
-                <div class="informacoes-criadores">
-                    <h2>Site criado por:</h2>
-                    <address>
-                        <ul>
-                            <li>
-                                <a
-                                    href="https://github.com/bruno08nunes"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    >Bruno Nunes</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                    href="https://github.com/felipecoimbra123"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    >Felipe Coimbra Rocha dos Santos</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                    href="https://github.com/Leofm47"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    >Leonardo Falcão de Matos</a
-                                >
-                            </li>
-                        </ul>
-                    </address>
-                </div>
+                <a href="pages/form-login.html" class="btn-change-form">Já possui uma conta? Conecte-se.</a>
             </div>
-            <div class="copyright">&copy;Loja Loja 2024;</div>
-        </footer>
+        </main>
 
         <div class="backdrop"></div>
         <aside class="sidebar-carrinho">

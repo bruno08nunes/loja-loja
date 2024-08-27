@@ -36,11 +36,11 @@
             font-size: 1.1em !important;
         }
     }
-    .main-form-product {
+    .main-form-buy {
         padding: 0 !important;
         padding-top: 15px !important;
     }
-    
+
     .div-inputs {
         flex-direction: column !important;
     }

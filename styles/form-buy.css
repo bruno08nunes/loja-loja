@@ -1,12 +1,13 @@
 /* Formulario Produto */
-.main-form-product {
+.main-form-buy {
     display: flex;
     justify-content: center;
     padding: 15px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.form-product {
+.form-buy {
+    max-width: 800px;
     background-color: var(--verde);
     display: flex;
     flex-direction: column;
@@ -46,7 +47,7 @@
     justify-content: flex-end;
 }
 
-.form-product button {
+.form-buy button {
     padding: 15px;
     background-color: var(--azul);
     color: white;

@@ -3,10 +3,11 @@ let precoTotal;
 
 const criarMensagemCarrinhoVazio = () => {
     const mensagem = document.createElement("p");
-    mensagem.textContent = "Seu carrinho está vazio. Compre algo na nossa loja!";
+    mensagem.textContent =
+        "Seu carrinho está vazio. Compre algo na nossa loja!";
     mensagem.classList.add("carrinho-vazio-mensagem");
     return mensagem;
-}
+};
 
 const criarImagemProdutoCarrinho = (produto) => {
     const img = document.createElement("img");
@@ -14,7 +15,7 @@ const criarImagemProdutoCarrinho = (produto) => {
     img.alt = "Imagem de " + produto.name;
     img.classList.add("img-produto-carrinho");
     return img;
-}
+};
 
 const criarInformacoesProdutoCarrinho = (produto) => {
     const divInformacoesProduto = document.createElement("div");
@@ -32,9 +33,13 @@ const criarInformacoesProdutoCarrinho = (produto) => {
     const preco = produto.promotionalPrice ?? produto.price;
     spanPrecoProduto.textContent = "R$ " + preco;
 
-    divInformacoesProduto.append(elementoNomeProduto, pDescricaoProduto, spanPrecoProduto);
+    divInformacoesProduto.append(
+        elementoNomeProduto,
+        pDescricaoProduto,
+        spanPrecoProduto
+    );
     return divInformacoesProduto;
-}
+};
 
 const criarDivBotaoProdutoCarrinho = (produto) => {
     const divBotaoProduto = document.createElement("div");
@@ -44,18 +49,24 @@ const criarDivBotaoProdutoCarrinho = (produto) => {
     botaoRemoverProdutoCarrinho.ariaLabel = "Remover produto do carrinho";
 
     botaoRemoverProdutoCarrinho.addEventListener("click", (e) => {
-        const produtosNoCarrinho = JSON.parse(localStorage.getItem("carrinho")) ?? [];
-        const produtosFiltrados = produtosNoCarrinho.filter((prod) => prod !== produto.id);
+        const produtosNoCarrinho =
+            JSON.parse(localStorage.getItem("carrinho")) ?? [];
+        const produtosFiltrados = produtosNoCarrinho.filter(
+            (prod) => prod !== produto.id
+        );
         localStorage.setItem("carrinho", JSON.stringify(produtosFiltrados));
 
         precoTotal -= produto.promotionalPrice ?? produto.price;
-        document.querySelector(".preco-carrinho-total").textContent = "Preço Total: R$ " + precoTotal.toFixed(2);
+        document.querySelector(".preco-carrinho-total").textContent =
+            "Preço Total: R$ " + precoTotal.toFixed(2);
 
-        const botoesProdutoMenu = [...document.querySelectorAll(".botao-carrinho[data-id]")].filter((botao) => botao.dataset.id === produto.id.toString());
+        const botoesProdutoMenu = [
+            ...document.querySelectorAll(".botao-carrinho[data-id]"),
+        ].filter((botao) => botao.dataset.id === produto.id.toString());
         botoesProdutoMenu.forEach((botao) => {
             botao.classList.remove("adicionado-ao-carrinho");
             botao.ariaLabel = "Adicionar ao carrinho";
-        })
+        });
 
         botaoRemoverProdutoCarrinho.parentElement.parentElement.remove();
 
@@ -65,17 +76,17 @@ const criarDivBotaoProdutoCarrinho = (produto) => {
             const mensagem = criarMensagemCarrinhoVazio();
             sidebarCarrinho.append(mensagem);
         }
-    })
+    });
 
     divBotaoProduto.append(botaoRemoverProdutoCarrinho);
     return divBotaoProduto;
-}
+};
 
 const criarDivProdutoCarrinho = (produto) => {
     const divProduto = document.createElement("div");
     divProduto.classList.add("produto-carrinho");
     const aProduto = document.createElement("a");
-    aProduto.classList.add("produto-carrinho")
+    aProduto.classList.add("produto-carrinho");
     aProduto.href = location.href;
     aProduto.pathname = "loja-loja/pages/product.html";
     aProduto.search = "produto=" + produto.id;
@@ -86,30 +97,31 @@ const criarDivProdutoCarrinho = (produto) => {
 
     const divBotaoProdutoCarrinho = criarDivBotaoProdutoCarrinho(produto);
 
-    aProduto.append(img, informacoesCarrinho)
+    aProduto.append(img, informacoesCarrinho);
     divProduto.append(aProduto, divBotaoProdutoCarrinho);
     return divProduto;
-}
+};
 
 const criarParagrafoPrecoTotal = () => {
     const paragrafoPreco = document.createElement("p");
     paragrafoPreco.classList.add("preco-carrinho-total");
     paragrafoPreco.textContent = "Preço Total: R$ " + precoTotal.toFixed(2);
     return paragrafoPreco;
-}
+};
 
 const criarBotaoCompra = () => {
     const botaoComprar = document.createElement("a");
     botaoComprar.href = location.href;
-    botaoComprar.pathname = "loja-loja/pages/form-product.html";
+    botaoComprar.pathname = "loja-loja/pages/form-buy.html";
     botaoComprar.classList.add("botao-comprar");
     botaoComprar.textContent = "Fazer Pedido";
-    
+
     return botaoComprar;
-}
+};
 
 const atualizarCarrinho = (produtos) => {
-    const produtosNoCarrinho = JSON.parse(localStorage.getItem("carrinho")) ?? [];
+    const produtosNoCarrinho =
+        JSON.parse(localStorage.getItem("carrinho")) ?? [];
     while (sidebarCarrinho.children.length > 1) {
         sidebarCarrinho.removeChild(sidebarCarrinho.lastChild);
     }
@@ -120,8 +132,13 @@ const atualizarCarrinho = (produtos) => {
         return;
     }
 
-    const produtosCompletosNoCarrinho = produtos.filter((produto) => produtosNoCarrinho.includes(produto.id));
-    precoTotal = produtosCompletosNoCarrinho.reduce((prev, produto) => prev + (produto.promotionalPrice ?? produto.price), 0);
+    const produtosCompletosNoCarrinho = produtos.filter((produto) =>
+        produtosNoCarrinho.includes(produto.id)
+    );
+    precoTotal = produtosCompletosNoCarrinho.reduce(
+        (prev, produto) => prev + (produto.promotionalPrice ?? produto.price),
+        0
+    );
     for (let produto of produtosCompletosNoCarrinho) {
         const divProduto = criarDivProdutoCarrinho(produto);
         sidebarCarrinho.append(divProduto);
@@ -129,9 +146,9 @@ const atualizarCarrinho = (produtos) => {
 
     const paragrafoPrecoTotal = criarParagrafoPrecoTotal();
     sidebarCarrinho.append(paragrafoPrecoTotal);
-    
+
     const botaoComprar = criarBotaoCompra();
     sidebarCarrinho.append(botaoComprar);
-}
+};
 
 export default atualizarCarrinho;

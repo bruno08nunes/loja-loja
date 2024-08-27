@@ -1,156 +1,224 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Loja Loja: A Loja Mais Loja de Todas é uma loja virtual, que vende os produtos mais variados no melhor preço possível.">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Loja Loja: A Loja Mais Loja de Todas é uma loja virtual, que vende os produtos mais variados no melhor preço possível."
+        />
 
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://bruno08nunes.github.io/loja-loja">
-    <meta property="og:title" content="Loja Loja">
-    <meta property="og:image" content="https://bruno08nunes.github.io/loja-loja/logo.png">
-    <meta property="og:description" content="Loja Loja: A Loja Mais Loja de Todas. Uma loja virtual, que vende os produtos mais variados no melhor preço possível.">
-    <meta property="og:site_name" content="Loja Loja">
-    <meta property="og:locale" content="pt_BR">
-    <meta property="og:image:width" content="619">
-    <meta property="og:image:height" content="496">
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:url"
+            content="https://bruno08nunes.github.io/loja-loja"
+        />
+        <meta property="og:title" content="Loja Loja" />
+        <meta
+            property="og:image"
+            content="https://bruno08nunes.github.io/loja-loja/logo.png"
+        />
+        <meta
+            property="og:description"
+            content="Loja Loja: A Loja Mais Loja de Todas. Uma loja virtual, que vende os produtos mais variados no melhor preço possível."
+        />
+        <meta property="og:site_name" content="Loja Loja" />
+        <meta property="og:locale" content="pt_BR" />
+        <meta property="og:image:width" content="619" />
+        <meta property="og:image:height" content="496" />
 
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:url" content="https://bruno08nunes.github.io/loja-loja">
-    <meta name="twitter:title" content="Loja Loja">
-    <meta name="twitter:description" content="Loja Loja: A Loja Mais Loja de Todas. Uma loja virtual, que vende os produtos mais variados no melhor preço possível.">
-    <meta name="twitter:image" content="https://bruno08nunes.github.io/loja-loja/logo.png">
+        <meta name="twitter:card" content="summary" />
+        <meta
+            name="twitter:url"
+            content="https://bruno08nunes.github.io/loja-loja"
+        />
+        <meta name="twitter:title" content="Loja Loja" />
+        <meta
+            name="twitter:description"
+            content="Loja Loja: A Loja Mais Loja de Todas. Uma loja virtual, que vende os produtos mais variados no melhor preço possível."
+        />
+        <meta
+            name="twitter:image"
+            content="https://bruno08nunes.github.io/loja-loja/logo.png"
+        />
 
-    <meta name="theme-color" content="#f205c7">
+        <meta name="theme-color" content="#f205c7" />
 
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" type="module"></script>
+        <link rel="stylesheet" href="style.css" />
+        <script src="script.js" type="module"></script>
 
-    <title>Loja Loja</title>
-    <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
-    <link
-        rel="preload"
-        href="assets/fonts/HennyPenny-Regular.ttf"
-        as="font"
-        type="font/ttf"
-        crossorigin>
-</head>
-<body>
-    <section class="section-hero">
-        <h1>Loja loja</h1>
-        <p>A loja mais loja de todas</p>
-    </section>
-    <header class="cabecalho-principal">
-        <div class="div-cabeçalho">
-            <a href="index.html"><img src="assets/logo.png" alt="" class="logo"></a>
-            <search class="pesquisa-principal">
-                <label for="pesquisar"><img src="assets/icons/search.svg" alt="Pesquisar"></label>
-                <input type="search" id="pesquisar" name="pesquisar" placeholder="Buscar...">
-            </search>
-            <nav class="nav-header">
-                <a href="index.html"><img src="assets/icons/home.svg" alt="Home"></a>
-                <a href="pages/form-account.html"><img src="assets/icons/account.svg" alt="Conta"></a>
-            </nav>
-        </div>
-    </header>
-    <nav class="nav-carrinho">
-        <button aria-label="Mostrar carrinho">
-            <img src="assets/icons/cart.svg" alt="Carrinho" loading="eager" fetchpriority="high">
-        </button>
-    </nav>
-    <main class="main-home">
-        <section class="section-pesquisa escondida">
-            <h2 class="nome-categoria">Resultados</h2>
-            <div class="div-produtos">
-            </div>
+        <title>Loja Loja</title>
+        <link
+            rel="shortcut icon"
+            href="assets/favicon.png"
+            type="image/x-icon"
+        />
+        <link
+            rel="preload"
+            href="assets/fonts/HennyPenny-Regular.ttf"
+            as="font"
+            type="font/ttf"
+            crossorigin
+        />
+    </head>
+    <body>
+        <section class="section-hero">
+            <h1>Loja loja</h1>
+            <p>A loja mais loja de todas</p>
         </section>
+        <header class="cabecalho-principal">
+            <div class="div-cabeçalho">
+                <a href="index.html"
+                    ><img src="assets/logo.png" alt="" class="logo"
+                /></a>
+                <search class="pesquisa-principal">
+                    <label for="pesquisar"
+                        ><img src="assets/icons/search.svg" alt="Pesquisar"
+                    /></label>
+                    <input
+                        type="search"
+                        id="pesquisar"
+                        name="pesquisar"
+                        placeholder="Buscar..."
+                    />
+                </search>
+                <nav class="nav-header">
+                    <a href="index.html"
+                        ><img src="assets/icons/home.svg" alt="Home"
+                    /></a>
+                    <a href="pages/form-login.html"
+                        ><img src="assets/icons/account.svg" alt="Conta"
+                    /></a>
+                </nav>
+            </div>
+        </header>
+        <nav class="nav-carrinho">
+            <button aria-label="Mostrar carrinho">
+                <img
+                    src="assets/icons/cart.svg"
+                    alt="Carrinho"
+                    loading="eager"
+                    fetchpriority="high"
+                />
+            </button>
+        </nav>
+        <main class="main-home">
+            <section class="section-pesquisa escondida">
+                <h2 class="nome-categoria">Resultados</h2>
+                <div class="div-produtos"></div>
+            </section>
 
-        <section class="section-categoria" data-categoria="Melhor Avaliado">
-            <h2 class="nome-categoria">Melhores Avaliados</h2>
-            <div class="div-produtos">
-            </div>
-        </section>
-        <section class="section-categoria" data-categoria="Mais Baratos">
-            <h2 class="nome-categoria">Mais Baratos</h2>
-            <div class="div-produtos">
-            </div>
-        </section>
-        <section class="section-categoria" data-categoria="Em Promoção">
-            <h2 class="nome-categoria">Em Promoção</h2>
-            <div class="div-produtos">
-            </div>
-        </section>
-        <section class="section-categoria" data-categoria="Remédios">
-            <h2 class="nome-categoria">Remédios e Medicamentos</h2>
-            <div class="div-produtos">
-            </div>
-        </section>
-        <section class="section-categoria" data-categoria="Estilo">
-            <h2 class="nome-categoria">Produtos de beleza ou belos</h2>
-            <div class="div-produtos">
-            </div>
-        </section>
-        <section class="section-categoria" data-categoria="Serviços">
-            <h2 class="nome-categoria">Serviços</h2>
-            <div class="div-produtos">
-            </div>
-        </section>
-        <section class="section-categoria" data-categoria="Aulas">
-            <h2 class="nome-categoria">Volta às Aulas</h2>
-            <div class="div-produtos">
-            </div>
-        </section>
-        <section class="section-categoria" data-categoria="Ferramentas">
-            <h2 class="nome-categoria">Ferramentas</h2>
-            <div class="div-produtos">
-            </div>
-        </section>
-        <section class="section-categoria" data-categoria="Conceitos">
-            <h2 class="nome-categoria">Conceitos</h2>
-            <div class="div-produtos">
-            </div>
-        </section>
-        <section class="section-categoria" data-categoria="Fantásticos">
-            <h2 class="nome-categoria">Fantásticos</h2>
-            <div class="div-produtos">
-            </div>
-        </section>
-    </main>
-    <footer class="footer">
-        <div class="div-footer">
-            <form class="form-footer">
-                <h2>Receba nossas notificações</h2>
-                <div>
-                    <label for="nome">Nome Completo:</label>
-                    <input type="text" name="nome" id="nome" autocomplete="name" placeholder="Nome Completo" required>
+            <section class="section-categoria" data-categoria="Melhor Avaliado">
+                <h2 class="nome-categoria">Melhores Avaliados</h2>
+                <div class="div-produtos"></div>
+            </section>
+            <section class="section-categoria" data-categoria="Mais Baratos">
+                <h2 class="nome-categoria">Mais Baratos</h2>
+                <div class="div-produtos"></div>
+            </section>
+            <section class="section-categoria" data-categoria="Em Promoção">
+                <h2 class="nome-categoria">Em Promoção</h2>
+                <div class="div-produtos"></div>
+            </section>
+            <section class="section-categoria" data-categoria="Remédios">
+                <h2 class="nome-categoria">Remédios e Medicamentos</h2>
+                <div class="div-produtos"></div>
+            </section>
+            <section class="section-categoria" data-categoria="Estilo">
+                <h2 class="nome-categoria">Produtos de beleza ou belos</h2>
+                <div class="div-produtos"></div>
+            </section>
+            <section class="section-categoria" data-categoria="Serviços">
+                <h2 class="nome-categoria">Serviços</h2>
+                <div class="div-produtos"></div>
+            </section>
+            <section class="section-categoria" data-categoria="Aulas">
+                <h2 class="nome-categoria">Volta às Aulas</h2>
+                <div class="div-produtos"></div>
+            </section>
+            <section class="section-categoria" data-categoria="Ferramentas">
+                <h2 class="nome-categoria">Ferramentas</h2>
+                <div class="div-produtos"></div>
+            </section>
+            <section class="section-categoria" data-categoria="Conceitos">
+                <h2 class="nome-categoria">Conceitos</h2>
+                <div class="div-produtos"></div>
+            </section>
+            <section class="section-categoria" data-categoria="Fantásticos">
+                <h2 class="nome-categoria">Fantásticos</h2>
+                <div class="div-produtos"></div>
+            </section>
+        </main>
+        <footer class="footer">
+            <div class="div-footer">
+                <form class="form-footer">
+                    <h2>Receba nossas notificações</h2>
+                    <div>
+                        <label for="nome">Nome Completo:</label>
+                        <input
+                            type="text"
+                            name="nome"
+                            id="nome"
+                            autocomplete="name"
+                            placeholder="Nome Completo"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label for="email">Email:</label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            autocomplete="email"
+                            placeholder="email@exemplo.com"
+                            required
+                        />
+                    </div>
+                    <button type="submit">Enviar Formulário</button>
+                </form>
+                <div class="informacoes-criadores">
+                    <h2>Site criado por:</h2>
+                    <address>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://github.com/bruno08nunes"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Bruno Nunes</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://github.com/felipecoimbra123"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Felipe Coimbra Rocha dos Santos</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://github.com/Leofm47"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Leonardo Falcão de Matos</a
+                                >
+                            </li>
+                        </ul>
+                    </address>
                 </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" autocomplete="email" placeholder="email@exemplo.com" required>
-                </div>
-                <button type="submit">Enviar Formulário</button>
-            </form>
-            <div class="informacoes-criadores">
-                <h2>Site criado por:</h2>
-                <address>
-                    <ul>
-                        <li><a href="https://github.com/bruno08nunes" target="_blank" rel="noopener noreferrer">Bruno Nunes</a></li>
-                        <li><a href="https://github.com/felipecoimbra123" target="_blank" rel="noopener noreferrer">Felipe Coimbra Rocha dos Santos</a></li>
-                        <li><a href="https://github.com/Leofm47" target="_blank" rel="noopener noreferrer">Leonardo Falcão de Matos</a></li>
-                    </ul>
-                </address>
             </div>
-        </div>
-        <div class="copyright">
-            &copy;Loja Loja 2024
-        </div>
-    </footer>
-    <div class="backdrop"></div>
-    <aside class="sidebar-carrinho">
-        <div class="titulo-carrinho">
-            <h2 class="h2-carrinho">Carrinho</h2>
-            <button class="fecharCarrinho" aria-label="Ocultar carrinho">X</button>
-        </div>
-    </aside>
-</body>
+            <div class="copyright">&copy;Loja Loja 2024</div>
+        </footer>
+        <div class="backdrop"></div>
+        <aside class="sidebar-carrinho">
+            <div class="titulo-carrinho">
+                <h2 class="h2-carrinho">Carrinho</h2>
+                <button class="fecharCarrinho" aria-label="Ocultar carrinho">
+                    X
+                </button>
+            </div>
+        </aside>
+    </body>
 </html>

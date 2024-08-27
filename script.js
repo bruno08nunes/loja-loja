@@ -1,7 +1,7 @@
 // Importações
 import atualizarCarrinho from "./modules/atualizarCarrinho.js";
 import iniciarPaginaPrincipal from "./modules/iniciarPaginaPrincipal.js";
-import iniciarPaginaLogin from "./modules/iniciarPaginaLogin.js";
+import iniciarPaginaCadastro from "./modules/iniciarPaginaLogin.js";
 import iniciarPaginaConta from "./modules/iniciarPaginaConta.js";
 import iniciarPaginaProduto from "./modules/iniciarPaginaProduto.js";
 import iniciarPaginaFinalizarCompra from "./modules/inicializarPaginaFinalizarCompra.js";
@@ -31,8 +31,8 @@ fetch("db.json")
         if (document.title === "Loja Loja") {
             iniciarPaginaPrincipal(dados);
         }
-        if (document.title === "Logar - Loja Loja") {
-            iniciarPaginaLogin();
+        if (document.title === "Cadastrar - Loja Loja") {
+            iniciarPaginaCadastro();
         }
         if (document.title === "Conta - Loja Loja") {
             iniciarPaginaConta(dados);
