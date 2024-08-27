@@ -1,39 +1,40 @@
-const logout = () => {
-    localStorage.setItem("estaLogado", "false");
-        localStorage.setItem("informacoesConta", JSON.stringify({}));
-        let bancoDeDados;
-        const openRequest = indexedDB.open("img_db", 1);
-        openRequest.addEventListener("error", () => {
-            console.error("Banco de dados falhou ao abrir.");
-        });
-        openRequest.addEventListener("success", () => {
-            bancoDeDados = openRequest.result;
-            const objectStore = bancoDeDados
-                .transaction("img_os", "readwrite")
-                .objectStore("img_os");
-            const deleteRequest = objectStore.delete(1);
-        });
-}
-
-const iniciarPaginaCadastro = () => {
-    const parametrosURL = new URLSearchParams(location.search);
-    if (parametrosURL.get("logout") === "true") {
-        logout();
-    }
-
+const iniciarPaginaLogin = () => {
     const estaLogado = localStorage.getItem("estaLogado") === "true";
     if (estaLogado) {
-        location.pathname = "loja-loja/pages/account.html";
+        location.pathname = "frontend/pages/account.html";
     }
 
-    const form = document.querySelector("form");
-    form.addEventListener("submit", (e) => {
+    const form = document.querySelector(".form-login");
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const formData = new FormData(form);
+
+        const data = {
+            email: form.email.value,
+            senha: form.senha.value
+        };
+
+        const response = await fetch("http://localhost:3000/usuario/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const resultados = await response.json();
+        if (!resultados.success) {
+            alert("Ocorreu algum erro. Por favor, tente novamente");
+            console.log(resultados);
+            return;
+        }
+        if (resultados.data.length === 0) {
+            alert("Usuário não encontrado");
+            return;
+        }
         localStorage.setItem("estaLogado", "true");
-        localStorage.setItem("informacoesConta", JSON.stringify([...formData]));
-        location.pathname = "loja-loja/pages/account.html";
+        localStorage.setItem("usuarioLogado", resultados.data[0].id);
+        location.pathname = "frontend/pages/account.html";
     });
 };
 
-export default iniciarPaginaCadastro;
+export default iniciarPaginaLogin;

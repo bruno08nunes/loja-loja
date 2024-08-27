@@ -1,7 +1,8 @@
 // Importações
 import atualizarCarrinho from "./modules/atualizarCarrinho.js";
 import iniciarPaginaPrincipal from "./modules/iniciarPaginaPrincipal.js";
-import iniciarPaginaCadastro from "./modules/iniciarPaginaLogin.js";
+import iniciarPaginaCadastro from "./modules/iniciarPaginaCadastro.js";
+import iniciarPaginaLogin from "./modules/iniciarPaginaLogin.js";
 import iniciarPaginaConta from "./modules/iniciarPaginaConta.js";
 import iniciarPaginaProduto from "./modules/iniciarPaginaProduto.js";
 import iniciarPaginaFinalizarCompra from "./modules/inicializarPaginaFinalizarCompra.js";
@@ -25,7 +26,7 @@ backdrop.addEventListener("click", (e) => {
     backdrop.classList.remove("open");
 });
 
-fetch("db.json")
+fetch("../db.json")
     .then((dados) => dados.json())
     .then((dados) => {
         if (document.title === "Loja Loja") {
@@ -42,6 +43,9 @@ fetch("db.json")
         }
         if (document.title === "Finalizar Compra - Loja Loja") {
             iniciarPaginaFinalizarCompra(dados);
+        }
+        if (document.title === "Login - Loja Loja") {
+            iniciarPaginaLogin();
         }
 
         botaoToggleCarrinho.addEventListener("click", (e) => {
