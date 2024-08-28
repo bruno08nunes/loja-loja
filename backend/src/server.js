@@ -33,7 +33,7 @@ app.post("/usuario/cadastrar", (req, res) => {
         return;
     }
 
-    let query = "INSERT INTO users(first_name, family_name, email, password, cpf) VALUES(?,?,?,?,?)";
+    let query = "INSERT INTO users(first_name, family_name, email, password, cpf) VALUES(?,?,?,?,?);";
 
     connection.query(query, params, (err, results) => {
         if (err) {
@@ -62,7 +62,7 @@ app.post("/usuario/login", (req, res) => {
         req.body.senha
     ];
 
-    let query = "SELECT * FROM users WHERE email = ? AND password = ?";
+    let query = "SELECT * FROM users WHERE email = ? AND password = ?;";
 
     connection.query(query, params, (err, results) => {
         if (err) {
@@ -85,12 +85,73 @@ app.post("/usuario/login", (req, res) => {
     });
 });
 
+app.get("/usuario/informacoes/:id", (req, res) => {
+    let params = [
+        req.params.id
+    ];
+
+    let query = "SELECT first_name, family_name, cpf, email FROM users WHERE id = ?;";
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Erro ao coletar informações",
+                    data: err
+                });
+            return
+        }
+        res
+            .status(200)
+            .json({
+                success: true,
+                message: "Consulta concluída",
+                data: results
+            });
+    });
+});
+
+app.put("/usuario/atualizar/:id", (req, res) => {
+    let params = [
+        req.body.nome,
+        req.body.sobrenome,
+        req.body.cpf,
+        req.body.email,
+        req.body.senha,
+        req.params.id
+    ];
+
+    let query = "UPDATE users SET first_name = ?, family_name = ?, cpf = ?, email = ?, password = ? WHERE id = ?;";
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Erro ao atualizar usuário",
+                    data: err
+                });
+            return
+        }
+        res
+            .status(200)
+            .json({
+                success: true,
+                message: "Usuário atualizado",
+                data: results
+            });
+    });
+});
+
 app.delete("/usuario/deletar/:id", (req, res) => {
     let params = [
         req.params.id
     ];
 
-    let query = "DELETE FROM users WHERE id = ?";
+    let query = "DELETE FROM users WHERE id = ?;";
 
     connection.query(query, params, (err, results) => {
         if (err) {
