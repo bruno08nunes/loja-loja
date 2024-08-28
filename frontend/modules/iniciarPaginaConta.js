@@ -2,30 +2,58 @@ import criarProduto from "./criarProduto.js";
 
 const sectionsCategorias = document.querySelectorAll(".section-categoria");
 
+const deslogar = () => {
+    localStorage.setItem("usuarioLogado", null);
+    localStorage.setItem("estaLogado", "false");
+    
+    let bancoDeDados;
+    const openRequest = indexedDB.open("img_db", 1);
+    openRequest.addEventListener("error", () => {
+        console.error("Banco de dados falhou ao abrir.");
+    });
+    openRequest.addEventListener("success", () => {
+        bancoDeDados = openRequest.result;
+        const objectStore = bancoDeDados
+            .transaction("img_os", "readwrite")
+            .objectStore("img_os");
+        const deleteRequest = objectStore.delete(1);
+    });
+    
+    location.pathname = "frontend";
+}
+
+const botaoDeslogar = document.querySelector(".deslogar");
+botaoDeslogar?.addEventListener("click", deslogar);
+
 const exibirDadosConta = () => {
-    const informacoesConta =
-        JSON.parse(localStorage.getItem("informacoesConta")) ?? [];
-    const formData = new FormData();
-    for (let pos in informacoesConta) {
-        formData.append(...informacoesConta[pos]);
-    }
+    const userId = localStorage.getItem("usuarioLogado");
+    fetch(`http://localhost:3000/usuario/informacoes/${userId}`)
+        .then((res) => res.json())
+        .then((resultados) => {
+            const nomeConta = document.querySelector(".name-account");
+            const elementoEmail = document.querySelector(".email-account");
 
-    document.title =
-        formData.get("nome") + " " + formData.get("sobrenome") + " - Loja Loja";
+            if (!resultados.success) {
+                deslogar();
+                return;
+            }
+            if (resultados.data.length === 0) {
+                nomeConta.textContent = "Anônimo";
+                return;
+            }
 
-    const nomeConta = document.querySelector(".name-account");
-    let textoNomeConta = "Desconhecido";
-    let email = "";
-    if (formData.get("nome") !== null || formData.get("sobrenome") !== null) {
-        textoNomeConta = formData.get("nome") + " " + formData.get("sobrenome");
-    }
-    if (formData.get("email") !== null) {
-        email = formData.get("email");
-    }
-    nomeConta.textContent = textoNomeConta;
+            let {
+                first_name: nome,
+                family_name: sobrenome,
+                email,
+            } = resultados.data[0];
 
-    const elementoEmail = document.querySelector(".email-account");
-    elementoEmail.textContent = email;
+            document.title = `${nome} ${sobrenome} - Loja Loja`;
+
+            nomeConta.textContent = nome + " " + sobrenome;
+
+            elementoEmail.textContent = email;
+        });
 };
 
 const exibirImagem = () => {
@@ -63,9 +91,7 @@ const exibirImagem = () => {
             keyPath: "id",
         });
     });
-    setTimeout(() => {
-        
-    })
+    setTimeout(() => {});
     botaoEnviarFoto.addEventListener("change", (e) => {
         const transaction = bancoDeDados.transaction(["img_os"], "readwrite");
         const objectStore = transaction.objectStore("img_os");
@@ -97,7 +123,7 @@ const pegarProdutosCompletos = (dados, tipo) => {
         itens.includes(produto.id)
     );
     return produtosCompletos;
-}
+};
 
 const criarMensagem = (mensagem) => {
     const pMensagemVazio = document.createElement("p");
@@ -108,8 +134,7 @@ const criarMensagem = (mensagem) => {
 
 const exibirItens = (dados, tipo, id, mensagem) => {
     const produtosCompletos = pegarProdutosCompletos(dados, tipo);
-    const divProdutos =
-        sectionsCategorias[id].querySelector(".div-produtos");
+    const divProdutos = sectionsCategorias[id].querySelector(".div-produtos");
     for (let produto of produtosCompletos) {
         const divProduto = criarProduto(produto);
         divProdutos.append(divProduto);

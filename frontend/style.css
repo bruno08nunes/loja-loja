@@ -12,6 +12,7 @@
 @import url(styles/media-query.css);
 @import url(styles/pdf.css);
 @import url(styles/products-management.css);
+@import url(styles/form-update-account.css);
 
 /* Fontes */
 @font-face {

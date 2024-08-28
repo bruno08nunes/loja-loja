@@ -3,6 +3,7 @@ import atualizarCarrinho from "./modules/atualizarCarrinho.js";
 import iniciarPaginaPrincipal from "./modules/iniciarPaginaPrincipal.js";
 import iniciarPaginaCadastro from "./modules/iniciarPaginaCadastro.js";
 import iniciarPaginaLogin from "./modules/iniciarPaginaLogin.js";
+import iniciarPaginaAtualizarConta from "./modules/iniciarPaginaAtualizarConta.js";
 import iniciarPaginaConta from "./modules/iniciarPaginaConta.js";
 import iniciarPaginaProduto from "./modules/iniciarPaginaProduto.js";
 import iniciarPaginaFinalizarCompra from "./modules/inicializarPaginaFinalizarCompra.js";
@@ -46,6 +47,9 @@ fetch("../db.json")
         }
         if (document.title === "Login - Loja Loja") {
             iniciarPaginaLogin();
+        }
+        if (document.title === "Atualizar Conta - Loja Loja") {
+            iniciarPaginaAtualizarConta();
         }
 
         botaoToggleCarrinho.addEventListener("click", (e) => {

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <base href="../" />
+
+        <meta
+            name="description"
+            content="Loja Loja: A Loja Mais Loja de Todas é uma loja virtual, que vende os produtos mais variados no melhor preço possível."
+        />
+
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:url"
+            content="https://bruno08nunes.github.io/loja-loja"
+        />
+        <meta property="og:title" content="Loja Loja" />
+        <meta
+            property="og:image"
+            content="https://bruno08nunes.github.io/loja-loja/logo.png"
+        />
+        <meta
+            property="og:description"
+            content="Loja Loja: A Loja Mais Loja de Todas. Uma loja virtual, que vende os produtos mais variados no melhor preço possível."
+        />
+        <meta property="og:site_name" content="Loja Loja" />
+        <meta property="og:locale" content="pt_BR" />
+        <meta property="og:image:width" content="619" />
+        <meta property="og:image:height" content="496" />
+
+        <meta name="twitter:card" content="summary" />
+        <meta
+            name="twitter:url"
+            content="https://bruno08nunes.github.io/loja-loja"
+        />
+        <meta name="twitter:title" content="Loja Loja" />
+        <meta
+            name="twitter:description"
+            content="Loja Loja: A Loja Mais Loja de Todas. Uma loja virtual, que vende os produtos mais variados no melhor preço possível."
+        />
+        <meta
+            name="twitter:image"
+            content="https://bruno08nunes.github.io/loja-loja/logo.png"
+        />
+
+        <meta name="theme-color" content="#f205c7" />
+
+        <link rel="stylesheet" href="style.css" />
+        <script src="script.js" type="module"></script>
+
+        <title>Atualizar Conta - Loja Loja</title>
+        <link
+            rel="shortcut icon"
+            href="assets/favicon.png"
+            type="image/x-icon"
+        />
+    </head>
+    <body>
+        <header class="cabecalho-principal">
+            <div class="div-cabeçalho">
+                <a href="index.html"
+                    ><img src="assets/logo.png" alt="" class="logo"
+                /></a>
+                <nav class="nav-header">
+                    <a href="index.html"
+                        ><img src="assets/icons/home.svg" alt="Home"
+                    /></a>
+                    <a href="pages/form-login.html"
+                        ><img src="assets/icons/account.svg" alt="Conta"
+                    /></a>
+                </nav>
+            </div>
+        </header>
+        <nav class="nav-carrinho">
+            <button aria-label="Mostrar carrinho">
+                <img src="assets/icons/cart.svg" alt="Carrinho" />
+            </button>
+        </nav>
+
+        <main class="main-login">
+            <div class="login">
+                <form class="update-form">
+                    <h2 class="title-form-login">Cadastrar-se</h2>
+                    <div class="div-input">
+                        <label class="label-login" for="nome"
+                            >Primeiro Nome:</label
+                        >
+                        <input
+                            type="text"
+                            placeholder="Digite seu nome..."
+                            id="nome"
+                            name="nome"
+                            autocomplete="name"
+                            required
+                        />
+                        <label class="label-login" for="sobrenome"
+                            >Sobrenome:</label
+                        >
+                        <input
+                            type="text"
+                            placeholder="Digite seu sobrenome..."
+                            id="sobrenome"
+                            name="sobrenome"
+                            autocomplete="family-name"
+                            required
+                        />
+                        <label class="label-login" for="cpf">CPF:</label>
+                        <input
+                            type="text"
+                            placeholder="xxxxxxxxxxx"
+                            id="cpf"
+                            name="cpf"
+                            minlength="11"
+                            maxlength="11"
+                            required
+                        />
+                        <label class="label-login" for="email">E-mail:</label>
+                        <input
+                            type="email"
+                            placeholder="Digite seu e-mail..."
+                            id="email"
+                            name="email"
+                            autocomplete="email"
+                            required
+                        />
+                        <label class="label-login" for="senha">Senha:</label>
+                        <input
+                            type="password"
+                            placeholder="Digite sua senha..."
+                            id="senha"
+                            name="senha"
+                            autocomplete="new-password"
+                            minlength="8"
+                            required
+                        />
+                    </div>
+                    <div class="div-button-login">
+                        <button class="button-login" type="submit">
+                            Atualizar Informações
+                        </button>
+                    </div>
+                </form>
+                <button class="delete-button">
+                    Deletar Usuário
+                </button>
+            </div>
+        </main>
+
+        <div class="backdrop"></div>
+        <aside class="sidebar-carrinho">
+            <div class="titulo-carrinho">
+                <h2 class="h2-carrinho">Carrinho</h2>
+                <button class="fecharCarrinho" aria-label="Ocultar carrinho">
+                    X
+                </button>
+            </div>
+        </aside>
+    </body>
+</html>
