@@ -17,7 +17,6 @@ const adicionarInformacoesFormulario = () => {
             const cpf = document.querySelector("#cpf");
             cpf.value = res.data[0].cpf;
         });
-
 };
 
 const criarMensagemCompraFinalizada = () => {
