@@ -173,3 +173,152 @@ app.delete("/usuario/deletar/:id", (req, res) => {
             });
     });
 });
+
+// CRUD Produto
+
+app.post("/produto/criar", (req, res) => {
+    const params = [
+        req.body.nome,
+        req.body.descricao,
+        req.body.preco,
+        req.body.precoPromocional,
+        req.body.quantidade,
+        req.body.image
+    ];
+
+    const query = "INSERT INTO products(name, description, price, promotional_price, stock_quantity, image) VALUES (?,?,?,?,?,?);";
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Erro ao criar produto",
+                    data: err
+                });
+            return
+        }
+        res
+            .status(201)
+            .json({
+                success: true,
+                message: "Produto criado",
+                data: results
+            });
+    });
+});
+
+app.get("/produtos/listar", (req, res) => {
+    const query = "SELECT * FROM products";
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Erro ao listar produtos",
+                    data: err
+                });
+            return
+        }
+        res
+            .status(200)
+            .json({
+                success: true,
+                message: "Consulta concluída",
+                data: results
+            });
+    });
+});
+
+app.get("/produto/informacoes/:id", (req, res) => {
+    const params = [
+        req.params.id
+    ];
+
+    const query = "SELECT name, description, price, promotional_price, rating, stock_quantity, image WHERE id = ?;";
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Erro ao consultar produto",
+                    data: err
+                });
+            return
+        }
+        res
+            .status(200)
+            .json({
+                success: true,
+                message: "Informações do produto consultadas",
+                data: results
+            });
+    });
+});
+
+app.put("/produto/atualizar/:id", (req, res) => {
+    const params = [
+        req.body.nome,
+        req.body.descricao,
+        req.body.preco,
+        req.body.precoPromocional,
+        req.body.quantidade,
+        req.body.image,
+        req.params.id
+    ];
+
+    const query = "UPDATE products SET name = ?, description = ?, price = ?, promotional_price = ?, stock_quantity = ?, image = ? WHERE id = ?;";
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Erro ao atualizar produto",
+                    data: err
+                });
+            return
+        }
+        res
+            .status(200)
+            .json({
+                success: true,
+                message: "Produto atualizado",
+                data: results
+            });
+    });
+});
+
+app.delete("/produto/deletar/:id", (req, res) => {
+    const params = [
+        req.params.id
+    ];
+
+    const query = "DELETE FROM products WHERE id = ?;";
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Erro ao deletar produto",
+                    data: err
+                });
+            return
+        }
+        res
+            .status(200)
+            .json({
+                success: true,
+                message: "Produto deletado",
+                data: results
+            });
+    });
+});

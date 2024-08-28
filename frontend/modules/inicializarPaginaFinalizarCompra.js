@@ -1,18 +1,23 @@
 const adicionarInformacoesFormulario = () => {
-    const informacoesConta = new FormData();
+    const userId = localStorage.getItem("usuarioLogado");
+    fetch(`http://localhost:3000/usuario/informacoes/${userId}`)
+        .then(res => res.json())
+        .then(res => {
+            if (!res.success) {
+                console.error("Erro ao consultar", res.data);
+                return;
+            }
+        
+            const nome = document.querySelector("#nome");
+            nome.value = res.data[0].first_name;
+        
+            const sobrenome = document.querySelector("#sobrenome");
+            sobrenome.value = res.data[0].family_name;
 
-    const informacoesContaLocalStorage =
-        JSON.parse(localStorage.getItem("informacoesConta")) ?? [];
+            const cpf = document.querySelector("#cpf");
+            cpf.value = res.data[0].cpf;
+        });
 
-    informacoesContaLocalStorage.forEach((informacao) => {
-        informacoesConta.append(informacao[0], informacao[1]);
-    });
-
-    const nome = document.querySelector("#nome");
-    nome.value = informacoesConta.get("nome");
-
-    const sobrenome = document.querySelector("#sobrenome");
-    sobrenome.value = informacoesConta.get("sobrenome");
 };
 
 const criarMensagemCompraFinalizada = () => {

@@ -291,4 +291,13 @@ Por padrão, os códigos do projeto devem seguir:
 ![Imagem produtos na página inicial do site Loja Loja](assets/examples/example2.png)
 ![Imagem carrinho do site Loja Loja](assets/examples/example3.png)
 
-[ ] - Colocar um button na página da conta para deslogar.
+[ ] - Enviar form-buy
+[ ] - Favoritar
+[ ] - Pegar compra e favoritos na conta
+[ ] - Apagar carrinho ao deslogar
+[ ] - Criação de categorias
+[ ] - Criação de Produtos
+[ ] - Atualização de produtos
+[ ] - Pegar produtos do banco
+[ ] - Enviar Atualização de categorias
+[ ] - Pesquisar por produtos para poder alterar

@@ -106,6 +106,14 @@
                             name="preco"
                             required
                         />
+                        <label class="label-login" for="precoPromocional">Preço:</label>
+                        <input
+                            type="text"
+                            placeholder="Digite o preço da promoção..."
+                            id="precoPromocional"
+                            name="precoPromocional"
+                            required
+                        />
                         <label class="label-login" for="categoria"
                             >Categoria:</label
                         >
@@ -142,10 +150,7 @@
                         />
                         <div class="choose-image">
                             <label class="label-login" for="image">Imagem:</label>
-                            <label for="image" class="button-images-login">
-                                Escolher imagem
-                            </label>
-                            <input type="file" name="image" id="image" style="display: none;">
+                            <input type="url" name="image" id="image" placeholder="Digite a URL da imagem" required>
                         </div>
                     </div>
                     <div class="div-button-login">
