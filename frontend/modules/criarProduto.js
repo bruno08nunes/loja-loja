@@ -1,7 +1,9 @@
 // Funções
 const criarElementoImagemProduto = (produto) => {
     const img = document.createElement("img");
-    img.src = `assets/products/${produto.image}`;
+    if (produto.image) {
+        img.src = `assets/products/${produto.image}`;
+    }
     img.alt = "Imagem de " + produto.name;
     img.classList.add("img-produto");
     return img;
@@ -33,11 +35,11 @@ const criarSpanPreco = (produto) => {
     const spanPreco = document.createElement("span");
     spanPreco.classList.add("preco-produto");
     
-    if (produto.promotionalPrice !== null) {
+    if (produto.promotional_price !== null) {
         const spanPrecoPromocional = document.createElement("span");
         spanPrecoPromocional.classList.add("preco-antes-promocao");
         spanPrecoPromocional.textContent = `R$ ${produto.price}`;
-        spanPreco.append(spanPrecoPromocional, " R$ ", produto.promotionalPrice);
+        spanPreco.append(spanPrecoPromocional, " R$ ", produto.promotional_price);
         return spanPreco;
     }
     
@@ -50,7 +52,7 @@ const criarSpanNota = (produto) => {
     spanNota.classList.add("nota-produto");
     spanNota.textContent = "★".repeat(5);
     
-    const notaEmPorcentagem = produto.rating * 20;
+    const notaEmPorcentagem = (produto.rating ?? Math.floor(Math.random() * (5 - 3 + 1)) + 3) * 20;
     const restoPorcentagem = 100 - notaEmPorcentagem;
 
     spanNota.style.setProperty("--porcentagem-nota", `${notaEmPorcentagem}%`)

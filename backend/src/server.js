@@ -90,7 +90,7 @@ app.get("/usuario/informacoes/:id", (req, res) => {
         req.params.id
     ];
 
-    let query = "SELECT first_name, family_name, cpf, email FROM users WHERE id = ?;";
+    let query = "SELECT first_name, family_name, cpf, email, role FROM users WHERE id = ?;";
 
     connection.query(query, params, (err, results) => {
         if (err) {
@@ -318,6 +318,147 @@ app.delete("/produto/deletar/:id", (req, res) => {
             .json({
                 success: true,
                 message: "Produto deletado",
+                data: results
+            });
+    });
+});
+
+// CRUD Categorias
+
+app.post("/categoria/criar", (req, res) => {
+    const params = [
+        req.body.nome,
+        req.body.descricao
+    ];
+
+    const query = "INSERT INTO categories(name, description) VALUES(?, ?);";
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Erro ao criar categoria",
+                    data: err
+                });
+            return
+        }
+        res
+            .status(200)
+            .json({
+                success: true,
+                message: "Categoria criada",
+                data: results
+            });
+    });
+});
+
+app.get("/categorias/listar", (req, res) => {
+    const query = "SELECT * FROM categories";
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Erro ao listar categorias",
+                    data: err
+                });
+            return
+        }
+        res
+            .status(200)
+            .json({
+                success: true,
+                message: "Consulta concluída",
+                data: results
+            });
+    });
+});
+
+// CRUD Produto + Categoria
+app.post("/produto/categoria/criar", (req, res) => {
+    const params = req.body.categorias.map((categoria) => [
+        req.body.produto,
+        categoria
+    ])
+
+    const query = "INSERT INTO products_has_categories(id_products, id_categories) VALUES ?";
+
+    connection.query(query, [params], (err, results) => {
+        if (err) {
+            res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Erro ao criar categorias em produtos",
+                    data: err
+                });
+            return
+        }
+        res
+            .status(200)
+            .json({
+                success: true,
+                message: "Categorias anexadas aos produtos",
+                data: results
+            });
+    });
+});
+
+app.get("/produto/categoria/selecionar/:id", (req, res) => {
+    const params = [
+        req.params.id
+    ];
+
+    const query = "SELECT categories.name FROM categories INNER JOIN products_has_categories ON products_has_categories.id_categories = categories.id WHERE products_has_categories.id_products = ?;";
+
+    connection.query(query, [params], (err, results) => {
+        if (err) {
+            res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Erro ao consultar categorias de produtos",
+                    data: err
+                });
+            return
+        }
+        res
+            .status(200)
+            .json({
+                success: true,
+                message: "Categorias do produto consultadas",
+                data: results
+            });
+    });
+});
+
+app.get("/categoria/produto/selecionar/:categoria", (req, res) => {
+    const params = [
+        req.params.categoria
+    ];
+
+    const query = "SELECT products.name FROM products_has_categories INNER JOIN products ON products_has_categories.id_products = products.id INNER JOIN categories ON products_has_categories.id_categories = categories.id WHERE categories.name = ?;";
+
+    connection.query(query, [params], (err, results) => {
+        if (err) {
+            res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Erro ao consultar categorias de produtos",
+                    data: err
+                });
+            return
+        }
+        res
+            .status(200)
+            .json({
+                success: true,
+                message: "Categorias do produto consultadas",
                 data: results
             });
     });

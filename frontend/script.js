@@ -7,6 +7,8 @@ import iniciarPaginaAtualizarConta from "./modules/iniciarPaginaAtualizarConta.j
 import iniciarPaginaConta from "./modules/iniciarPaginaConta.js";
 import iniciarPaginaProduto from "./modules/iniciarPaginaProduto.js";
 import iniciarPaginaFinalizarCompra from "./modules/inicializarPaginaFinalizarCompra.js";
+import iniciarPaginaCriarCategoria from "./modules/iniciarPaginaCriarCategoria.js";
+import iniciarPaginaCriarProduto from "./modules/iniciarPaginaCriarProduto.js";
 
 // Variáveis
 const botaoToggleCarrinho = document.querySelector(".nav-carrinho button");
@@ -27,29 +29,35 @@ backdrop.addEventListener("click", (e) => {
     backdrop.classList.remove("open");
 });
 
-fetch("../db.json")
+fetch("http://localhost:3000/produtos/listar")
     .then((dados) => dados.json())
     .then((dados) => {
         if (document.title === "Loja Loja") {
-            iniciarPaginaPrincipal(dados);
+            iniciarPaginaPrincipal(dados.data);
         }
         if (document.title === "Cadastrar - Loja Loja") {
             iniciarPaginaCadastro();
         }
         if (document.title === "Conta - Loja Loja") {
-            iniciarPaginaConta(dados);
+            iniciarPaginaConta(dados.data);
         }
         if (document.title.startsWith("Produto")) {
-            iniciarPaginaProduto(dados);
+            iniciarPaginaProduto(dados.data);
         }
         if (document.title === "Finalizar Compra - Loja Loja") {
-            iniciarPaginaFinalizarCompra(dados);
+            iniciarPaginaFinalizarCompra(dados.data);
         }
         if (document.title === "Login - Loja Loja") {
             iniciarPaginaLogin();
         }
         if (document.title === "Atualizar Conta - Loja Loja") {
             iniciarPaginaAtualizarConta();
+        }
+        if (document.title === "Criar Categoria - Loja Loja") {
+            iniciarPaginaCriarCategoria();
+        }
+        if (document.title === "Criar Produto - Loja Loja") {
+            iniciarPaginaCriarProduto();
         }
 
         botaoToggleCarrinho.addEventListener("click", (e) => {

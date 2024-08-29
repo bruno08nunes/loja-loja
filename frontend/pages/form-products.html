@@ -49,7 +49,7 @@
         <link rel="stylesheet" href="style.css" />
         <script src="script.js" type="module"></script>
 
-        <title>Logar - Loja Loja</title>
+        <title>Criar Produto - Loja Loja</title>
         <link
             rel="shortcut icon"
             href="assets/favicon.png"
@@ -72,10 +72,15 @@
                 </nav>
             </div>
         </header>
+        <nav class="nav-carrinho">
+            <button aria-label="Mostrar carrinho">
+                <img src="assets/icons/cart.svg" alt="Carrinho" />
+            </button>
+        </nav>
 
         <main class="main-login">
             <div class="form-products">
-                <form>
+                <form class="form-criar-produto">
                     <h2 class="title-form-login">Cadastrar produto</h2>
                     <div class="div-input">
                         <label class="label-login" for="nome"
@@ -106,37 +111,17 @@
                             name="preco"
                             required
                         />
-                        <label class="label-login" for="precoPromocional">Preço:</label>
+                        <label class="label-login" for="precoPromocional">Preço promocional:</label>
                         <input
                             type="text"
                             placeholder="Digite o preço da promoção..."
                             id="precoPromocional"
                             name="precoPromocional"
-                            required
                         />
                         <label class="label-login" for="categoria"
                             >Categoria:</label
                         >
-                        <select name="categoria" id="categoria" class="select-categories" required>
-                            <option value="">Escolha sua categoria</option>
-                            <option value="services">Services</option>
-                            <option value="decoration">Decoration</option>
-                            <option value="fantasy">Fantasy</option>
-                            <option value="concept">Concept</option>
-                            <option value="classes">Classes</option>
-                            <option value="famous">Famous</option>
-                            <option value="style">Style</option>
-                            <option value="fashion">Fashion</option>
-                            <option value="food">Food</option>
-                            <option value="companion">Companion</option>
-                            <option value="tools">Tools</option>
-                            <option value="receipt">Receipt</option>
-                            <option value="medicine">Medicine</option>
-                            <option value="idol">Idol</option>
-                            <option value="beauty">Beauty</option>
-                            <option value="power">Power</option>
-                            <option value="physics">Physics</option>
-                            <option value="clothes">Clothes</option>
+                        <select name="categoria" id="categoria" class="select-categories" multiple required>
                         </select>
                         <label class="label-login" for="quantidade"
                             >Quantidade:</label
@@ -148,10 +133,8 @@
                             name="quantidade"
                             required
                         />
-                        <div class="choose-image">
-                            <label class="label-login" for="image">Imagem:</label>
-                            <input type="url" name="image" id="image" placeholder="Digite a URL da imagem" required>
-                        </div>
+                        <label class="label-login" for="image">Imagem:</label>
+                        <input type="url" name="image" id="image" placeholder="Digite a URL da imagem">
                     </div>
                     <div class="div-button-login">
                         <button class="button-login" type="submit">
@@ -161,5 +144,15 @@
                 </form>
             </div>
         </main>
+
+        <div class="backdrop"></div>
+        <aside class="sidebar-carrinho">
+            <div class="titulo-carrinho">
+                <h2 class="h2-carrinho">Carrinho</h2>
+                <button class="fecharCarrinho" aria-label="Ocultar carrinho">
+                    X
+                </button>
+            </div>
+        </aside>
     </body>
 </html>
