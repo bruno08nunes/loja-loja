@@ -1,4 +1,4 @@
-.div-buttons-products-menagem {
+.div-buttons-products-menagement {
     display: flex;
     gap: 15px;
 }
@@ -28,4 +28,25 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
+}
+
+.form-dados-produto {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 1.3em;
+
+    & :is(input, textarea) {
+        font-size: 1em;
+        padding: 5px;
+        resize: none;
+    }
+
+    & textarea {
+        height: 100px;
+    }
+}
+
+.form-imagem-pagina-produto {
+    max-width: 700px;
 }

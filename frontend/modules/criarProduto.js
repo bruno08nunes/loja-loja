@@ -7,66 +7,71 @@ const criarElementoImagemProduto = (produto) => {
     img.alt = "Imagem de " + produto.name;
     img.classList.add("img-produto");
     return img;
-}
+};
 
 const criarTituloNomeProduto = (produto) => {
     const nomeProduto = document.createElement("figcaption");
     nomeProduto.classList.add("nome-produto");
-    nomeProduto.title = produto.name
+    nomeProduto.title = produto.name;
     nomeProduto.textContent = produto.name;
     return nomeProduto;
-}
+};
 
 const criarFigureImagem = (imagem, texto) => {
     const figure = document.createElement("figure");
     figure.classList.add("figure-img");
     figure.append(imagem, texto);
     return figure;
-}
+};
 
 const criarParagrafoDescricao = (produto) => {
     const pDescricao = document.createElement("p");
     pDescricao.classList.add("descricao-produto");
     pDescricao.textContent = produto.description;
     return pDescricao;
-}
+};
 
 const criarSpanPreco = (produto) => {
     const spanPreco = document.createElement("span");
     spanPreco.classList.add("preco-produto");
-    
+
     if (produto.promotional_price !== null) {
         const spanPrecoPromocional = document.createElement("span");
         spanPrecoPromocional.classList.add("preco-antes-promocao");
         spanPrecoPromocional.textContent = `R$ ${produto.price}`;
-        spanPreco.append(spanPrecoPromocional, " R$ ", produto.promotional_price);
+        spanPreco.append(
+            spanPrecoPromocional,
+            " R$ ",
+            produto.promotional_price
+        );
         return spanPreco;
     }
-    
+
     spanPreco.append(`R$ ${produto.price}`);
     return spanPreco;
-}
+};
 
 const criarSpanNota = (produto) => {
     const spanNota = document.createElement("span");
     spanNota.classList.add("nota-produto");
     spanNota.textContent = "★".repeat(5);
-    
-    const notaEmPorcentagem = (produto.rating ?? Math.floor(Math.random() * (5 - 3 + 1)) + 3) * 20;
+
+    const notaEmPorcentagem =
+        (produto.rating ?? Math.floor(Math.random() * (5 - 3 + 1)) + 3) * 20;
     const restoPorcentagem = 100 - notaEmPorcentagem;
 
-    spanNota.style.setProperty("--porcentagem-nota", `${notaEmPorcentagem}%`)
-    spanNota.style.setProperty("--porcentagem-branco", `${restoPorcentagem}%`)
+    spanNota.style.setProperty("--porcentagem-nota", `${notaEmPorcentagem}%`);
+    spanNota.style.setProperty("--porcentagem-branco", `${restoPorcentagem}%`);
 
     return spanNota;
-}
+};
 
-const criarDivInformacoesProduto = ({spanNota, spanPreco}) => {
+const criarDivInformacoesProduto = ({ spanNota, spanPreco }) => {
     const divInformacoes = document.createElement("div");
     divInformacoes.classList.add("informacoes-adicionais-produto");
-    divInformacoes.append(spanPreco, spanNota)
+    divInformacoes.append(spanPreco, spanNota);
     return divInformacoes;
-}
+};
 
 const criarBotaoCarrinho = (produto) => {
     const botaoCarrinho = document.createElement("button");
@@ -74,11 +79,12 @@ const criarBotaoCarrinho = (produto) => {
     botaoCarrinho.dataset.id = produto.id;
     botaoCarrinho.ariaLabel = "Adicionar ao carrinho";
 
-    if (produto.stock === 0) {
+    if (produto.stock_quantity === 0) {
         botaoCarrinho.disabled = "true";
     }
 
-    const produtosNoCarrinho = JSON.parse(localStorage.getItem("carrinho")) ?? [];
+    const produtosNoCarrinho =
+        JSON.parse(localStorage.getItem("carrinho")) ?? [];
     if (produtosNoCarrinho.includes(produto.id)) {
         botaoCarrinho.classList.add("adicionado-ao-carrinho");
         botaoCarrinho.ariaLabel = "Remover do carrinho";
@@ -90,33 +96,44 @@ const criarBotaoCarrinho = (produto) => {
     botaoCarrinho.append(imgCarrinho);
 
     botaoCarrinho.addEventListener("click", (e) => {
-        const produtosNoCarrinho = JSON.parse(localStorage.getItem("carrinho")) ?? [];
-        const botoesProduto = document.querySelectorAll(".botao-carrinho[data-id]");
-        if (produto.stock !== 0) {
+        const produtosNoCarrinho =
+            JSON.parse(localStorage.getItem("carrinho")) ?? [];
+        const botoesProduto = document.querySelectorAll(
+            ".botao-carrinho[data-id]"
+        );
+        if (produto.stock_quantity !== 0) {
             if (produtosNoCarrinho.includes(produto.id)) {
-                botoesProduto.forEach(botao => {
+                botoesProduto.forEach((botao) => {
                     if (botao.dataset.id === produto.id.toString()) {
                         botao.classList.remove("adicionado-ao-carrinho");
                         botao.ariaLabel = "Adicionar ao carrinho";
                     }
-                })
-                const produtosFiltrados = produtosNoCarrinho.filter((prod) => prod !== produto.id);
-                localStorage.setItem("carrinho", JSON.stringify(produtosFiltrados));
+                });
+                const produtosFiltrados = produtosNoCarrinho.filter(
+                    (prod) => prod !== produto.id
+                );
+                localStorage.setItem(
+                    "carrinho",
+                    JSON.stringify(produtosFiltrados)
+                );
                 return;
             }
             produtosNoCarrinho.push(produto.id);
-            botoesProduto.forEach(botao => {
+            botoesProduto.forEach((botao) => {
                 if (botao.dataset.id === produto.id.toString()) {
                     botao.classList.add("adicionado-ao-carrinho");
                     botao.ariaLabel = "Remover do carrinho";
                 }
-            })
-            localStorage.setItem("carrinho", JSON.stringify(produtosNoCarrinho));
+            });
+            localStorage.setItem(
+                "carrinho",
+                JSON.stringify(produtosNoCarrinho)
+            );
         }
-    })
+    });
 
     return botaoCarrinho;
-}
+};
 
 const criarBotaoFavorito = (produto) => {
     const botaoFavorito = document.createElement("button");
@@ -126,59 +143,70 @@ const criarBotaoFavorito = (produto) => {
 
     const itensFavoritos = JSON.parse(localStorage.getItem("favoritos")) ?? [];
     if (itensFavoritos.includes(produto.id)) {
-        botaoFavorito.classList.add("adicionado-ao-carrinho")
+        botaoFavorito.classList.add("adicionado-ao-carrinho");
         botaoFavorito.ariaLabel = "Remover do favoritos";
     }
 
-    
     const imgFavorito = document.createElement("img");
     imgFavorito.src = "assets/icons/favorite.svg";
-    
+
     botaoFavorito.append(imgFavorito);
-    
+
     botaoFavorito.addEventListener("click", (e) => {
-        const itensFavoritos = JSON.parse(localStorage.getItem("favoritos")) ?? [];
-        const botoesFavoritos = document.querySelectorAll(".botao-favorito[data-id]");
+        const itensFavoritos =
+            JSON.parse(localStorage.getItem("favoritos")) ?? [];
+        const botoesFavoritos = document.querySelectorAll(
+            ".botao-favorito[data-id]"
+        );
         if (itensFavoritos.includes(produto.id)) {
-            botoesFavoritos.forEach(botao => {
+            botoesFavoritos.forEach((botao) => {
                 if (botao.dataset.id === produto.id.toString()) {
                     botao.classList.remove("adicionado-ao-carrinho");
                     botao.ariaLabel = "Adicionar ao favoritos";
                 }
-            })
-            const produtosFiltrados = itensFavoritos.filter((prod) => prod !== produto.id);
-            localStorage.setItem("favoritos", JSON.stringify(produtosFiltrados));
+            });
+            const produtosFiltrados = itensFavoritos.filter(
+                (prod) => prod !== produto.id
+            );
+            localStorage.setItem(
+                "favoritos",
+                JSON.stringify(produtosFiltrados)
+            );
             return;
         }
         itensFavoritos.push(produto.id);
-        botoesFavoritos.forEach(botao => {
+        botoesFavoritos.forEach((botao) => {
             if (botao.dataset.id === produto.id.toString()) {
                 botao.classList.add("adicionado-ao-carrinho");
-                botao.ariaLabel = "Remover do favoritos"
+                botao.ariaLabel = "Remover do favoritos";
             }
-        })
+        });
         localStorage.setItem("favoritos", JSON.stringify(itensFavoritos));
-    })
+    });
 
     return botaoFavorito;
-}
+};
 
-const criarBotoesProduto = ({botaoCarrinho, botaoFavorito}) => {
+const criarBotoesProduto = ({ botaoCarrinho, botaoFavorito }) => {
     const divBotoesProduto = document.createElement("div");
     divBotoesProduto.classList.add("botoes-produto");
     divBotoesProduto.append(botaoCarrinho, botaoFavorito);
     return divBotoesProduto;
-}
+};
 
-const criarProduto = (produto) => {
+const criarProduto = (produto, admin) => {
     const divProduto = document.createElement("div");
     divProduto.classList.add("produto");
 
     const linkProduto = document.createElement("a");
-    linkProduto.href = "pages/product.html?produto=" + produto.id;
+    let href = "pages/product.html?produto=" + produto.id;
+    if (admin) {
+        href = "pages/products-management.html?produto=" + produto.id;
+    }
+    linkProduto.href = href;
     linkProduto.classList.add("link-produto");
 
-    if (produto.stock === 0) {
+    if (produto.stock_quantity === 0) {
         linkProduto.classList.add("esgotado");
     }
 
@@ -186,24 +214,24 @@ const criarProduto = (produto) => {
     const img = criarElementoImagemProduto(produto);
     const nomeProduto = criarTituloNomeProduto(produto);
     const figure = criarFigureImagem(img, nomeProduto);
-    
+
     // Descrição
     const pDescricao = criarParagrafoDescricao(produto);
-    
+
     // Informações adicionais
     const spanPreco = criarSpanPreco(produto);
     const spanNota = criarSpanNota(produto);
-    const divInformacoes = criarDivInformacoesProduto({spanNota, spanPreco});
+    const divInformacoes = criarDivInformacoesProduto({ spanNota, spanPreco });
 
     // Botões
     const botaoCarrinho = criarBotaoCarrinho(produto);
     const botaoFavorito = criarBotaoFavorito(produto);
-    const botoesProduto = criarBotoesProduto({botaoCarrinho, botaoFavorito});
+    const botoesProduto = criarBotoesProduto({ botaoCarrinho, botaoFavorito });
 
-    linkProduto.append(figure, pDescricao, divInformacoes)
-    divProduto.append(linkProduto, botoesProduto)
+    linkProduto.append(figure, pDescricao, divInformacoes);
+    divProduto.append(linkProduto, botoesProduto);
 
     return divProduto;
-}
+};
 
 export default criarProduto;

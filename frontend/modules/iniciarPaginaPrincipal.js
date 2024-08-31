@@ -12,7 +12,6 @@ const criarProdutos = (produtosCategoria, divProdutos) => {
 };
 
 const iniciarPaginaPrincipal = (dados) => {
-    console.log(dados)
     for (let i = 0; i < sectionsCategorias.length; i++) {
         const section = sectionsCategorias[i];
         const categoria = section.dataset.categoria;
@@ -27,19 +26,17 @@ const iniciarPaginaPrincipal = (dados) => {
         if (categoria === "Mais Baratos") {
             produtosCategoria = dados.toSorted(
                 (a, b) =>
-                    (a.promotionalPrice ?? a.price) -
-                (b.promotionalPrice ?? b.price)
+                    (a.promotional_price ?? a.price) -
+                (b.promotional_price ?? b.price)
             );
             criarProdutos(produtosCategoria, divProdutos);
             continue;
         }
         
         if (categoria === "Em Promoção") {
-            const repetidos = ["Frases motivacionais", "Unhas de anão"];
             produtosCategoria = dados.filter(
                 (dado) =>
-                    dado.promotionalPrice !== null &&
-                !repetidos.includes(dado.name)
+                    dado.promotional_price !== null
             );
             criarProdutos(produtosCategoria, divProdutos);
             continue;

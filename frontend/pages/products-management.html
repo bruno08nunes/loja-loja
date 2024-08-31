@@ -49,7 +49,7 @@
         <link rel="stylesheet" href="style.css" />
         <script src="script.js" type="module"></script>
 
-        <title>Produto - Loja Loja</title>
+        <title>Gerenciar Produto - Loja Loja</title>
         <link
             rel="shortcut icon"
             href="assets/favicon.png"
@@ -72,34 +72,53 @@
                 </nav>
             </div>
         </header>
+        <nav class="nav-carrinho">
+            <button aria-label="Mostrar carrinho">
+                <img src="assets/icons/cart.svg" alt="Carrinho" />
+            </button>
+        </nav>
         <main class="main-produto">
             <section class="container-produto">
-                <img class="imagem-pagina-produto" src="" alt="" />
-                <div class="div-dados-produto">
-                    <div class="div-descricao">
-                        <h2 class="nome-pagina-produto"></h2>
-                        <p class="descricao-pagina-produto"></p>
-                    </div>
-                    <p class="valor-pagina-produto">
-                        <span class="preco-antes-promocao"></span>
-                        <span class="preco-pagina-produto"></span>
-                    </p>
-                    <p class="avaliacao-pagina-produto">
-                        <span class="nota-produto-numero"></span>
-                        <span
-                            class="nota-produto"
-                            style="
-                                --porcentagem-nota: 100%;
-                                --porcentagem-branco: 0%;
-                            "
-                            >★★★★★</span
-                        >
-                    </p>
-                    <div class="div-buttons-products-menagem"></div>
-                        <div class="div-button-delete"> 
-                            <button class="button-delete" type="submit">
-                                Deletar
-                            </button>
+                <img class="imagem-pagina-produto form-imagem-pagina-produto" src="" alt="" />
+                <form class="form-dados-produto">
+                    <label for="nome">Nome Produto:</label>
+                    <input type="text" id="nome" name="nome" required />
+
+                    <label for="descricao">Descrição do Produto:</label>
+                    <textarea id="descricao" name="descricao" required></textarea>
+
+                    <label for="preco">Preço:</label>
+                    <input
+                        type="text"
+                        id="preco"
+                        name="preco"
+                        required
+                    />
+
+                    <label for="preco_promocional">Preço em Promoção</label>
+                    <input
+                        type="text"
+                        id="preco_promocional"
+                        name="preco_promocional"
+                    />
+
+                    <label for="quantidade">Quantidade em Estoque:</label>
+                    <input
+                        type="number"
+                        id="quantidade"
+                        name="quantidade"
+                        required
+                    />
+
+                    <label for="image">URL da imagem:</label>
+                    <input
+                        type="text"
+                        id="image"
+                        name="image"
+                    />
+                    <div class="div-buttons-products-menagement">
+                        <div class="div-button-delete">
+                            <button class="button-delete" type="button">Deletar</button>
                         </div>
                         <div class="div-button-edit"> 
                             <button class="button-edit" type="submit">
@@ -107,9 +126,7 @@
                             </button>
                         </div>
                     </div>
-            </section>
-            <section class="section-comentarios">
-                <h2>Comentários</h2>
+                </form>
             </section>
         </main>
         <footer class="footer">

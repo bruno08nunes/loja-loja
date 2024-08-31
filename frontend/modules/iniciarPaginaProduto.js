@@ -9,7 +9,7 @@ const atualizarImagemProduto = (produto) => {
     const imagem = document.querySelector(".imagem-pagina-produto");
     imagem.src = "assets/products/" + produto?.image;
     imagem.alt = "Imagem de " + (produto?.name ?? "Produto Desconhecido");
-    if (produto.stock === 0) {
+    if (produto.stock_quantity === 0) {
         imagem.classList.add("esgotado");
     }
 };
@@ -34,23 +34,24 @@ const atualizarPrecoProduto = (produto) => {
     let precoAtual = produto?.price ?? "";
 
     const estaEmPromocao =
-        produto?.promotionalPrice !== null &&
-        produto?.promotionalPrice !== undefined;
+        produto?.promotional_price !== null &&
+        produto?.promotional_price !== undefined;
 
     if (estaEmPromocao) {
         elementoPrecoPrePromocao.textContent = "R$ " + produto?.price;
-        precoAtual = produto?.promotionalPrice ?? "";
+        precoAtual = produto?.promotional_price ?? "";
     }
     elementoPreco.textContent = "R$ " + precoAtual;
 };
 
 const atualizarAvaliacaoProduto = (produto) => {
     const avaliacaoNumero = document.querySelector(".nota-produto-numero");
-    avaliacaoNumero.textContent = produto?.rating ?? "";
+    const nota = Math.floor(Math.random() * (5 - 3 + 1)) + 3;
+    avaliacaoNumero.textContent = nota;
 
     const avaliacaoEstrela = document.querySelector(".nota-produto");
 
-    const notaEmPorcentagem = produto?.rating * 20;
+    const notaEmPorcentagem = nota * 20;
     const restoPorcentagem = 100 - notaEmPorcentagem;
 
     avaliacaoEstrela.style.setProperty(
@@ -86,7 +87,7 @@ const atualizarBotoes = (produto, tipo) => {
         botao.ariaLabel = "Remover do " + tipo;
     }
 
-    if (tipo === "carrinho" && produto.stock === 0) {
+    if (tipo === "carrinho" && produto.stock_quantity === 0) {
         botao.disabled = true;
         return;
     }
@@ -122,7 +123,7 @@ const criarComentario = () => {
 const criarComentarista = (review) => {
     const comentarista = document.createElement("p");
     comentarista.classList.add("comentarista");
-    comentarista.textContent = review.reviewerName;
+    comentarista.textContent = review.reviewer;
     return comentarista;
 };
 
@@ -130,12 +131,20 @@ const criarData = (review) => {
     const elementoData = document.createElement("time");
     elementoData.classList.add("data-comentario");
 
-    const anoReview = review.date.split("-")[0].padStart(2, 0);
-    const mesReview = (Number(review.date.split("-")[1])).toString().padStart(2, 0);
-    const diaReview = review.date.split("-")[2].padStart(2, 0);
+    const data = new Date(review.created_at);
+
+    const ano = data.getFullYear();
+    const mes = String(data.getMonth() + 1).padStart(2, "0");
+    const dia = String(data.getDate()).padStart(2, "0");
+
+    const date = `${ano}-${mes}-${dia}`;
+
+    const anoReview = date.split("-")[0].padStart(2, 0);
+    const mesReview = Number(date.split("-")[1]).toString().padStart(2, 0);
+    const diaReview = date.split("-")[2].padStart(2, 0);
 
     elementoData.textContent = `${diaReview}/${mesReview}/${anoReview}`;
-    return elementoData
+    return elementoData;
 };
 
 const criarDadosComentario = (review) => {
@@ -178,14 +187,14 @@ const criarAvaliacaoComentario = (review) => {
     avaliacaoComentario.append(notaNumero, " ", notaEstrela);
 
     return avaliacaoComentario;
-}
+};
 
 const criarMensagemComentario = (review) => {
     const pMensagem = document.createElement("p");
     pMensagem.classList.add("mensagem-comentario");
     pMensagem.textContent = review.comment;
     return pMensagem;
-}
+};
 
 const criarInputComentario = (produto) => {
     const divComentar = document.createElement("div");
@@ -225,47 +234,55 @@ const criarInputComentario = (produto) => {
 
         const comentarios = document.querySelector(".section-comentarios");
 
-        const hoje = new Date();
-        const ano = hoje.getFullYear();
-        const mes = hoje.getMonth() + 1;
-        const dia = hoje.getDate();
         const infomacoes = {
-            reviewerName: JSON.parse(localStorage.getItem("informacoesConta"))[0][1] ?? "Anônimo",
+            id_users: localStorage.getItem("usuarioLogado"),
+            id_products: produto.id,
             rating: form.elements["nota"].value,
             comment: form.elements["comentar"].value,
-            date: `${ano}-${mes}-${dia}`,
-            product: produto.id,
-        }
+        };
 
-        const comentariosArray = JSON.parse(localStorage.getItem("comentarios")) ?? [];
-        comentariosArray.push(infomacoes);
-        localStorage.setItem("comentarios", JSON.stringify(comentariosArray));
+        fetch("http://localhost:3000/comentarios/postar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(infomacoes),
+        })
+            .then(() => {
+                fetch("http://localhost:3000/comentarios/listar/" + produto.id)
+                    .then((res) => res.json())
+                    .then((res) => {
+                        for (let pos of comentarios.children) {
+                            if (pos.classList.contains("comentario")) {
+                                pos.remove();
+                            }
+                        }
+                        const reviews = res.data;
+        
+                        if (reviews.length === 0 || produto === undefined) {
+                            const mensagem = criarMensagemSemComentarios();
+                            comentarios.append(mensagem);
+                        }
+        
+                        gerarComentarios(reviews);
+                    });
+            })
 
-        const comentario = criarComentario();
-
-        const dadosComentario = criarDadosComentario(infomacoes);
-
-        const avaliacaoComentario = criarAvaliacaoComentario(infomacoes);
-
-        const pMensagem = criarMensagemComentario(infomacoes);
-
-        comentario.append(dadosComentario, avaliacaoComentario, pMensagem);
-        comentarios.append(comentario);
 
         form.reset();
-    })
+    });
 
     const selectNota = document.createElement("select");
-    selectNota.classList.add("selecionar-nota")
+    selectNota.classList.add("selecionar-nota");
     selectNota.name = "nota";
     selectNota.id = "nota";
     const option = document.createElement("option");
     option.textContent = "0";
-    option.ariaLabel = "Nota 0"
+    option.ariaLabel = "Nota 0";
     selectNota.append(option);
     for (let i = 0; i < 5; i++) {
         const option = document.createElement("option");
-        option.textContent = "★".repeat(i+1);
+        option.textContent = "★".repeat(i + 1);
         option.value = i + 1;
         option.ariaLabel = "Nota " + Number(i + 1);
         selectNota.append(option);
@@ -277,7 +294,8 @@ const criarInputComentario = (produto) => {
     inputComentar.placeholder = "Adicione um comentário...";
     inputComentar.required = "true";
 
-    const produtosComprados = JSON.parse(localStorage.getItem("itensComprados")) ?? [];
+    const produtosComprados =
+        JSON.parse(localStorage.getItem("itensComprados")) ?? [];
 
     const botao = document.createElement("button");
     botao.textContent = "Comentar";
@@ -290,7 +308,7 @@ const criarInputComentario = (produto) => {
     divComentar.append(imagem, form);
 
     return divComentar;
-}
+};
 
 const gerarComentarios = (reviews) => {
     const comentarios = document.querySelector(".section-comentarios");
@@ -306,7 +324,7 @@ const gerarComentarios = (reviews) => {
         comentario.append(dadosComentario, avaliacaoComentario, pMensagem);
         comentarios.append(comentario);
     }
-}
+};
 
 const criarComentarios = (produto) => {
     const comentarios = document.querySelector(".section-comentarios");
@@ -316,16 +334,18 @@ const criarComentarios = (produto) => {
         comentarios.append(inputComentario);
     }
 
-    if (produto?.reviews.length === 0 || produto === undefined) {
-        const mensagem = criarMensagemSemComentarios();
-        comentarios.append(mensagem);
-    }
+    fetch("http://localhost:3000/comentarios/listar/" + produto.id)
+        .then((res) => res.json())
+        .then((res) => {
+            const reviews = res.data;
 
-    const comentariosArray = JSON.parse(localStorage.getItem("comentarios")) ?? [];
-    const comentariosProduto = comentariosArray.filter((comentario) => comentario.product === produto.id);
-    gerarComentarios(comentariosProduto);
+            if (reviews.length === 0 || produto === undefined) {
+                const mensagem = criarMensagemSemComentarios();
+                comentarios.append(mensagem);
+            }
 
-    gerarComentarios(produto?.reviews ?? []);
+            gerarComentarios(reviews);
+        });
 };
 
 const iniciarPaginaProduto = (dados) => {

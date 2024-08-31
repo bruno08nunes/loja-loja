@@ -9,6 +9,8 @@ import iniciarPaginaProduto from "./modules/iniciarPaginaProduto.js";
 import iniciarPaginaFinalizarCompra from "./modules/inicializarPaginaFinalizarCompra.js";
 import iniciarPaginaCriarCategoria from "./modules/iniciarPaginaCriarCategoria.js";
 import iniciarPaginaCriarProduto from "./modules/iniciarPaginaCriarProduto.js";
+import iniciarPaginaGerenciarProdutos from "./modules/iniciarPaginaGerenciarProdutos.js";
+import iniciarPaginaPesquisa from "./modules/iniciarPaginaPesquisa.js";
 
 // Variáveis
 const botaoToggleCarrinho = document.querySelector(".nav-carrinho button");
@@ -59,9 +61,15 @@ fetch("http://localhost:3000/produtos/listar")
         if (document.title === "Criar Produto - Loja Loja") {
             iniciarPaginaCriarProduto();
         }
+        if (document.title === "Gerenciar Produto - Loja Loja") {
+            iniciarPaginaGerenciarProdutos(dados.data);
+        }
+        if (document.title === "Pesquisar Produtos - Loja Loja") {
+            iniciarPaginaPesquisa(dados.data);
+        }
 
         botaoToggleCarrinho.addEventListener("click", (e) => {
-            atualizarCarrinho(dados);
+            atualizarCarrinho(dados.data);
             sidebarCarrinho.classList.toggle("open");
             backdrop.classList.toggle("open");
         });

@@ -1,16 +1,16 @@
 const adicionarInformacoesFormulario = () => {
     const userId = localStorage.getItem("usuarioLogado");
     fetch(`http://localhost:3000/usuario/informacoes/${userId}`)
-        .then(res => res.json())
-        .then(res => {
+        .then((res) => res.json())
+        .then((res) => {
             if (!res.success) {
                 console.error("Erro ao consultar", res.data);
                 return;
             }
-        
+
             const nome = document.querySelector("#nome");
             nome.value = res.data[0].first_name;
-        
+
             const sobrenome = document.querySelector("#sobrenome");
             sobrenome.value = res.data[0].family_name;
 
@@ -31,7 +31,7 @@ const criarCabecalhoPDF = async () => {
     header.classList.add("header-pdf");
 
     const img = await fetch(
-        "https://bruno08nunes.github.io/loja-loja/assets/logo.png"
+        "https://bruno08nunes.github.io/loja-loja/frontend/assets/logo.png"
     ).then((dado) => dado.blob());
     const imgLogo = document.createElement("img");
     imgLogo.src = URL.createObjectURL(img);
@@ -61,7 +61,6 @@ const criarCabecalhoPDF = async () => {
 };
 
 const criarInformacoesCompradorPDF = async (
-    informacoesConta,
     infoFormulario
 ) => {
     const dadosConta = document.createElement("section");
@@ -71,18 +70,14 @@ const criarInformacoesCompradorPDF = async (
 
     const pNomeConta = document.createElement("p");
     pNomeConta.textContent =
-        informacoesConta.get("nome") + " " + informacoesConta.get("sobrenome");
+        infoFormulario.get("nome") + " " + infoFormulario.get("sobrenome");
     pNomeConta.classList.add("nome-conta-pdf");
-
-    const pEmailConta = document.createElement("p");
-    pEmailConta.textContent = informacoesConta.get("email");
-    pEmailConta.classList.add("email-conta-pdf");
 
     const pCPF = document.createElement("p");
     pCPF.textContent = infoFormulario.get("cpf");
     pCPF.classList.add("cpf-conta-pdf");
 
-    dadosPessoa.append(pNomeConta, pEmailConta, pCPF);
+    dadosPessoa.append(pNomeConta, pCPF);
 
     const dadosEndereco = document.createElement("div");
 
@@ -138,15 +133,7 @@ const gerarPDF = async (itensCarrinhos, dados, infoFormulario) => {
         itensCarrinhos.includes(produto.id)
     );
 
-    const dadosUsuario =
-        JSON.parse(localStorage.getItem("informacoesConta")) ?? [];
-    const informacoesConta = new FormData();
-    for (let pos of dadosUsuario) {
-        informacoesConta.append(...pos);
-    }
-
     const dadosConta = await criarInformacoesCompradorPDF(
-        informacoesConta,
         infoFormulario
     );
 
@@ -158,7 +145,7 @@ const gerarPDF = async (itensCarrinhos, dados, infoFormulario) => {
     let preco = 0;
 
     for (let item of produtosCompletos) {
-        preco += item.promotionalPrice ?? item.price;
+        preco += Number(item.promotional_price ?? item.price);
 
         const pName = document.createElement("p");
         pName.textContent = item.name;
@@ -169,7 +156,7 @@ const gerarPDF = async (itensCarrinhos, dados, infoFormulario) => {
         pPrecoNormal.classList.add("preco-normal-produto-pdf");
 
         const pPreco = document.createElement("p");
-        pPreco.textContent = "R$" + (item.promotionalPrice ?? item.price);
+        pPreco.textContent = "R$" + (item.promotional_price ?? item.price);
         pPreco.classList.add("preco-produto-pdf");
 
         const pQuantidade = document.createElement("p");
@@ -217,14 +204,14 @@ const gerarPDF = async (itensCarrinhos, dados, infoFormulario) => {
 
 const redirecionar = () => {
     setTimeout(() => {
-        location.pathname = "loja-loja";
+        location.pathname = "frontend";
     }, 5000);
 };
 
 const iniciarPaginaFinalizarCompra = (dados) => {
     const estaLogado = localStorage.getItem("estaLogado") ?? "false";
     if (estaLogado === "false") {
-        location.pathname = "loja-loja/pages/form-login.html";
+        location.pathname = "frontend/pages/form-login.html";
     }
 
     adicionarInformacoesFormulario();
@@ -235,22 +222,38 @@ const iniciarPaginaFinalizarCompra = (dados) => {
 
         const infoFormulario = new FormData(form);
 
+        const informacoes = {
+            usuario: localStorage.getItem("usuarioLogado"),
+            "tipo-cartao": form["tipo-cartao"].value,
+            cep: form.cep.value,
+            "numero-casa": form["numero-casa"].value,
+        };
+
         const itensCarrinhos = JSON.parse(localStorage.getItem("carrinho"));
-        const itensComprados =
-            JSON.parse(localStorage.getItem("itensComprados")) ?? [];
-        itensCarrinhos.forEach((item) => {
-            if (!itensComprados.includes(item)) {
-                itensComprados.push(item);
-            }
-        });
-        localStorage.setItem("itensComprados", JSON.stringify(itensComprados));
-        localStorage.setItem("carrinho", JSON.stringify([]));
 
-        criarMensagemCompraFinalizada();
+        fetch("http://localhost:3000/comprar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(informacoes),
+        })
+            .then((res) => res.json())
+            .then(async (res) => {
+                if (!res.success) {
+                    alert("Erro");
+                    console.error(res.data);
+                    return;
+                }
+                
+                localStorage.setItem("carrinho", JSON.stringify([]));
 
-        await gerarPDF(itensCarrinhos, dados, infoFormulario);
+                criarMensagemCompraFinalizada();
 
-        redirecionar();
+                await gerarPDF(itensCarrinhos, dados, infoFormulario);
+
+                redirecionar();
+            });
     });
 };
 

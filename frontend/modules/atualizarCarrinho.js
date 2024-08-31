@@ -30,7 +30,7 @@ const criarInformacoesProdutoCarrinho = (produto) => {
 
     const spanPrecoProduto = document.createElement("span");
     spanPrecoProduto.classList.add("preco-produto-carrinho");
-    const preco = produto.promotionalPrice ?? produto.price;
+    const preco = produto.promotional_price ?? produto.price;
     spanPrecoProduto.textContent = "R$ " + preco;
 
     divInformacoesProduto.append(
@@ -56,7 +56,7 @@ const criarDivBotaoProdutoCarrinho = (produto) => {
         );
         localStorage.setItem("carrinho", JSON.stringify(produtosFiltrados));
 
-        precoTotal -= produto.promotionalPrice ?? produto.price;
+        precoTotal -= produto.promotional_price ?? produto.price;
         document.querySelector(".preco-carrinho-total").textContent =
             "Preço Total: R$ " + precoTotal.toFixed(2);
 
@@ -88,7 +88,7 @@ const criarDivProdutoCarrinho = (produto) => {
     const aProduto = document.createElement("a");
     aProduto.classList.add("produto-carrinho");
     aProduto.href = location.href;
-    aProduto.pathname = "loja-loja/pages/product.html";
+    aProduto.pathname = "frontend/pages/product.html";
     aProduto.search = "produto=" + produto.id;
 
     const img = criarImagemProdutoCarrinho(produto);
@@ -112,7 +112,7 @@ const criarParagrafoPrecoTotal = () => {
 const criarBotaoCompra = () => {
     const botaoComprar = document.createElement("a");
     botaoComprar.href = location.href;
-    botaoComprar.pathname = "loja-loja/pages/form-buy.html";
+    botaoComprar.pathname = "frontend/pages/form-buy.html";
     botaoComprar.classList.add("botao-comprar");
     botaoComprar.textContent = "Fazer Pedido";
 
@@ -136,7 +136,7 @@ const atualizarCarrinho = (produtos) => {
         produtosNoCarrinho.includes(produto.id)
     );
     precoTotal = produtosCompletosNoCarrinho.reduce(
-        (prev, produto) => prev + (produto.promotionalPrice ?? produto.price),
+        (prev, produto) => prev + (Number(produto.promotional_price ?? produto.price)),
         0
     );
     for (let produto of produtosCompletosNoCarrinho) {
