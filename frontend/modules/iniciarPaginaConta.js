@@ -132,7 +132,7 @@ const criarMensagem = (mensagem) => {
     return pMensagemVazio;
 };
 
-const exibirItens = (dados, tipo, id, mensagem) => {
+const exibirItensCarrinho = (dados, tipo, id, mensagem) => {
     const produtosCompletos = pegarProdutosCompletos(dados, tipo);
     const divProdutos = sectionsCategorias[id].querySelector(".div-produtos");
     for (let produto of produtosCompletos) {
@@ -145,17 +145,31 @@ const exibirItens = (dados, tipo, id, mensagem) => {
     }
 };
 
-const iniciarPaginaConta = (dados) => {
-    if (location.search !== "") {
-        location.search = "";
-    }
+const exibirItens = (tipo, id, mensagem) => {
+    fetch(`http://localhost:3000/usuario/${tipo}/` + localStorage.getItem("usuarioLogado"))
+        .then(res => res.json())
+        .then(res => {
+            const produtosCompletos = res.data;
+            const divProdutos = sectionsCategorias[id].querySelector(".div-produtos");
+            for (let produto of produtosCompletos) {
+                const divProduto = criarProduto(produto);
+                divProdutos.append(divProduto);
+            }
+            if (produtosCompletos.length === 0) {
+                const pMensagemVazio = criarMensagem(mensagem);
+                divProdutos.append(pMensagemVazio);
+            }
+        })
 
+};
+
+const iniciarPaginaConta = (dados) => {
     exibirDadosConta();
     exibirImagem();
 
-    exibirItens(dados, "favoritos", 0, "Você não tem itens favoritos");
-    exibirItens(dados, "carrinho", 1, "Seu carrinho está vazio");
-    exibirItens(dados, "itensComprados", 2, "Você não tem itens no histórico");
+    exibirItens("favoritos", 0, "Você não tem itens favoritos");
+    exibirItensCarrinho(dados, "carrinho", 1, "Seu carrinho está vazio");
+    exibirItens("historico", 2, "Você não tem itens no histórico");
 };
 
 export default iniciarPaginaConta;

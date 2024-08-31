@@ -56,12 +56,22 @@ const criarSpanNota = (produto) => {
     spanNota.classList.add("nota-produto");
     spanNota.textContent = "★".repeat(5);
 
-    const notaEmPorcentagem =
-        (produto.rating ?? Math.floor(Math.random() * (5 - 3 + 1)) + 3) * 20;
-    const restoPorcentagem = 100 - notaEmPorcentagem;
-
-    spanNota.style.setProperty("--porcentagem-nota", `${notaEmPorcentagem}%`);
-    spanNota.style.setProperty("--porcentagem-branco", `${restoPorcentagem}%`);
+    fetch("http://localhost:3000/comentarios/listar/" + produto.id)
+        .then(res => res.json())
+        .then(res => {
+            const nota = res.data.reduce((prev, {rating}) => prev + Number(rating), 0) / res.data.length;
+        
+            const notaEmPorcentagem = nota * 20;
+        
+            spanNota.style.setProperty(
+                "--porcentagem-nota",
+                `${notaEmPorcentagem}%`
+            );
+            spanNota.style.setProperty(
+                "--porcentagem-branco",
+                `${0}%`
+            );
+        })
 
     return spanNota;
 };
@@ -74,6 +84,10 @@ const criarDivInformacoesProduto = ({ spanNota, spanPreco }) => {
 };
 
 const criarBotaoCarrinho = (produto) => {
+    if (produto.id_products) {
+        produto.id = produto.id_products;
+    }
+    
     const botaoCarrinho = document.createElement("button");
     botaoCarrinho.classList.add("botao-carrinho");
     botaoCarrinho.dataset.id = produto.id;
@@ -136,53 +150,115 @@ const criarBotaoCarrinho = (produto) => {
 };
 
 const criarBotaoFavorito = (produto) => {
+    if (produto.id_products) {
+        produto.id = produto.id_products;
+    }
+
     const botaoFavorito = document.createElement("button");
     botaoFavorito.classList.add("botao-favorito");
     botaoFavorito.dataset.id = produto.id;
     botaoFavorito.ariaLabel = "Adicionar ao favoritos";
 
-    const itensFavoritos = JSON.parse(localStorage.getItem("favoritos")) ?? [];
-    if (itensFavoritos.includes(produto.id)) {
-        botaoFavorito.classList.add("adicionado-ao-carrinho");
-        botaoFavorito.ariaLabel = "Remover do favoritos";
+    const estaLogado =
+        localStorage.getItem("estaLogado") !== null &&
+        localStorage.getItem("estaLogado") !== "false";
+
+    if (estaLogado) {
+        fetch(
+            `http://localhost:3000/favoritos/produto?usuario=${localStorage.getItem(
+                "usuarioLogado"
+            )}&produto=${produto.id}`
+        )
+            .then((res) => res.json())
+            .then((res) => {
+                if (!res.success) {
+                    alert(res.message);
+                    return;
+                }
+
+                if (res.data[0]) {
+                    botaoFavorito.classList.add("adicionado-ao-carrinho");
+                }
+
+                botaoFavorito.addEventListener("click", async function () {
+                    const estaNosFavoritos = botaoFavorito.classList.contains(
+                        "adicionado-ao-carrinho"
+                    );
+                    const botoesFavoritos = document.querySelectorAll(
+                        ".botao-favorito[data-id]"
+                    );
+                    if (estaNosFavoritos) {
+                        const resposta = await fetch(
+                            `http://localhost:3000/favoritos/produto/remover`,
+                            {
+                                method: "DELETE",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    usuario:
+                                        localStorage.getItem("usuarioLogado"),
+                                    produto: produto.id,
+                                }),
+                            }
+                        );
+                        const resultado = await resposta.json();
+
+                        if (!resultado.success) {
+                            alert(resultado.message);
+                            return;
+                        }
+                        botoesFavoritos.forEach((botao) => {
+                            const botaoEDoProduto =
+                                botao.dataset.id === produto.id.toString();
+                            if (botaoEDoProduto) {
+                                botao.classList.remove(
+                                    "adicionado-ao-carrinho"
+                                );
+                                botao.ariaLabel = "Adicionar ao favoritos";
+                            }
+                        });
+                        return;
+                    }
+                    const resposta = await fetch(
+                        `http://localhost:3000/produto/favoritar`,
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                usuario: localStorage.getItem("usuarioLogado"),
+                                produto: produto.id,
+                            }),
+                        }
+                    );
+                    const resultado = await resposta.json();
+
+                    if (!resultado.success) {
+                        alert(resultado.message);
+                    }
+
+                    botoesFavoritos.forEach((botao) => {
+                        const botaoEDoProduto =
+                            botao.dataset.id === produto.id.toString();
+                        if (botaoEDoProduto) {
+                            botao.classList.add("adicionado-ao-carrinho");
+                            botao.ariaLabel = "Remover do favoritos";
+                        }
+                    });
+                });
+            });
+    }
+
+    if (!estaLogado) {
+        botaoFavorito.disabled = true;
     }
 
     const imgFavorito = document.createElement("img");
     imgFavorito.src = "assets/icons/favorite.svg";
 
     botaoFavorito.append(imgFavorito);
-
-    botaoFavorito.addEventListener("click", (e) => {
-        const itensFavoritos =
-            JSON.parse(localStorage.getItem("favoritos")) ?? [];
-        const botoesFavoritos = document.querySelectorAll(
-            ".botao-favorito[data-id]"
-        );
-        if (itensFavoritos.includes(produto.id)) {
-            botoesFavoritos.forEach((botao) => {
-                if (botao.dataset.id === produto.id.toString()) {
-                    botao.classList.remove("adicionado-ao-carrinho");
-                    botao.ariaLabel = "Adicionar ao favoritos";
-                }
-            });
-            const produtosFiltrados = itensFavoritos.filter(
-                (prod) => prod !== produto.id
-            );
-            localStorage.setItem(
-                "favoritos",
-                JSON.stringify(produtosFiltrados)
-            );
-            return;
-        }
-        itensFavoritos.push(produto.id);
-        botoesFavoritos.forEach((botao) => {
-            if (botao.dataset.id === produto.id.toString()) {
-                botao.classList.add("adicionado-ao-carrinho");
-                botao.ariaLabel = "Remover do favoritos";
-            }
-        });
-        localStorage.setItem("favoritos", JSON.stringify(itensFavoritos));
-    });
 
     return botaoFavorito;
 };
@@ -199,9 +275,9 @@ const criarProduto = (produto, admin) => {
     divProduto.classList.add("produto");
 
     const linkProduto = document.createElement("a");
-    let href = "pages/product.html?produto=" + produto.id;
+    let href = "pages/product.html?produto=" + (produto.id_products ?? produto.id);
     if (admin) {
-        href = "pages/products-management.html?produto=" + produto.id;
+        href = "pages/products-management.html?produto=" + (produto.id_products ?? produto.id);
     }
     linkProduto.href = href;
     linkProduto.classList.add("link-produto");

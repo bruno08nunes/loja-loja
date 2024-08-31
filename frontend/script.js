@@ -94,9 +94,9 @@ let bancoDeDados;
 const openRequest = indexedDB.open("img_db", 1);
 openRequest.addEventListener("upgradeneeded", (e) => {
     bancoDeDados = e.target.result;
-    console.log(e.target.result)
+    console.log(e.target.result);
     const objectStore = bancoDeDados.createObjectStore("img_os", {
-        keyPath: "id"
+        keyPath: "id",
     });
 });
 
@@ -125,4 +125,29 @@ if (header) {
             fr.readAsDataURL(e.target.result.img);
         });
     });
+}
+
+const usuarioId = localStorage.getItem("usuarioLogado");
+if (usuarioId && usuarioId !== null) {
+    fetch(`http://localhost:3000/usuario/informacoes/${usuarioId}`)
+        .then((res) => res.json())
+        .then((resultados) => {
+            const nav = document.querySelector(".nav-header");
+            if (!resultados.success || resultados.data.length === 0) {
+                return;
+            }
+
+            const { role } = resultados.data[0];
+            if (role === "A") {
+                const link = document.createElement("a");
+                link.href = "pages/gerenciar.html";
+
+                const img = document.createElement("img");
+                img.src = "assets/icons/settings.svg";
+
+                link.append(img);
+
+                nav.append(link);
+            }
+        });
 }

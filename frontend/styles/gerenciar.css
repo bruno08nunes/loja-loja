@@ -1,0 +1,19 @@
+.section-gerenciar {
+    display: flex;
+    padding: 30px;
+    justify-content: center;
+    gap: 30px;
+    font-size: 2em;
+    & a {
+        background-color: var(--verde);
+        color: black;
+        padding: 15px;
+        border-radius: 15px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: .4s;
+        &:hover {
+            background-color: color-mix(in srgb, var(--verde), black 10%);
+        }
+    }
+}

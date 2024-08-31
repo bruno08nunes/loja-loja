@@ -91,8 +91,8 @@ values("Aperto de mão aleatório", "Aperto de mão de uma pessoa aleatória. A 
     ("Entupidor de nariz", "Você é o único entre seus amigos que não tem rinite? Seus problemas acabaram!", 54.99, 39.99, 239, "entupidor-de-nariz.webp"),
     ("Trailer da música 'Thriller'", "Trailer de uma das mais famosas músicas do cantor Michael Jackson. Obs: Música não inclusa.", 499.99, null, 1, "thriller.jpg"),
     ("Bruno Emo", "O mais famoso (e lindo) de todos: Bruno Emo™️.", 999.99, null, 1, "bruno-emo.jpg"),
-    ("Pílula de Dilema", "Ao tomar essa pílula, você vive um dilema moral, como o Dilema do Trem.", 94.99, 69.99, 71, "pilula-dilema.jpeg"),
     ("Susto", "Um susto, escondido dentro de uma caixa a escolha. A pessoa que abrir terá uma surpresa.", 14.99, null, 36, "susto.png"),
+    ("Pílula de Dilema", "Ao tomar essa pílula, você vive um dilema moral, como o Dilema do Trem.", 94.99, 69.99, 71, "pilula-dilema.jpeg"),
     ("Pílula de Aula de Filosofia e Sociologia", "Você faltou a aula de Filosofia e Sociologia? Não tem problema, veja a aula através desses maravilhosos remédios.", 34.99, null, 0, "pilula-filosofia-sociologia.jpeg"),
     ("Sopro do Norte", "Um vento gélido. Vindo dos mais distantes reinos nas regiões mais geladas do planeta.", 99.99, 84.99, 6, "vento.webp"),
     ("Microonda", "Uma onda de um microondas. Obs: Não é o aparelho, apenas a onda.", 4.99, null, 132, "microonda.png"),
@@ -220,11 +220,11 @@ values (1, 1),
 (28, 11);
 
 create table reviews (
+    id int primary key auto_increment,
     id_users int,
     id_products int,
     rating decimal(2, 1) not null,
     comment varchar(255) not null,
-    primary key (id_users, id_products),
     foreign key (id_users) references users(id),
     foreign key (id_products) references products(id),
 	created_at timestamp default current_timestamp,

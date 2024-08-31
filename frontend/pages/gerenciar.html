@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <base href="../">
+        <meta
+            name="description"
+            content="Loja Loja: A Loja Mais Loja de Todas é uma loja virtual, que vende os produtos mais variados no melhor preço possível."
+        />
+
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:url"
+            content="https://bruno08nunes.github.io/loja-loja"
+        />
+        <meta property="og:title" content="Loja Loja" />
+        <meta
+            property="og:image"
+            content="https://bruno08nunes.github.io/loja-loja/logo.png"
+        />
+        <meta
+            property="og:description"
+            content="Loja Loja: A Loja Mais Loja de Todas. Uma loja virtual, que vende os produtos mais variados no melhor preço possível."
+        />
+        <meta property="og:site_name" content="Loja Loja" />
+        <meta property="og:locale" content="pt_BR" />
+        <meta property="og:image:width" content="619" />
+        <meta property="og:image:height" content="496" />
+
+        <meta name="twitter:card" content="summary" />
+        <meta
+            name="twitter:url"
+            content="https://bruno08nunes.github.io/loja-loja"
+        />
+        <meta name="twitter:title" content="Loja Loja" />
+        <meta
+            name="twitter:description"
+            content="Loja Loja: A Loja Mais Loja de Todas. Uma loja virtual, que vende os produtos mais variados no melhor preço possível."
+        />
+        <meta
+            name="twitter:image"
+            content="https://bruno08nunes.github.io/loja-loja/logo.png"
+        />
+
+        <meta name="theme-color" content="#f205c7" />
+
+        <link rel="stylesheet" href="style.css" />
+        <script src="script.js" type="module"></script>
+
+        <title>Gerenciar - Loja Loja</title>
+        <link
+            rel="shortcut icon"
+            href="assets/favicon.png"
+            type="image/x-icon"
+        />
+        <link
+            rel="preload"
+            href="assets/fonts/HennyPenny-Regular.ttf"
+            as="font"
+            type="font/ttf"
+            crossorigin
+        />
+    </head>
+    <body>
+        <header class="cabecalho-principal">
+            <div class="div-cabeçalho">
+                <a href="index.html"
+                    ><img src="assets/logo.png" alt="" class="logo"
+                /></a>
+                <search class="pesquisa-principal">
+                    <label for="pesquisar"
+                        ><img src="assets/icons/search.svg" alt="Pesquisar"
+                    /></label>
+                    <input
+                        type="search"
+                        id="pesquisar"
+                        name="pesquisar"
+                        placeholder="Buscar..."
+                    />
+                </search>
+                <nav class="nav-header">
+                    <a href="index.html"
+                        ><img src="assets/icons/home.svg" alt="Home"
+                    /></a>
+                    <a href="pages/form-login.html"
+                        ><img src="assets/icons/account.svg" alt="Conta"
+                    /></a>
+                </nav>
+            </div>
+        </header>
+        <nav class="nav-carrinho">
+            <button aria-label="Mostrar carrinho">
+                <img
+                    src="assets/icons/cart.svg"
+                    alt="Carrinho"
+                    loading="eager"
+                    fetchpriority="high"
+                />
+            </button>
+        </nav>
+        <main class="main-home">
+            <section class="section-gerenciar">
+                <a href="pages/search-products.html">Atualizar/Deletar Produtos</a>
+                <a href="pages/form-products.html">Criar Produtos</a>
+                <a href="pages/form-create-categories.html">Criar Categorias</a>
+            </section>
+        </main>
+        <div class="backdrop"></div>
+        <aside class="sidebar-carrinho">
+            <div class="titulo-carrinho">
+                <h2 class="h2-carrinho">Carrinho</h2>
+                <button class="fecharCarrinho" aria-label="Ocultar carrinho">
+                    X
+                </button>
+            </div>
+        </aside>
+    </body>
+</html>

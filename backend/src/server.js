@@ -417,6 +417,106 @@ app.delete("/categoria/produto/deletar/:produto", (req, res) => {
     });
 })
 
+// CRUD Favoritos
+app.post("/produto/favoritar", (req, res) => {
+    const params = [
+        req.body.usuario,
+        req.body.produto
+    ]
+
+    const query = "INSERT INTO favorites(id_users, id_products) VALUES (?,?);";
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            res.status(400).json({
+                success: false,
+                message: "Erro ao favoritar produto",
+                data: err,
+            });
+            return;
+        }
+        res.status(200).json({
+            success: true,
+            message: "Produto favoritado",
+            data: results,
+        });
+    });
+})
+
+app.get("/favoritos/produto", (req, res) => {
+    const params = [
+        req.query.usuario,
+        req.query.produto
+    ]
+
+    const query = "SELECT * FROM favorites WHERE id_users = ? AND id_products = ?;";
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            res.status(400).json({
+                success: false,
+                message: "Erro ao procurar produto favorito",
+                data: err,
+            });
+            return;
+        }
+        res.status(200).json({
+            success: true,
+            message: "Resultado encontrado",
+            data: results,
+        });
+    });
+})
+
+app.get("/usuario/favoritos/:id", (req, res) => {
+    const params = [
+        req.params.id
+    ]
+
+    const query = "SELECT * FROM products INNER JOIN favorites ON products.id = favorites.id_products WHERE favorites.id_users = ?;";
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            res.status(400).json({
+                success: false,
+                message: "Erro ao procurar produto favorito",
+                data: err,
+            });
+            return;
+        }
+        res.status(200).json({
+            success: true,
+            message: "Resultado encontrado",
+            data: results,
+        });
+    });
+})
+
+app.delete("/favoritos/produto/remover", (req, res) => {
+    const params = [
+        req.body.usuario,
+        req.body.produto
+    ]
+
+    const query = "DELETE FROM favorites WHERE id_users = ? AND id_products = ?;";
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            res.status(400).json({
+                success: false,
+                message: "Erro ao procurar produto favorito",
+                data: err,
+            });
+            return;
+        }
+        res.status(200).json({
+            success: true,
+            message: "Resultado encontrado",
+            data: results,
+        });
+    });
+})
+
 // Crud Comentários
 
 app.get("/comentarios/listar/:produto_id", (req, res) => {
@@ -516,6 +616,58 @@ app.post("/comprar", (req, res) => {
         res.status(200).json({
             success: true,
             message: "Pagamento concluído",
+            data: results,
+        });
+    });
+});
+
+app.post("/comprar/produtos", (req, res) => {
+    const params = req.body.produtos.map((produto) => [
+        req.body.pedido,
+        produto.id,
+        1,
+        produto.promotional_price ?? produto.price
+    ]);
+
+    const query =
+        "INSERT INTO orders_has_products(id_orders, id_products, quantity, price) VALUES ?";
+
+    connection.query(query, [params], (err, results) => {
+        if (err) {
+            res.status(400).json({
+                success: false,
+                message: "Erro ao efetuar pagamento",
+                data: err,
+            });
+            return;
+        }
+        res.status(200).json({
+            success: true,
+            message: "Pagamento concluído",
+            data: results,
+        });
+    });
+});
+
+app.get("/usuario/historico/:id", (req, res) => {
+    const params = [
+        req.params.id
+    ];
+
+    const query = "SELECT * FROM orders_has_products ohp INNER JOIN products ON products.id = ohp.id_products INNER JOIN orders ON ohp.id_orders = orders.id WHERE orders.id_users = ?;";
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            res.status(400).json({
+                success: false,
+                message: "Erro pegar histórico usuário",
+                data: err,
+            });
+            return;
+        }
+        res.status(200).json({
+            success: true,
+            message: "Histórico consultado",
             data: results,
         });
     });

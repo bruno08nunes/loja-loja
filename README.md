@@ -51,11 +51,14 @@ _Loja Loja: A Loja mais Loja de Todas_ é uma loja virtual em que é possível v
     -   [x] Estilização base CSS
     -   [x] Código JavaScript
     -   [x] JSON informações produtos
+    -   [x] Banco de dados relacional criado com MySQL
+    -   [x] Rotas criadas com Node.js e Express
+    -   [x] Reformulação do front-end para requisições ao servidor
 -   [x] Testes
 
 ## Desenvolvimento
 
-Você precisa ter uma conta no github e ter sido colocado como colaborador do projeto.
+Você precisa ter uma conta no github e ter sido colocado como colaborador do projeto para executar os passos abaixo.
 
 ### Configurar no Git
 
@@ -74,6 +77,8 @@ git config --global user.email "emailgithub@gmail.com"
 git clone https://github.com/bruno08nunes/loja-loja.git
 cd loja-loja
 ```
+
+### Rodando o servidor
 
 ### Fazendo alterações no projeto
 
@@ -290,14 +295,3 @@ Por padrão, os códigos do projeto devem seguir:
 ![Imagem página inicial do site Loja Loja](assets/examples/example1.png)
 ![Imagem produtos na página inicial do site Loja Loja](assets/examples/example2.png)
 ![Imagem carrinho do site Loja Loja](assets/examples/example3.png)
-
-[ ] - Enviar form-buy
-[ ] - Favoritar
-[ ] - Pegar compra e favoritos na conta
-[ ] - Apagar carrinho ao deslogar
-[ ] - Criação de categorias
-[ ] - Criação de Produtos
-[ ] - Atualização de produtos
-[ ] - Pegar produtos do banco
-[ ] - Enviar Atualização de categorias
-[ ] - Pesquisar por produtos para poder alterar

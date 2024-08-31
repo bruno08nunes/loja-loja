@@ -245,15 +245,36 @@ const iniciarPaginaFinalizarCompra = (dados) => {
                     console.error(res.data);
                     return;
                 }
-                
-                localStorage.setItem("carrinho", JSON.stringify([]));
 
-                criarMensagemCompraFinalizada();
+                const informacoes = {
+                    pedido: res.data.insertId,
+                    produtos: dados.filter((dado) => itensCarrinhos.includes(dado.id))
+                }
 
-                await gerarPDF(itensCarrinhos, dados, infoFormulario);
-
-                redirecionar();
+                fetch("http://localhost:3000/comprar/produtos", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(informacoes),
+                })
+                    .then((res) => res.json())
+                    .then(async (res) => {
+                        if (!res.success) {
+                            alert("Erro");
+                            console.error(res.data);
+                            return;
+                        }
+                        
+                        localStorage.setItem("carrinho", JSON.stringify([]));
+        
+                        criarMensagemCompraFinalizada();
+        
+                        await gerarPDF(itensCarrinhos, dados, infoFormulario);
+                        redirecionar();
+                    });
             });
+
     });
 };
 

@@ -46,22 +46,25 @@ const atualizarPrecoProduto = (produto) => {
 
 const atualizarAvaliacaoProduto = (produto) => {
     const avaliacaoNumero = document.querySelector(".nota-produto-numero");
-    const nota = Math.floor(Math.random() * (5 - 3 + 1)) + 3;
-    avaliacaoNumero.textContent = nota;
-
-    const avaliacaoEstrela = document.querySelector(".nota-produto");
-
-    const notaEmPorcentagem = nota * 20;
-    const restoPorcentagem = 100 - notaEmPorcentagem;
-
-    avaliacaoEstrela.style.setProperty(
-        "--porcentagem-nota",
-        `${notaEmPorcentagem}%`
-    );
-    avaliacaoEstrela.style.setProperty(
-        "--porcentagem-branco",
-        `${restoPorcentagem}%`
-    );
+    fetch("http://localhost:3000/comentarios/listar/" + produto.id)
+        .then(res => res.json())
+        .then(res => {
+            const nota = (res.data.reduce((prev, {rating}) => prev + Number(rating), 0) / res.data.length).toFixed(2);
+            avaliacaoNumero.textContent = isNaN(nota) ? "?" : nota;
+        
+            const avaliacaoEstrela = document.querySelector(".nota-produto");
+        
+            const notaEmPorcentagem = nota * 20;
+        
+            avaliacaoEstrela.style.setProperty(
+                "--porcentagem-nota",
+                `${notaEmPorcentagem}%`
+            );
+            avaliacaoEstrela.style.setProperty(
+                "--porcentagem-branco",
+                `${0}%`
+            );
+        })
 };
 
 const atualizarInformacoesProduto = (produto) => {
@@ -105,6 +108,111 @@ const atualizarBotoes = (produto, tipo) => {
         idItens.push(produto?.id);
         localStorage.setItem(tipo, JSON.stringify(idItens));
     });
+};
+
+const criarBotaoFavorito = (produto) => {
+    if (produto.id_products) {
+        produto.id = produto.id_products;
+    }
+
+    const botaoFavorito = document.querySelector("#botao-favoritos-produto");
+    botaoFavorito.dataset.id = produto.id;
+
+    const estaLogado =
+        localStorage.getItem("estaLogado") !== null &&
+        localStorage.getItem("estaLogado") !== "false";
+
+    if (estaLogado) {
+        fetch(
+            `http://localhost:3000/favoritos/produto?usuario=${localStorage.getItem(
+                "usuarioLogado"
+            )}&produto=${produto.id}`
+        )
+            .then((res) => res.json())
+            .then((res) => {
+                if (!res.success) {
+                    alert(res.message);
+                    return;
+                }
+
+                if (res.data[0]) {
+                    botaoFavorito.classList.add("adicionado-ao-carrinho");
+                }
+
+                botaoFavorito.addEventListener("click", async function () {
+                    const estaNosFavoritos = botaoFavorito.classList.contains(
+                        "adicionado-ao-carrinho"
+                    );
+                    const botoesFavoritos = document.querySelectorAll(
+                        "#botao-favoritos-produto"
+                    );
+                    if (estaNosFavoritos) {
+                        const resposta = await fetch(
+                            `http://localhost:3000/favoritos/produto/remover`,
+                            {
+                                method: "DELETE",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    usuario:
+                                        localStorage.getItem("usuarioLogado"),
+                                    produto: produto.id,
+                                }),
+                            }
+                        );
+                        const resultado = await resposta.json();
+
+                        if (!resultado.success) {
+                            alert(resultado.message);
+                            return;
+                        }
+                        botoesFavoritos.forEach((botao) => {
+                            const botaoEDoProduto =
+                                botao.dataset.id === produto.id.toString();
+                            if (botaoEDoProduto) {
+                                botao.classList.remove(
+                                    "adicionado-ao-carrinho"
+                                );
+                                botao.ariaLabel = "Adicionar ao favoritos";
+                            }
+                        });
+                        return;
+                    }
+                    const resposta = await fetch(
+                        `http://localhost:3000/produto/favoritar`,
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                usuario: localStorage.getItem("usuarioLogado"),
+                                produto: produto.id,
+                            }),
+                        }
+                    );
+                    const resultado = await resposta.json();
+
+                    if (!resultado.success) {
+                        alert(resultado.message);
+                    }
+
+                    botoesFavoritos.forEach((botao) => {
+                        const botaoEDoProduto =
+                            botao.dataset.id === produto.id.toString();
+                        if (botaoEDoProduto) {
+                            botao.classList.add("adicionado-ao-carrinho");
+                            botao.ariaLabel = "Remover do favoritos";
+                        }
+                    });
+                });
+            });
+    }
+
+    if (!estaLogado) {
+        botaoFavorito.disabled = true;
+    }
 };
 
 const criarMensagemSemComentarios = () => {
@@ -252,10 +360,9 @@ const criarInputComentario = (produto) => {
                 fetch("http://localhost:3000/comentarios/listar/" + produto.id)
                     .then((res) => res.json())
                     .then((res) => {
-                        for (let pos of comentarios.children) {
-                            if (pos.classList.contains("comentario")) {
-                                pos.remove();
-                            }
+                        const comentarios = document.querySelectorAll(".comentario");
+                        for (let pos of comentarios) {
+                            pos.remove();
                         }
                         const reviews = res.data;
         
@@ -294,15 +401,18 @@ const criarInputComentario = (produto) => {
     inputComentar.placeholder = "Adicione um comentário...";
     inputComentar.required = "true";
 
-    const produtosComprados =
-        JSON.parse(localStorage.getItem("itensComprados")) ?? [];
-
     const botao = document.createElement("button");
     botao.textContent = "Comentar";
 
-    if (!produtosComprados.includes(produto.id)) {
-        botao.disabled = true;
-    }
+    fetch("http://localhost:3000/usuario/historico/" + localStorage.getItem("usuarioLogado"))
+        .then(res => res.json())
+        .then(res => {
+            const contemNoHistorico = res.data.some((item) => item.id_products === produto.id)
+            if (!contemNoHistorico)  {
+                botao.disabled = true;
+            }
+        });
+
 
     form.append(selectNota, inputComentar, botao);
     divComentar.append(imagem, form);
@@ -356,7 +466,7 @@ const iniciarPaginaProduto = (dados) => {
     atualizarInformacoesProduto(produto);
 
     atualizarBotoes(produto, "carrinho");
-    atualizarBotoes(produto, "favoritos");
+    criarBotaoFavorito(produto);
 
     criarComentarios(produto);
 };
