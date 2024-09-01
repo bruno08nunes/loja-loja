@@ -18,8 +18,11 @@ const iniciarPaginaPrincipal = (dados) => {
         let produtosCategoria;
         const divProdutos = section.querySelector(".div-produtos");
         if (categoria === "Melhor Avaliado") {
-            produtosCategoria = dados.toSorted((a, b) => b.rating - a.rating);
-            criarProdutos(produtosCategoria, divProdutos);
+            fetch("http://localhost:3000/produtos/listar/melhores")
+                .then(res => res.json())
+                .then(res => {
+                    criarProdutos(res.data, divProdutos);
+                })
             continue;
         }
         

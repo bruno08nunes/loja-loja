@@ -534,6 +534,12 @@ Método: DELETE
 
 Rota (com link): http://localhost:3000/produto/deletar/:id
 
+### Listar todos os produtos por ordem de maior avaliação
+
+Método: GET
+
+Rota (com link): http://localhost:3000/produtos/listar/melhores
+
 ### Criar Categoria
 
 Método: POST
