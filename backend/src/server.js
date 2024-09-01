@@ -347,29 +347,6 @@ app.post("/produto/categoria/criar", (req, res) => {
     });
 });
 
-app.get("/produto/categoria/selecionar/:id", (req, res) => {
-    const params = [req.params.id];
-
-    const query =
-        "SELECT categories.name FROM categories INNER JOIN products_has_categories ON products_has_categories.id_categories = categories.id WHERE products_has_categories.id_products = ?;";
-
-    connection.query(query, [params], (err, results) => {
-        if (err) {
-            res.status(400).json({
-                success: false,
-                message: "Erro ao consultar categorias de produtos",
-                data: err,
-            });
-            return;
-        }
-        res.status(200).json({
-            success: true,
-            message: "Categorias do produto consultadas",
-            data: results,
-        });
-    });
-});
-
 app.get("/categoria/produto/selecionar/:categoria", (req, res) => {
     const params = [req.params.categoria];
 
