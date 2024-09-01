@@ -80,6 +80,45 @@ const iniciarPaginaAtualizarConta = () => {
         if (!querDeletarConta) {
             return;
         }
+        const responseFavorites = await fetch(`http://localhost:3000/usuario/deletar/favoritos/${userId}`, {
+            method: "DELETE"
+        });
+        const resultadoFavoritos = await responseFavorites.json();
+        if (!resultadoFavoritos.success) {
+            alert("Erro ao deletar usuário");
+            console.error(resultadoFavoritos.err);
+            return;
+        }
+
+        const responseReviews = await fetch(`http://localhost:3000/usuario/deletar/comentarios/${userId}`, {
+            method: "DELETE"
+        });
+        const resultadoComentarios = await responseReviews.json();
+        if (!resultadoComentarios.success) {
+            alert("Erro ao deletar usuário");
+            console.error(resultadoComentarios.err);
+            return;
+        }
+
+        const responsePedidos = await fetch(`http://localhost:3000/usuario/deletar/historico/${userId}`, {
+            method: "DELETE"
+        });
+        const resultadoPedidos = await responsePedidos.json();
+        if (!resultadoPedidos.success) {
+            alert("Erro ao deletar usuário");
+            console.error(resultadoPedidos.err);
+            return;
+        }
+        
+        const responsePedidosProdutos = await fetch(`http://localhost:3000/usuario/deletar/historico/produtos/${userId}`, {
+            method: "DELETE"
+        });
+        const resultadoPedidosProdutos = await responsePedidosProdutos.json();
+        if (!resultadoPedidosProdutos.success) {
+            alert("Erro ao deletar usuário");
+            console.error(resultadoPedidosProdutos.err);
+            return;
+        }
         
         const response = await fetch(`http://localhost:3000/usuario/deletar/${userId}`, {
             method: "DELETE"
