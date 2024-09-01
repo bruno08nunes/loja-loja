@@ -277,7 +277,7 @@ app.delete("/produto/deletar/:id", (req, res) => {
 });
 
 app.get("/produtos/listar/melhores", (req, res) => {
-    const query = "SELECT TRUNCATE(AVG(rating), 2) AS rating, products.name, products.price, products.promotional_price, products.image, products.id FROM reviews INNER JOIN products ON reviews.id_products = products.id GROUP BY reviews.id_products ORDER BY rating DESC;";
+    const query = "SELECT TRUNCATE(AVG(rating), 2) AS rating, products.name, products.description, products.price, products.promotional_price, products.image, products.id FROM reviews INNER JOIN products ON reviews.id_products = products.id GROUP BY reviews.id_products ORDER BY rating DESC;";
 
     connection.query(query, (err, results) => {
         if (err) {
