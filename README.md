@@ -82,9 +82,9 @@ cd loja-loja
 
 ### Criando o banco de dados
 
-Para a criação do banco, é necessário acessar o arquivo db.sql, presente na pasta backend. O código deve ser copiado e colado no MySQL Workbench, com os comandos todos executados, apertando Ctrl + Enter.
+Para a criação do banco, é necessário acessar o arquivo `db.sql`, presente na pasta backend. Você deve ter o MySQL e o MySQL Workbench instalados. O código deve ser copiado e colado no MySQL Workbench, com os comandos executados um por vez, apertando Ctrl + Enter.
 
-Talvez seja necessário alterar o arquivo db_config.js, alterando a senha e o usuário para o usado no seu ambiente de desenvolvimento.
+Talvez seja necessário alterar o arquivo `db_config.js`, alterando a senha e o usuário para o usado no seu ambiente de desenvolvimento.
 
 ### Rodando o servidor
 
@@ -439,7 +439,7 @@ categories:
 
 Método: POST
 
-Rota (com link): http://localhost:3000/usuario/cadastrar
+Rota: /usuario/cadastrar
 
 Exemplo de Corpo: {
     "nome": "Bruno",
@@ -453,7 +453,7 @@ Exemplo de Corpo: {
 
 Método: POST
 
-Rota (com link): http://localhost:3000/usuario/login
+Rota: /usuario/login
 
 Exemplo de Corpo: {
     "email": "exemplo@gmail.com",
@@ -464,13 +464,13 @@ Exemplo de Corpo: {
 
 Método: GET
 
-Rota (com link): http://localhost:3000/usuario/informacoes/:id
+Rota: /usuario/informacoes/:id
 
 ### Atualização de usuário
 
 Método: PUT
 
-Rota (com link): http://localhost:3000/usuario/atualizar/:id
+Rota: /usuario/atualizar/:id
 
 Exemplo de Corpo: {
     "nome": "Felipe",
@@ -484,13 +484,13 @@ Exemplo de Corpo: {
 
 Método: DELETE
 
-Rota (com link): http://localhost:3000/usuario/deletar/:id
+Rota: /usuario/deletar/:id
 
 ### Criar produto
 
 Método: POST
 
-Rota (com link): http://localhost:3000/produto/criar
+Rota: /produto/criar
 
 Exemplo de Corpo: {
     "nome": "Chocolate",
@@ -505,19 +505,19 @@ Exemplo de Corpo: {
 
 Método: GET
 
-Rota (com link): http://localhost:3000/produtos/listar
+Rota: /produtos/listar
 
 ### Informações de um produto
 
 Método: GET
 
-Rota (com link): http://localhost:3000/produto/informacoes/:id
+Rota: /produto/informacoes/:id
 
 ### Atualização de produtos
 
 Método: PUT
 
-Rota (com link): http://localhost:3000/produto/atualizar/:id
+Rota: /produto/atualizar/:id
 
 Exemplo de Corpo: {
     "nome": "Pirulito",
@@ -532,19 +532,19 @@ Exemplo de Corpo: {
 
 Método: DELETE
 
-Rota (com link): http://localhost:3000/produto/deletar/:id
+Rota: /produto/deletar/:id
 
 ### Listar todos os produtos por ordem de maior avaliação
 
 Método: GET
 
-Rota (com link): http://localhost:3000/produtos/listar/melhores
+Rota: /produtos/listar/melhores
 
 ### Criar Categoria
 
 Método: POST
 
-Rota (com link): http://localhost:3000/categoria/criar
+Rota: /categoria/criar
 
 Exemplo de Corpo: {
     "nome": "Decoração",
@@ -555,13 +555,13 @@ Exemplo de Corpo: {
 
 Método: GET
 
-Rota (com link): http://localhost:3000/categorias/listar
+Rota: /categorias/listar
 
 ### Criar Categoria em Produtos
 
 Método: POST
 
-Rota (com link): http://localhost:3000/produto/categoria/criar
+Rota: /produto/categoria/criar
 
 Exemplo de Corpo: {
     "produto": 5,
@@ -572,23 +572,23 @@ Exemplo de Corpo: {
     ]
 }
 
-### Selecionar produto por categoria
+### Selecionar produtos por categoria
 
 Método: GET
 
-Rota (com link): http://localhost:3000/categoria/produto/selecionar/2
+Rota: /categoria/produto/selecionar/:id
 
 ### Deletar Categoria em Produtos
 
 Método: DELETE
 
-Rota (com link): http://localhost:3000/categoria/produto/deletar/1
+Rota: /categoria/produto/deletar/1
 
 ### Favoritar Produto
 
 Método: POST
 
-Rota (com link): http://localhost:3000/produto/favoritar
+Rota: /produto/favoritar
 
 Exemplo de Corpo: {
     usuario: 1,
@@ -599,24 +599,110 @@ Exemplo de Corpo: {
 
 Método: GET
 
-Rota (com link): http://localhost:3000/favoritos/produto
+Rota: /favoritos/produto
+
+É necessário passar como search, usuario e produto como ids.
 
 ### Verificar todos os favoritos do usuário
 
 Método: GET
 
-Rota (com link): http://localhost:3000/usuario/favoritos/1
+Rota: /usuario/favoritos/1
 
-### Verificar todos os favoritos do usuário
+### Deletar favoritos de produto
 
 Método: DELETE
 
-Rota (com link): http://localhost:3000/favoritos/produto/remover
+Rota: /favoritos/produto/remover
 
 Exemplo de Corpo: {
     usuario: 1,
     produto: 1
 }
+
+### Deletar favoritos de usuário
+
+Método: DELETE
+
+Rota: /usuario/deletar/favoritos/:id
+
+### Listar comentários de produtos
+
+Método: GET
+
+Rota: /comentarios/listar/:produto_id
+
+### Comentar
+
+Método: POST
+
+Rota: /comentarios/postar
+
+Corpo: {
+    id_users: 8,
+    id_products: 1,
+    rating: 5,
+    comment: "Muito Bom"
+}
+
+### Deletar Reviews de Produtos
+
+Método: DELETE
+
+Rota: /reviews/deletar/:id
+
+### Deletar Reviews de Usuários
+
+Método: DELETE
+
+Rota: /usuario/deletar/comentarios/:id
+
+### Criar Pedidos
+
+Método: POST
+
+Rota: /comprar
+
+Corpo: {
+    usuario: 1,
+    "tipo-cartao": "Visa",
+    cep: "12345678",
+    "numero-casa": 180
+}
+
+### Colocar produtos em pedidos
+
+Método: POST
+
+Rota: /comprar/produtos
+
+Corpo: {
+    pedido: 1,
+    produtos: [
+        {
+            id: 1,
+            price: 5.99
+        }
+    ]
+}
+
+### Pegar Histórico de Compra
+
+Método: GET
+
+Rota: /usuario/historico/:id
+
+### Deletar Histórico de Usuário
+
+Método: DELETE
+
+Rota: /usuario/deletar/historico/:id
+
+### Deletar Histórico de Compra de Produtos do Usuário
+
+Método: DELETE
+
+Rota: /usuario/deletar/historico/produtos/:id
 
 ## Formatação e Convenções
 
