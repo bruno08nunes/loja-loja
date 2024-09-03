@@ -591,8 +591,8 @@ Método: POST
 Rota: /produto/favoritar
 
 Exemplo de Corpo: {
-    usuario: 1,
-    produto: 1
+    "usuario": 1,
+    "produto": 1
 }
 
 ### Verificar se o produto está favoritado pelo usuário
@@ -616,8 +616,8 @@ Método: DELETE
 Rota: /favoritos/produto/remover
 
 Exemplo de Corpo: {
-    usuario: 1,
-    produto: 1
+    "usuario": 1,
+    "produto": 1
 }
 
 ### Deletar favoritos de usuário
@@ -639,10 +639,10 @@ Método: POST
 Rota: /comentarios/postar
 
 Corpo: {
-    id_users: 8,
-    id_products: 1,
-    rating: 5,
-    comment: "Muito Bom"
+    "id_users": 8,
+    "id_products": 1,
+    "rating": 5,
+    "comment": "Muito Bom"
 }
 
 ### Deletar Reviews de Produtos
@@ -664,9 +664,9 @@ Método: POST
 Rota: /comprar
 
 Corpo: {
-    usuario: 1,
+    "usuario": 1,
     "tipo-cartao": "Visa",
-    cep: "12345678",
+    "cep": "12345678",
     "numero-casa": 180
 }
 
@@ -677,11 +677,11 @@ Método: POST
 Rota: /comprar/produtos
 
 Corpo: {
-    pedido: 1,
-    produtos: [
+    "pedido": 1,
+    "produtos": [
         {
-            id: 1,
-            price: 5.99
+            "id": 1,
+            "price": 5.99
         }
     ]
 }
