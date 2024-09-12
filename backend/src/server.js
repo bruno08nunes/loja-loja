@@ -52,9 +52,9 @@ app.post("/usuario/cadastrar", (req, res) => {
 });
 
 app.post("/usuario/login", (req, res) => {
-    let params = [req.body.email, req.body.senha];
+    let params = [req.body.email];
 
-    let query = "SELECT * FROM users WHERE email = ? AND password = ?;";
+    let query = "SELECT * FROM users WHERE email = ?;";
 
     connection.query(query, params, (err, results) => {
         if (err) {
@@ -65,10 +65,24 @@ app.post("/usuario/login", (req, res) => {
             });
             return;
         }
-        res.status(200).json({
-            success: true,
-            message: "Consulta concluída",
-            data: results,
+        if (results.length > 0) {
+            if (results[0].password === req.body.senha) {
+                res.status(200).json({
+                    success: true,
+                    message: "Consulta concluída",
+                    data: results,
+                });
+                return;
+            }
+            res.status(400).json({
+                success: false,
+                message: "Senha inválida!"
+            });
+            return
+        }
+        res.status(400).json({
+            success: false,
+            message: "Usuário não cadastrado!"
         });
     });
 });

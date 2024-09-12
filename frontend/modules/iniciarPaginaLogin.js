@@ -23,8 +23,7 @@ const iniciarPaginaLogin = () => {
 
         const resultados = await response.json();
         if (!resultados.success) {
-            alert("Ocorreu algum erro. Por favor, tente novamente");
-            console.log(resultados);
+            alert(resultados.message);
             return;
         }
         if (resultados.data.length === 0) {
