@@ -133,7 +133,7 @@ app.put("/usuario/atualizar/:id", (req, res) => {
     ];
 
     let query =
-        "UPDATE users SET first_name = ?, family_name = ?, cpf = ?, email = ?, password = ? WHERE id = ?;";
+        "UPDATE users SET first_name = ?, family_name = ?, cpf = ?, email = ?, password = ?, updated_at = now() WHERE id = ?;";
 
     connection.query(query, params, (err, results) => {
         if (err) {
@@ -249,19 +249,19 @@ app.get("/produto/informacoes/:id", (req, res) => {
     });
 });
 
-app.put("/produto/atualizar/:id", (req, res) => {
+app.put("/produto/atualizar/:id", uploadProduct.single("image"), (req, res) => {
     const params = [
         req.body.nome,
         req.body.descricao,
         req.body.preco,
-        req.body.precoPromocional,
+        req.body.precoPromocional === "" ? null : req.body.precoPromocional,
         req.body.quantidade,
-        req.body.image,
+        req.file?.filename ?? req.body.old_image,
         req.params.id,
     ];
 
     const query =
-        "UPDATE products SET name = ?, description = ?, price = ?, promotional_price = ?, stock_quantity = ?, image = ? WHERE id = ?;";
+        "UPDATE products SET name = ?, description = ?, price = ?, promotional_price = ?, stock_quantity = ?, image = ?, updated_at = now() WHERE id = ?;";
 
     connection.query(query, params, (err, results) => {
         if (err) {

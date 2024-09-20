@@ -37,11 +37,6 @@ const atualizarQuantidadeProduto = (produto) => {
     elementoQuantidade.value = produto.stock_quantity;
 };
 
-const atualizarImageProduto = (produto) => {
-    const elementoImage = document.querySelector("#image");
-    elementoImage.value = produto.image;
-};
-
 const atualizarInformacoesProduto = (dados) => {
     const produto = pegarProduto(dados);
 
@@ -55,8 +50,6 @@ const atualizarInformacoesProduto = (dados) => {
 
     atualizarQuantidadeProduto(produto);
 
-    atualizarImageProduto(produto);
-
     const form = document.querySelector(".form-dados-produto");
     form.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -65,23 +58,25 @@ const atualizarInformacoesProduto = (dados) => {
             nome: form.nome.value,
             descricao: form.descricao.value,
             preco: form.preco.value,
-            precoPromocional: form.preco_promocional.value || null,
+            precoPromocional: form.preco_promocional.value || "",
             quantidade: form.quantidade.value,
-            image: form.image.value,
+            image: form.image.files[0],
+            old_image: produto.image
         };
+        const formData = new FormData();
+        for (let prop in data) {
+            formData.append(prop, data[prop]);
+        }
 
         fetch("http://localhost:3000/produto/atualizar/" + produto.id, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
+            body: formData,
         })
             .then((res) => res.json())
             .then((res) => {
                 if (!res.success) {
-                    alert("Não foi possível atualizar o produto");
                     console.error(res.data);
+                    alert("Não foi possível atualizar o produto");
                     return;
                 }
                 alert("Produto atualizado");
