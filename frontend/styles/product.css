@@ -95,6 +95,12 @@
     width: 100%;
 }
 
+.comentarios {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
 .div-comentar {
     display: flex;
     align-items: center;

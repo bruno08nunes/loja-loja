@@ -31,7 +31,11 @@ backdrop.addEventListener("click", (e) => {
     backdrop.classList.remove("open");
 });
 
-fetch("http://localhost:3000/produtos/listar")
+const usuarioId = localStorage.getItem("usuarioLogado");
+
+const rota = usuarioId ? "http://localhost:3000/produtos/listar?usuario=" + usuarioId : "http://localhost:3000/produtos/listar"
+
+fetch(rota)
     .then((dados) => dados.json())
     .then((dados) => {
         if (document.title === "Loja Loja") {
@@ -90,7 +94,6 @@ if (footer) {
     });
 }
 
-const usuarioId = localStorage.getItem("usuarioLogado");
 if (usuarioId && usuarioId !== null) {
     fetch(`http://localhost:3000/usuario/informacoes/${usuarioId}`)
         .then((res) => res.json())

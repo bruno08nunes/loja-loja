@@ -18,7 +18,8 @@ const iniciarPaginaPrincipal = (dados) => {
         let produtosCategoria;
         const divProdutos = section.querySelector(".div-produtos");
         if (categoria === "Melhor Avaliado") {
-            fetch("http://localhost:3000/produtos/listar/melhores")
+            let rota = localStorage.getItem("usuarioLogado") ? "http://localhost:3000/produtos/listar/melhores?usuario=" + localStorage.getItem("usuarioLogado") : "http://localhost:3000/produtos/listar/melhores"
+            fetch(rota)
                 .then(res => res.json())
                 .then(res => {
                     criarProdutos(res.data, divProdutos);

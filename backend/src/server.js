@@ -1,3 +1,4 @@
+// * Inicialização
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -15,24 +16,24 @@ const storageProduct = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname));
-    }
+    },
 });
-const uploadProduct = multer({storage: storageProduct});
+const uploadProduct = multer({ storage: storageProduct });
 const storageUser = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "../frontend/assets/users");
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname));
-    }
+    },
 });
-const uploadUser = multer({storage: storageUser});
+const uploadUser = multer({ storage: storageUser });
 
 app.listen(port, () => console.log(`Rodando na porta ${port}`));
 
 const connection = require("./db_config");
 
-// Rotas para cadastro de usuário
+// * Rotas para cadastro de usuário
 
 app.post("/usuario/cadastrar", (req, res) => {
     const params = [
@@ -97,13 +98,13 @@ app.post("/usuario/login", (req, res) => {
             }
             res.status(400).json({
                 success: false,
-                message: "Senha inválida!"
+                message: "Senha inválida!",
             });
-            return
+            return;
         }
         res.status(400).json({
             success: false,
-            message: "Usuário não cadastrado!"
+            message: "Usuário não cadastrado!",
         });
     });
 });
@@ -161,31 +162,32 @@ app.put("/usuario/atualizar/:id", (req, res) => {
     });
 });
 
-app.put("/usuario/foto/atualizar/:id", uploadUser.single("image"), (req, res) => {
-    const params = [
-        req.file.filename,
-        req.params.id
-    ];
+app.put(
+    "/usuario/foto/atualizar/:id",
+    uploadUser.single("image"),
+    (req, res) => {
+        const params = [req.file.filename, req.params.id];
 
-    const query =
-        "UPDATE users SET image = ?, updated_at = now() WHERE id = ?;";
+        const query =
+            "UPDATE users SET image = ?, updated_at = now() WHERE id = ?;";
 
-    connection.query(query, params, (err, results) => {
-        if (err) {
-            res.status(400).json({
-                success: false,
-                message: "Erro ao atualizar usuário",
-                data: err,
+        connection.query(query, params, (err, results) => {
+            if (err) {
+                res.status(400).json({
+                    success: false,
+                    message: "Erro ao atualizar usuário",
+                    data: err,
+                });
+                return;
+            }
+            res.status(200).json({
+                success: true,
+                message: "Usuário atualizado",
+                data: results,
             });
-            return;
-        }
-        res.status(200).json({
-            success: true,
-            message: "Usuário atualizado",
-            data: results,
         });
-    });
-})
+    }
+);
 
 app.delete("/usuario/deletar/:id", (req, res) => {
     let params = [req.params.id];
@@ -218,7 +220,7 @@ app.post("/produto/criar", uploadProduct.single("image"), (req, res) => {
         req.body.preco,
         req.body.precoPromocional === "" ? null : req.body.precoPromocional,
         req.body.quantidade,
-        req.file.filename
+        req.file.filename,
     ];
 
     const query =
@@ -241,10 +243,25 @@ app.post("/produto/criar", uploadProduct.single("image"), (req, res) => {
     });
 });
 
-app.get("/produtos/listar", (req, res) => {
-    const query = "SELECT * FROM products";
+app.get("/produtos/listar/", (req, res) => {
+    const params = [req.query.usuario];
 
-    connection.query(query, (err, results) => {
+    let query =
+        "SELECT products.id, name, description, price, promotional_price, stock_quantity, image, AVG(rating) as rating FROM products LEFT JOIN reviews ON products.id = reviews.id_products GROUP BY products.id;";
+
+    if (req.query.usuario) {
+        query = `SELECT products.id, name, description, price, promotional_price, stock_quantity, image, AVG(rating) as rating,
+                    CASE
+                        WHEN MAX(favorites.id_users) = ? THEN true
+                        ELSE false
+                    END AS is_favorited
+                    FROM products
+                    LEFT JOIN reviews ON products.id = reviews.id_products
+                    LEFT JOIN favorites ON products.id = favorites.id_products
+                    GROUP BY products.id;`;
+    }
+
+    connection.query(query, params, (err, results) => {
         if (err) {
             res.status(400).json({
                 success: false,
@@ -338,9 +355,25 @@ app.delete("/produto/deletar/:id", (req, res) => {
 });
 
 app.get("/produtos/listar/melhores", (req, res) => {
-    const query = "SELECT TRUNCATE(AVG(rating), 2) AS rating, products.name, products.description, products.price, products.promotional_price, products.image, products.id FROM reviews INNER JOIN products ON reviews.id_products = products.id GROUP BY reviews.id_products ORDER BY rating DESC;";
+    const params = [req.query.usuario];
 
-    connection.query(query, (err, results) => {
+    let query =
+        "SELECT TRUNCATE(AVG(rating), 2) AS rating, products.name, products.description, products.price, products.promotional_price, products.image, products.id FROM reviews INNER JOIN products ON reviews.id_products = products.id GROUP BY reviews.id_products ORDER BY rating DESC;";
+
+    if (req.query.usuario) {
+        query = `SELECT products.id, name, description, price, promotional_price, stock_quantity, image, AVG(rating) as rating,
+                    CASE
+                        WHEN MAX(favorites.id_users) = ? THEN true
+                        ELSE false
+                    END AS is_favorited
+                    FROM products
+                    LEFT JOIN reviews ON products.id = reviews.id_products
+                    LEFT JOIN favorites ON products.id = favorites.id_products
+                    GROUP BY products.id
+                    ORDER BY rating DESC;`
+    }
+
+    connection.query(query, params, (err, results) => {
         if (err) {
             res.status(400).json({
                 success: false,
@@ -453,10 +486,7 @@ app.get("/categoria/produto/selecionar/:categoria", (req, res) => {
 
 // CRUD Favoritos
 app.post("/produto/favoritar", (req, res) => {
-    const params = [
-        req.body.usuario,
-        req.body.produto
-    ]
+    const params = [req.body.usuario, req.body.produto];
 
     const query = "INSERT INTO favorites(id_users, id_products) VALUES (?,?);";
 
@@ -475,15 +505,13 @@ app.post("/produto/favoritar", (req, res) => {
             data: results,
         });
     });
-})
+});
 
 app.get("/favoritos/produto", (req, res) => {
-    const params = [
-        req.query.usuario,
-        req.query.produto
-    ]
+    const params = [req.query.usuario, req.query.produto];
 
-    const query = "SELECT * FROM favorites WHERE id_users = ? AND id_products = ?;";
+    const query =
+        "SELECT * FROM favorites WHERE id_users = ? AND id_products = ?;";
 
     connection.query(query, params, (err, results) => {
         if (err) {
@@ -500,14 +528,21 @@ app.get("/favoritos/produto", (req, res) => {
             data: results,
         });
     });
-})
+});
 
 app.get("/usuario/favoritos/:id", (req, res) => {
-    const params = [
-        req.params.id
-    ]
+    const params = [req.params.id, req.params.id];
 
-    const query = "SELECT * FROM products INNER JOIN favorites ON products.id = favorites.id_products WHERE favorites.id_users = ?;";
+    const query = `SELECT products.id, name, description, price, promotional_price, stock_quantity, image, AVG(rating) as rating,
+                    CASE
+                        WHEN MAX(favorites.id_users) = ? THEN true
+                        ELSE false
+                    END AS is_favorited
+                    FROM products
+                    LEFT JOIN reviews ON products.id = reviews.id_products
+                    LEFT JOIN favorites ON products.id = favorites.id_products
+                    WHERE favorites.id_users = ?
+                    GROUP BY products.id;`;
 
     connection.query(query, params, (err, results) => {
         if (err) {
@@ -524,15 +559,13 @@ app.get("/usuario/favoritos/:id", (req, res) => {
             data: results,
         });
     });
-})
+});
 
 app.delete("/favoritos/produto/remover", (req, res) => {
-    const params = [
-        req.body.usuario,
-        req.body.produto
-    ]
+    const params = [req.body.usuario, req.body.produto];
 
-    const query = "DELETE FROM favorites WHERE id_users = ? AND id_products = ?;";
+    const query =
+        "DELETE FROM favorites WHERE id_users = ? AND id_products = ?;";
 
     connection.query(query, params, (err, results) => {
         if (err) {
@@ -549,7 +582,7 @@ app.delete("/favoritos/produto/remover", (req, res) => {
             data: results,
         });
     });
-})
+});
 
 // Crud Comentários
 
@@ -611,10 +644,11 @@ app.post("/comprar", (req, res) => {
         req.body.usuario,
         req.body["tipo-cartao"],
         req.body.cep,
-        req.body["numero-casa"]
+        req.body["numero-casa"],
     ];
 
-    const query = "INSERT INTO orders(id_users, payment_metod, shipping_postcode, house_number) VALUES (?,?,?,?);";
+    const query =
+        "INSERT INTO orders(id_users, payment_metod, shipping_postcode, house_number) VALUES (?,?,?,?);";
 
     connection.query(query, params, (err, results) => {
         if (err) {
@@ -638,7 +672,7 @@ app.post("/comprar/produtos", (req, res) => {
         req.body.pedido,
         produto.id,
         1,
-        produto.promotional_price ?? produto.price
+        produto.promotional_price ?? produto.price,
     ]);
 
     const query =
@@ -662,11 +696,21 @@ app.post("/comprar/produtos", (req, res) => {
 });
 
 app.get("/usuario/historico/:id", (req, res) => {
-    const params = [
-        req.params.id
-    ];
+    const params = [req.params.id, req.params.id];
 
-    const query = "SELECT * FROM orders_has_products ohp INNER JOIN products ON products.id = ohp.id_products INNER JOIN orders ON ohp.id_orders = orders.id WHERE orders.id_users = ?;";
+    const query =
+        `SELECT products.id, name, description, products.price, promotional_price, stock_quantity, image, AVG(rating) as rating,
+            CASE
+                WHEN MAX(favorites.id_users) = ? THEN true
+                ELSE false
+            END AS is_favorited
+            FROM orders_has_products ohp
+            INNER JOIN products ON products.id = ohp.id_products
+            INNER JOIN orders ON ohp.id_orders = orders.id
+            LEFT JOIN reviews ON products.id = reviews.id_products
+            LEFT JOIN favorites ON products.id = favorites.id_products
+            WHERE orders.id_users = ?
+            GROUP BY products.id;`;
 
     connection.query(query, params, (err, results) => {
         if (err) {
@@ -683,4 +727,4 @@ app.get("/usuario/historico/:id", (req, res) => {
             data: results,
         });
     });
-})
+});

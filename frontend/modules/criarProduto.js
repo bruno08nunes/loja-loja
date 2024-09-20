@@ -56,22 +56,12 @@ const criarSpanNota = (produto) => {
     spanNota.classList.add("nota-produto");
     spanNota.textContent = "★".repeat(5);
 
-    fetch("http://localhost:3000/comentarios/listar/" + produto.id)
-        .then(res => res.json())
-        .then(res => {
-            const nota = res.data.reduce((prev, {rating}) => prev + Number(rating), 0) / res.data.length;
-        
-            const notaEmPorcentagem = nota * 20;
-        
-            spanNota.style.setProperty(
-                "--porcentagem-nota",
-                `${notaEmPorcentagem}%`
-            );
-            spanNota.style.setProperty(
-                "--porcentagem-branco",
-                `${0}%`
-            );
-        })
+    const nota = produto.rating;
+
+    const notaEmPorcentagem = nota * 20;
+
+    spanNota.style.setProperty("--porcentagem-nota", `${notaEmPorcentagem}%`);
+    spanNota.style.setProperty("--porcentagem-branco", `${0}%`);
 
     return spanNota;
 };
@@ -87,7 +77,7 @@ const criarBotaoCarrinho = (produto) => {
     if (produto.id_products) {
         produto.id = produto.id_products;
     }
-    
+
     const botaoCarrinho = document.createElement("button");
     botaoCarrinho.classList.add("botao-carrinho");
     botaoCarrinho.dataset.id = produto.id;
@@ -149,6 +139,68 @@ const criarBotaoCarrinho = (produto) => {
     return botaoCarrinho;
 };
 
+const removerDosFavoritos = async (produto) => {
+    const resposta = await fetch(
+        `http://localhost:3000/favoritos/produto/remover`,
+        {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                usuario: localStorage.getItem("usuarioLogado"),
+                produto: produto.id,
+            }),
+        }
+    );
+    const resultado = await resposta.json();
+
+    if (!resultado.success) {
+        alert(resultado.message);
+        return;
+    }
+
+    const botoesFavoritos = document.querySelectorAll(
+        ".botao-favorito[data-id]"
+    );
+    botoesFavoritos.forEach((botao) => {
+        const botaoEDoProduto = botao.dataset.id === produto.id.toString();
+        if (botaoEDoProduto) {
+            botao.classList.remove("adicionado-ao-carrinho");
+            botao.ariaLabel = "Adicionar ao favoritos";
+        }
+    });
+};
+
+const adicionarAosFavoritos = async (produto) => {
+    const resposta = await fetch(`http://localhost:3000/produto/favoritar`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            usuario: localStorage.getItem("usuarioLogado"),
+            produto: produto.id,
+        }),
+    });
+    const resultado = await resposta.json();
+
+    if (!resultado.success) {
+        alert(resultado.message);
+    }
+
+    const botoesFavoritos = document.querySelectorAll(
+        ".botao-favorito[data-id]"
+    );
+    botoesFavoritos.forEach((botao) => {
+        const botaoEDoProduto = botao.dataset.id === produto.id.toString();
+        if (botaoEDoProduto) {
+            botao.classList.add("adicionado-ao-carrinho");
+            botao.ariaLabel = "Remover do favoritos";
+        }
+    });
+};
+
 const criarBotaoFavorito = (produto) => {
     if (produto.id_products) {
         produto.id = produto.id_products;
@@ -164,91 +216,17 @@ const criarBotaoFavorito = (produto) => {
         localStorage.getItem("estaLogado") !== "false";
 
     if (estaLogado) {
-        fetch(
-            `http://localhost:3000/favoritos/produto?usuario=${localStorage.getItem(
-                "usuarioLogado"
-            )}&produto=${produto.id}`
-        )
-            .then((res) => res.json())
-            .then((res) => {
-                if (!res.success) {
-                    alert(res.message);
-                    return;
-                }
-
-                if (res.data[0]) {
-                    botaoFavorito.classList.add("adicionado-ao-carrinho");
-                }
-
-                botaoFavorito.addEventListener("click", async function () {
-                    const estaNosFavoritos = botaoFavorito.classList.contains(
-                        "adicionado-ao-carrinho"
-                    );
-                    const botoesFavoritos = document.querySelectorAll(
-                        ".botao-favorito[data-id]"
-                    );
-                    if (estaNosFavoritos) {
-                        const resposta = await fetch(
-                            `http://localhost:3000/favoritos/produto/remover`,
-                            {
-                                method: "DELETE",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({
-                                    usuario:
-                                        localStorage.getItem("usuarioLogado"),
-                                    produto: produto.id,
-                                }),
-                            }
-                        );
-                        const resultado = await resposta.json();
-
-                        if (!resultado.success) {
-                            alert(resultado.message);
-                            return;
-                        }
-                        botoesFavoritos.forEach((botao) => {
-                            const botaoEDoProduto =
-                                botao.dataset.id === produto.id.toString();
-                            if (botaoEDoProduto) {
-                                botao.classList.remove(
-                                    "adicionado-ao-carrinho"
-                                );
-                                botao.ariaLabel = "Adicionar ao favoritos";
-                            }
-                        });
-                        return;
-                    }
-                    const resposta = await fetch(
-                        `http://localhost:3000/produto/favoritar`,
-                        {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                usuario: localStorage.getItem("usuarioLogado"),
-                                produto: produto.id,
-                            }),
-                        }
-                    );
-                    const resultado = await resposta.json();
-
-                    if (!resultado.success) {
-                        alert(resultado.message);
-                    }
-
-                    botoesFavoritos.forEach((botao) => {
-                        const botaoEDoProduto =
-                            botao.dataset.id === produto.id.toString();
-                        if (botaoEDoProduto) {
-                            botao.classList.add("adicionado-ao-carrinho");
-                            botao.ariaLabel = "Remover do favoritos";
-                        }
-                    });
-                });
-            });
+        const estaNosFavoritos = produto.is_favorited;
+        if (estaNosFavoritos) {
+            botaoFavorito.classList.add("adicionado-ao-carrinho");
+        }
+        botaoFavorito.addEventListener("click", async function () {
+            if (botaoFavorito.classList.contains("adicionado-ao-carrinho")) {
+                removerDosFavoritos(produto);
+                return;
+            }
+            adicionarAosFavoritos(produto);
+        });
     }
 
     if (!estaLogado) {
@@ -275,9 +253,12 @@ const criarProduto = (produto, admin) => {
     divProduto.classList.add("produto");
 
     const linkProduto = document.createElement("a");
-    let href = "pages/product.html?produto=" + (produto.id_products ?? produto.id);
+    let href =
+        "pages/product.html?produto=" + (produto.id_products ?? produto.id);
     if (admin) {
-        href = "pages/products-management.html?produto=" + (produto.id_products ?? produto.id);
+        href =
+            "pages/products-management.html?produto=" +
+            (produto.id_products ?? produto.id);
     }
     linkProduto.href = href;
     linkProduto.classList.add("link-produto");
@@ -296,7 +277,7 @@ const criarProduto = (produto, admin) => {
 
     // Informações adicionais
     const spanPreco = criarSpanPreco(produto);
-    const spanNota = criarSpanNota(produto);
+    const spanNota = produto.rating ? criarSpanNota(produto) : "";
     const divInformacoes = criarDivInformacoesProduto({ spanNota, spanPreco });
 
     // Botões

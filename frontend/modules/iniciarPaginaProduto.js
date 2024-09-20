@@ -1,3 +1,9 @@
+const informacoesConta = async () => {
+    return await fetch(`http://localhost:3000/usuario/informacoes/${localStorage.getItem("usuarioLogado")}`)
+        .then((res) => res.json())
+        .then(res => res.data[0]);
+}
+
 const pegarProduto = (dados) => {
     const parametrosURL = new URLSearchParams(location.search);
     const id = Number(parametrosURL.get("produto"));
@@ -46,25 +52,21 @@ const atualizarPrecoProduto = (produto) => {
 
 const atualizarAvaliacaoProduto = (produto) => {
     const avaliacaoNumero = document.querySelector(".nota-produto-numero");
-    fetch("http://localhost:3000/comentarios/listar/" + produto.id)
-        .then(res => res.json())
-        .then(res => {
-            const nota = (res.data.reduce((prev, {rating}) => prev + Number(rating), 0) / res.data.length).toFixed(2);
-            avaliacaoNumero.textContent = isNaN(nota) ? "?" : nota;
-        
-            const avaliacaoEstrela = document.querySelector(".nota-produto");
-        
-            const notaEmPorcentagem = nota * 20;
-        
-            avaliacaoEstrela.style.setProperty(
-                "--porcentagem-nota",
-                `${notaEmPorcentagem}%`
-            );
-            avaliacaoEstrela.style.setProperty(
-                "--porcentagem-branco",
-                `${0}%`
-            );
-        })
+    const nota = Number(produto.rating).toFixed(2);
+    avaliacaoNumero.textContent = isNaN(nota) ? "?" : nota;
+
+    const avaliacaoEstrela = document.querySelector(".nota-produto");
+
+    const notaEmPorcentagem = nota * 20;
+
+    avaliacaoEstrela.style.setProperty(
+        "--porcentagem-nota",
+        `${notaEmPorcentagem}%`
+    );
+    avaliacaoEstrela.style.setProperty(
+        "--porcentagem-branco",
+        `${0}%`
+    );
 };
 
 const atualizarInformacoesProduto = (produto) => {
@@ -110,6 +112,48 @@ const atualizarBotoes = (produto, tipo) => {
     });
 };
 
+const removerDosFavoritos = async (produto, botao) => {
+    const resposta = await fetch(
+        `http://localhost:3000/favoritos/produto/remover`,
+        {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                usuario: localStorage.getItem("usuarioLogado"),
+                produto: produto.id,
+            }),
+        }
+    );
+    const resultado = await resposta.json();
+
+    if (!resultado.success) {
+        alert(resultado.message);
+        return;
+    }
+    botao.classList.remove("adicionado-ao-carrinho")
+};
+
+const adicionarAosFavoritos = async (produto, botao) => {
+    const resposta = await fetch(`http://localhost:3000/produto/favoritar`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            usuario: localStorage.getItem("usuarioLogado"),
+            produto: produto.id,
+        }),
+    });
+    const resultado = await resposta.json();
+
+    if (!resultado.success) {
+        alert(resultado.message);
+    }
+    botao.classList.add("adicionado-ao-carrinho")
+};
+
 const criarBotaoFavorito = (produto) => {
     if (produto.id_products) {
         produto.id = produto.id_products;
@@ -123,91 +167,17 @@ const criarBotaoFavorito = (produto) => {
         localStorage.getItem("estaLogado") !== "false";
 
     if (estaLogado) {
-        fetch(
-            `http://localhost:3000/favoritos/produto?usuario=${localStorage.getItem(
-                "usuarioLogado"
-            )}&produto=${produto.id}`
-        )
-            .then((res) => res.json())
-            .then((res) => {
-                if (!res.success) {
-                    alert(res.message);
-                    return;
-                }
-
-                if (res.data[0]) {
-                    botaoFavorito.classList.add("adicionado-ao-carrinho");
-                }
-
-                botaoFavorito.addEventListener("click", async function () {
-                    const estaNosFavoritos = botaoFavorito.classList.contains(
-                        "adicionado-ao-carrinho"
-                    );
-                    const botoesFavoritos = document.querySelectorAll(
-                        "#botao-favoritos-produto"
-                    );
-                    if (estaNosFavoritos) {
-                        const resposta = await fetch(
-                            `http://localhost:3000/favoritos/produto/remover`,
-                            {
-                                method: "DELETE",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({
-                                    usuario:
-                                        localStorage.getItem("usuarioLogado"),
-                                    produto: produto.id,
-                                }),
-                            }
-                        );
-                        const resultado = await resposta.json();
-
-                        if (!resultado.success) {
-                            alert(resultado.message);
-                            return;
-                        }
-                        botoesFavoritos.forEach((botao) => {
-                            const botaoEDoProduto =
-                                botao.dataset.id === produto.id.toString();
-                            if (botaoEDoProduto) {
-                                botao.classList.remove(
-                                    "adicionado-ao-carrinho"
-                                );
-                                botao.ariaLabel = "Adicionar ao favoritos";
-                            }
-                        });
-                        return;
-                    }
-                    const resposta = await fetch(
-                        `http://localhost:3000/produto/favoritar`,
-                        {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                usuario: localStorage.getItem("usuarioLogado"),
-                                produto: produto.id,
-                            }),
-                        }
-                    );
-                    const resultado = await resposta.json();
-
-                    if (!resultado.success) {
-                        alert(resultado.message);
-                    }
-
-                    botoesFavoritos.forEach((botao) => {
-                        const botaoEDoProduto =
-                            botao.dataset.id === produto.id.toString();
-                        if (botaoEDoProduto) {
-                            botao.classList.add("adicionado-ao-carrinho");
-                            botao.ariaLabel = "Remover do favoritos";
-                        }
-                    });
-                });
-            });
+        const estaNosFavoritos = produto.is_favorited;
+        if (estaNosFavoritos) {
+            botaoFavorito.classList.add("adicionado-ao-carrinho");
+        }
+        botaoFavorito.addEventListener("click", async function () {
+            if (botaoFavorito.classList.contains("adicionado-ao-carrinho")) {
+                removerDosFavoritos(produto, botaoFavorito);
+                return;
+            }
+            adicionarAosFavoritos(produto, botaoFavorito);
+        });
     }
 
     if (!estaLogado) {
@@ -337,44 +307,31 @@ const criarInputComentario = (produto) => {
 
     const form = document.createElement("form");
 
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const comentarios = document.querySelector(".section-comentarios");
-
-        const infomacoes = {
+        const informacoes = {
             id_users: localStorage.getItem("usuarioLogado"),
             id_products: produto.id,
             rating: form.elements["nota"].value,
             comment: form.elements["comentar"].value,
         };
-
+        
         fetch("http://localhost:3000/comentarios/postar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(infomacoes),
+            body: JSON.stringify(informacoes),
         })
-            .then(() => {
-                fetch("http://localhost:3000/comentarios/listar/" + produto.id)
-                    .then((res) => res.json())
-                    .then((res) => {
-                        const comentarios = document.querySelectorAll(".comentario");
-                        for (let pos of comentarios) {
-                            pos.remove();
-                        }
-                        const reviews = res.data;
         
-                        if (reviews.length === 0 || produto === undefined) {
-                            const mensagem = criarMensagemSemComentarios();
-                            comentarios.append(mensagem);
-                        }
-        
-                        gerarComentarios(reviews);
-                    });
-            })
-
+        const {first_name: reviewer} = await informacoesConta();
+        gerarComentarios([{
+            reviewer,
+            rating: Number(form.elements["nota"].value).toFixed(1),
+            comment: form.elements["comentar"].value,
+            created_at: Date.now()
+        }])
 
         form.reset();
     });
@@ -421,7 +378,7 @@ const criarInputComentario = (produto) => {
 };
 
 const gerarComentarios = (reviews) => {
-    const comentarios = document.querySelector(".section-comentarios");
+    const comentarios = document.querySelector(".comentarios");
     for (let review of reviews) {
         const comentario = criarComentario();
 
@@ -437,11 +394,11 @@ const gerarComentarios = (reviews) => {
 };
 
 const criarComentarios = (produto) => {
-    const comentarios = document.querySelector(".section-comentarios");
+    const sectionComentarios = document.querySelector(".section-comentarios");
 
     if ((localStorage.getItem("estaLogado") ?? "false") !== "false") {
         const inputComentario = criarInputComentario(produto);
-        comentarios.append(inputComentario);
+        sectionComentarios.append(inputComentario);
     }
 
     fetch("http://localhost:3000/comentarios/listar/" + produto.id)
@@ -451,9 +408,13 @@ const criarComentarios = (produto) => {
 
             if (reviews.length === 0 || produto === undefined) {
                 const mensagem = criarMensagemSemComentarios();
-                comentarios.append(mensagem);
+                sectionComentarios.append(mensagem);
+                return;
             }
 
+            const comentarios = document.createElement("div");
+            comentarios.classList.add("comentarios");
+            sectionComentarios.append(comentarios);
             gerarComentarios(reviews);
         });
 };
