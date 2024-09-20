@@ -498,7 +498,7 @@ Exemplo de Corpo: {
     "preco": 5.99,
     "precoPromocional": 2.99,
     "quantidade": 8,
-    "image": "bruno-emo.jpg"
+    "image": arquivo
 }
 
 ### Listar todos os produtos

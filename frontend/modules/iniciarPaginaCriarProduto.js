@@ -28,23 +28,25 @@ const iniciarPaginaCriarProduto = () => {
             nome: form.nome.value,
             descricao: form.descricao.value,
             preco: form.preco.value,
-            precoPromocional: form.precoPromocional.value.replace(",", ".") || null,
+            precoPromocional: form.precoPromocional.value.replace(",", ".") || "",
             quantidade: form.quantidade.value,
-            image: form.image.value || null
+            image: form.image.files[0]
+        }
+
+        const formData = new FormData();
+        for (let prop in data) {
+            formData.append(prop, data[prop]);
         }
 
         const response = await fetch("http://localhost:3000/produto/criar", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
+            body: formData
         });
         const resultado = await response.json();
 
         if (!resultado.success) {
-            alert("Erro ao criar produto");
             console.error(resultado.data);
+            alert("Erro ao criar produto");
             return;
         }
 

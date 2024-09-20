@@ -1,11 +1,23 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const port = 3000;
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+const multer = require("multer");
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../frontend/assets/products");
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+const uploadProduct = multer({storage: storage});
 
 app.listen(port, () => console.log(`Rodando na porta ${port}`));
 
@@ -164,14 +176,14 @@ app.delete("/usuario/deletar/:id", (req, res) => {
 
 // CRUD Produto
 
-app.post("/produto/criar", (req, res) => {
+app.post("/produto/criar", uploadProduct.single("image"), (req, res) => {
     const params = [
         req.body.nome,
         req.body.descricao,
         req.body.preco,
-        req.body.precoPromocional,
+        req.body.precoPromocional === "" ? null : req.body.precoPromocional,
         req.body.quantidade,
-        req.body.image,
+        req.file.filename
     ];
 
     const query =
