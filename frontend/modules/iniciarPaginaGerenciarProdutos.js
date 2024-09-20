@@ -90,48 +90,18 @@ const atualizarInformacoesProduto = (dados) => {
 
     const buttonDelete = document.querySelector(".button-delete");
     buttonDelete.addEventListener("click", (e) => {
-        fetch("http://localhost:3000/reviews/deletar/" + produto.id, {
-            method: "DELETE",
+        fetch("http://localhost:3000/produto/deletar/" + produto.id, {
+            method: "DELETE"
         })
-            .then((res) => res.json())
-            .then((res) => {
+            .then(res => res.json())
+            .then(res => {
                 if (!res.success) {
                     alert("Não foi possível deletar o produto");
                     console.error(res.data);
                     return;
                 }
-                fetch(
-                    "http://localhost:3000/categoria/produto/deletar/" +
-                        produto.id,
-                    {
-                        method: "DELETE",
-                    }
-                )
-                    .then((res) => res.json())
-                    .then((res) => {
-                        if (!res.success) {
-                            alert("Não foi possível deletar o produto");
-                            console.error(res.data);
-                            return;
-                        }
-                        fetch(
-                            "http://localhost:3000/produto/deletar/" +
-                                produto.id,
-                            {
-                                method: "DELETE",
-                            }
-                        )
-                            .then((res) => res.json())
-                            .then((res) => {
-                                if (!res.success) {
-                                    alert("Não foi possível deletar o produto");
-                                    console.error(res.data);
-                                    return;
-                                }
-                                alert("Produto deletado");
-                                location.pathname = "frontend";
-                            });
-                    });
+                alert("Produto deletado");
+                location.pathname = "frontend";
             });
     });
 };

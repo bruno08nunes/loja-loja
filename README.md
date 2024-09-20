@@ -578,12 +578,6 @@ Método: GET
 
 Rota: /categoria/produto/selecionar/:id
 
-### Deletar Categoria em Produtos
-
-Método: DELETE
-
-Rota: /categoria/produto/deletar/1
-
 ### Favoritar Produto
 
 Método: POST
@@ -620,12 +614,6 @@ Exemplo de Corpo: {
     "produto": 1
 }
 
-### Deletar favoritos de usuário
-
-Método: DELETE
-
-Rota: /usuario/deletar/favoritos/:id
-
 ### Listar comentários de produtos
 
 Método: GET
@@ -644,18 +632,6 @@ Corpo: {
     "rating": 5,
     "comment": "Muito Bom"
 }
-
-### Deletar Reviews de Produtos
-
-Método: DELETE
-
-Rota: /reviews/deletar/:id
-
-### Deletar Reviews de Usuários
-
-Método: DELETE
-
-Rota: /usuario/deletar/comentarios/:id
 
 ### Criar Pedidos
 
@@ -685,24 +661,6 @@ Corpo: {
         }
     ]
 }
-
-### Pegar Histórico de Compra
-
-Método: GET
-
-Rota: /usuario/historico/:id
-
-### Deletar Histórico de Usuário
-
-Método: DELETE
-
-Rota: /usuario/deletar/historico/:id
-
-### Deletar Histórico de Compra de Produtos do Usuário
-
-Método: DELETE
-
-Rota: /usuario/deletar/historico/produtos/:id
 
 ## Formatação e Convenções
 

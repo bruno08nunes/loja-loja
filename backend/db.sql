@@ -60,7 +60,7 @@ create table orders (
     shipping_postcode varchar(8) not null,
     house_number varchar(20) not null,
     created_at timestamp default current_timestamp,
-    foreign key (id_users) references users(id)
+    foreign key (id_users) references users(id) on delete cascade
 );
 
 create table products (
@@ -111,8 +111,8 @@ create table orders_has_products (
     quantity int not null,
     price decimal(6,2) not null,
     primary key (id_orders, id_products),
-	foreign key (id_orders) references orders(id),
-    foreign key (id_products) references products(id)
+	foreign key (id_orders) references orders(id) on delete cascade,
+    foreign key (id_products) references products(id) on delete cascade
 );
 
 create table categories (
@@ -145,8 +145,8 @@ create table products_has_categories (
     id_products int,
     id_categories int,
     primary key (id_products, id_categories),
-    foreign key (id_products) references products(id),
-    foreign key (id_categories) references categories(id)
+    foreign key (id_products) references products(id) on delete cascade,
+    foreign key (id_categories) references categories(id) on delete cascade
 );
 
 insert into products_has_categories(id_products, id_categories)
@@ -225,8 +225,8 @@ create table reviews (
     id_products int,
     rating decimal(2, 1) not null,
     comment varchar(255) not null,
-    foreign key (id_users) references users(id),
-    foreign key (id_products) references products(id),
+    foreign key (id_users) references users(id) on delete cascade,
+    foreign key (id_products) references products(id) on delete cascade,
 	created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
 );
@@ -273,7 +273,7 @@ create table favorites (
     id_users int,
     id_products int,
     primary key(id_users, id_products),
-    foreign key (id_users) references users(id),
-    foreign key (id_products) references products(id),
+    foreign key (id_users) references users(id) on delete cascade,
+    foreign key (id_products) references products(id) on delete cascade,
     favorited_at timestamp default current_timestamp
 );

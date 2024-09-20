@@ -404,30 +404,6 @@ app.get("/categoria/produto/selecionar/:categoria", (req, res) => {
     });
 });
 
-app.delete("/categoria/produto/deletar/:produto", (req, res) => {
-    const params = [
-        req.params.produto
-    ];
-
-    const query = "DELETE FROM products_has_categories WHERE id_products = ?;";
-
-    connection.query(query, params, (err, results) => {
-        if (err) {
-            res.status(400).json({
-                success: false,
-                message: "Erro ao deletar categorias de produtos",
-                data: err,
-            });
-            return;
-        }
-        res.status(200).json({
-            success: true,
-            message: "Categorias do produto deletadas",
-            data: results,
-        });
-    });
-})
-
 // CRUD Favoritos
 app.post("/produto/favoritar", (req, res) => {
     const params = [
@@ -528,30 +504,6 @@ app.delete("/favoritos/produto/remover", (req, res) => {
     });
 })
 
-app.delete("/usuario/deletar/favoritos/:id", (req, res) => {
-    const params = [
-        req.params.id
-    ];
-
-    const query = "DELETE FROM favorites WHERE id_users = ?;";
-
-    connection.query(query, params, (err, results) => {
-        if (err) {
-            res.status(400).json({
-                success: false,
-                message: "Erro apagar favoritos do usuário",
-                data: err,
-            });
-            return;
-        }
-        res.status(200).json({
-            success: true,
-            message: "Favoritos apagado",
-            data: results,
-        });
-    });
-})
-
 // Crud Comentários
 
 app.get("/comentarios/listar/:produto_id", (req, res) => {
@@ -604,52 +556,6 @@ app.post("/comentarios/postar", (req, res) => {
         });
     });
 });
-
-app.delete("/reviews/deletar/:id", (req, res) => {
-    const params = [req.params.id];
-
-    const query = "DELETE FROM reviews WHERE id_products = ?;";
-
-    connection.query(query, params, (err, results) => {
-        if (err) {
-            res.status(400).json({
-                success: false,
-                message: "Erro ao deletar reviews",
-                data: err,
-            });
-            return;
-        }
-        res.status(200).json({
-            success: true,
-            message: "Reviews deletadas",
-            data: results,
-        });
-    });
-});
-
-app.delete("/usuario/deletar/comentarios/:id", (req, res) => {
-    const params = [
-        req.params.id
-    ];
-
-    const query = "DELETE FROM reviews WHERE id_users = ?;";
-
-    connection.query(query, params, (err, results) => {
-        if (err) {
-            res.status(400).json({
-                success: false,
-                message: "Erro apagar reviews do usuário",
-                data: err,
-            });
-            return;
-        }
-        res.status(200).json({
-            success: true,
-            message: "Reviews apagadas",
-            data: results,
-        });
-    });
-})
 
 // Compras CRUD
 
@@ -727,54 +633,6 @@ app.get("/usuario/historico/:id", (req, res) => {
         res.status(200).json({
             success: true,
             message: "Histórico consultado",
-            data: results,
-        });
-    });
-})
-
-app.delete("/usuario/deletar/historico/:id", (req, res) => {
-    const params = [
-        req.params.id
-    ];
-
-    const query = "DELETE FROM orders WHERE id_users = ?;";
-
-    connection.query(query, params, (err, results) => {
-        if (err) {
-            res.status(400).json({
-                success: false,
-                message: "Erro apagar histórico usuário",
-                data: err,
-            });
-            return;
-        }
-        res.status(200).json({
-            success: true,
-            message: "Histórico apagado",
-            data: results,
-        });
-    });
-})
-
-app.delete("/usuario/deletar/historico/produtos/:id", (req, res) => {
-    const params = [
-        req.params.id
-    ];
-
-    const query = "DELETE FROM orders_has_products WHERE id_orders IN (SELECT orders.id FROM orders WHERE orders.id_users = ?);";
-
-    connection.query(query, params, (err, results) => {
-        if (err) {
-            res.status(400).json({
-                success: false,
-                message: "Erro apagar histórico usuário",
-                data: err,
-            });
-            return;
-        }
-        res.status(200).json({
-            success: true,
-            message: "Histórico apagado",
             data: results,
         });
     });
