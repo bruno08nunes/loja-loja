@@ -9,6 +9,7 @@ create table users (
     password varchar(45) not null,
     cpf char(11) not null,
     role enum("A", "U") default "U",
+    image varchar(255),
 	created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
 );

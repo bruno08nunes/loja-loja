@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 const multer = require("multer");
-const storage = multer.diskStorage({
+const storageProduct = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "../frontend/assets/products");
     },
@@ -17,7 +17,16 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + path.extname(file.originalname));
     }
 });
-const uploadProduct = multer({storage: storage});
+const uploadProduct = multer({storage: storageProduct});
+const storageUser = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../frontend/assets/users");
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+const uploadUser = multer({storage: storageUser});
 
 app.listen(port, () => console.log(`Rodando na porta ${port}`));
 
@@ -26,7 +35,7 @@ const connection = require("./db_config");
 // Rotas para cadastro de usuário
 
 app.post("/usuario/cadastrar", (req, res) => {
-    let params = [
+    const params = [
         req.body.nome,
         req.body.sobrenome,
         req.body.email,
@@ -43,7 +52,7 @@ app.post("/usuario/cadastrar", (req, res) => {
         return;
     }
 
-    let query =
+    const query =
         "INSERT INTO users(first_name, family_name, email, password, cpf) VALUES(?,?,?,?,?);";
 
     connection.query(query, params, (err, results) => {
@@ -64,9 +73,9 @@ app.post("/usuario/cadastrar", (req, res) => {
 });
 
 app.post("/usuario/login", (req, res) => {
-    let params = [req.body.email];
+    const params = [req.body.email];
 
-    let query = "SELECT * FROM users WHERE email = ?;";
+    const query = "SELECT * FROM users WHERE email = ?;";
 
     connection.query(query, params, (err, results) => {
         if (err) {
@@ -100,10 +109,10 @@ app.post("/usuario/login", (req, res) => {
 });
 
 app.get("/usuario/informacoes/:id", (req, res) => {
-    let params = [req.params.id];
+    const params = [req.params.id];
 
-    let query =
-        "SELECT first_name, family_name, cpf, email, role FROM users WHERE id = ?;";
+    const query =
+        "SELECT first_name, family_name, cpf, email, role, image FROM users WHERE id = ?;";
 
     connection.query(query, params, (err, results) => {
         if (err) {
@@ -123,7 +132,7 @@ app.get("/usuario/informacoes/:id", (req, res) => {
 });
 
 app.put("/usuario/atualizar/:id", (req, res) => {
-    let params = [
+    const params = [
         req.body.nome,
         req.body.sobrenome,
         req.body.cpf,
@@ -132,7 +141,7 @@ app.put("/usuario/atualizar/:id", (req, res) => {
         req.params.id,
     ];
 
-    let query =
+    const query =
         "UPDATE users SET first_name = ?, family_name = ?, cpf = ?, email = ?, password = ?, updated_at = now() WHERE id = ?;";
 
     connection.query(query, params, (err, results) => {
@@ -151,6 +160,32 @@ app.put("/usuario/atualizar/:id", (req, res) => {
         });
     });
 });
+
+app.put("/usuario/foto/atualizar/:id", uploadUser.single("image"), (req, res) => {
+    const params = [
+        req.file.filename,
+        req.params.id
+    ];
+
+    const query =
+        "UPDATE users SET image = ?, updated_at = now() WHERE id = ?;";
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            res.status(400).json({
+                success: false,
+                message: "Erro ao atualizar usuário",
+                data: err,
+            });
+            return;
+        }
+        res.status(200).json({
+            success: true,
+            message: "Usuário atualizado",
+            data: results,
+        });
+    });
+})
 
 app.delete("/usuario/deletar/:id", (req, res) => {
     let params = [req.params.id];

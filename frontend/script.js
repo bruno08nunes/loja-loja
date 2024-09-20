@@ -90,43 +90,6 @@ if (footer) {
     });
 }
 
-let bancoDeDados;
-const openRequest = indexedDB.open("img_db", 1);
-openRequest.addEventListener("upgradeneeded", (e) => {
-    bancoDeDados = e.target.result;
-    console.log(e.target.result);
-    const objectStore = bancoDeDados.createObjectStore("img_os", {
-        keyPath: "id",
-    });
-});
-
-if (header) {
-    const imagem = header.querySelector("img[alt=Conta]");
-    imagem.classList.add("img-conta");
-    openRequest.addEventListener("error", () => {
-        imagem.src = "assets/icons/account.svg";
-        console.error("Banco de dados falhou ao abrir.");
-    });
-    openRequest.addEventListener("success", () => {
-        bancoDeDados = openRequest.result;
-        const objectStore = bancoDeDados
-            .transaction("img_os")
-            .objectStore("img_os");
-        const getRequest = objectStore.get(1);
-        getRequest.addEventListener("success", (e) => {
-            if (!e?.target?.result?.img) {
-                imagem.src = "assets/icons/account.svg";
-                return;
-            }
-            const fr = new FileReader();
-            fr.onload = () => {
-                imagem.src = fr.result;
-            };
-            fr.readAsDataURL(e.target.result.img);
-        });
-    });
-}
-
 const usuarioId = localStorage.getItem("usuarioLogado");
 if (usuarioId && usuarioId !== null) {
     fetch(`http://localhost:3000/usuario/informacoes/${usuarioId}`)
@@ -137,7 +100,7 @@ if (usuarioId && usuarioId !== null) {
                 return;
             }
 
-            const { role } = resultados.data[0];
+            const { role, image } = resultados.data[0];
             if (role === "A") {
                 const link = document.createElement("a");
                 link.href = "pages/gerenciar.html";
@@ -148,6 +111,12 @@ if (usuarioId && usuarioId !== null) {
                 link.append(img);
 
                 nav.append(link);
+            }
+
+            if (header) {
+                const imagem = header.querySelector("img[alt=Conta]");
+                imagem.classList.add("img-conta");
+                imagem.src = image ? `assets/users/${image}` : "assets/icons/account.svg";
             }
         });
 }

@@ -480,6 +480,14 @@ Exemplo de Corpo: {
     "cpf": "12345678910"
 }
 
+### Atualização de Foto de Perfil de Usuário
+
+Método: PUT
+
+Rota: /usuario/foto/atualizar/:id
+
+É necessário o envio de uma imagem.
+
 ### Deletar usuário
 
 Método: DELETE

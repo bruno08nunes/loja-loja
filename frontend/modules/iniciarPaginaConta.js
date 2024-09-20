@@ -5,22 +5,9 @@ const sectionsCategorias = document.querySelectorAll(".section-categoria");
 const deslogar = () => {
     localStorage.setItem("usuarioLogado", null);
     localStorage.setItem("estaLogado", "false");
-    
-    let bancoDeDados;
-    const openRequest = indexedDB.open("img_db", 1);
-    openRequest.addEventListener("error", () => {
-        console.error("Banco de dados falhou ao abrir.");
-    });
-    openRequest.addEventListener("success", () => {
-        bancoDeDados = openRequest.result;
-        const objectStore = bancoDeDados
-            .transaction("img_os", "readwrite")
-            .objectStore("img_os");
-        const deleteRequest = objectStore.delete(1);
-    });
-    
+
     location.pathname = "frontend";
-}
+};
 
 const botaoDeslogar = document.querySelector(".deslogar");
 botaoDeslogar?.addEventListener("click", deslogar);
@@ -32,6 +19,7 @@ const exibirDadosConta = () => {
         .then((resultados) => {
             const nomeConta = document.querySelector(".name-account");
             const elementoEmail = document.querySelector(".email-account");
+            const elementoImagem = document.querySelector(".img-account");
 
             if (!resultados.success) {
                 deslogar();
@@ -46,6 +34,7 @@ const exibirDadosConta = () => {
                 first_name: nome,
                 family_name: sobrenome,
                 email,
+                image: imagem,
             } = resultados.data[0];
 
             document.title = `${nome} ${sobrenome} - Loja Loja`;
@@ -53,68 +42,11 @@ const exibirDadosConta = () => {
             nomeConta.textContent = nome + " " + sobrenome;
 
             elementoEmail.textContent = email;
-        });
-};
 
-const exibirImagem = () => {
-    const botaoEnviarFoto = document.querySelector("#inp-foto-conta");
-    const imagem = document.querySelector(".img-account");
-    let src = "assets/icons/account.svg";
-
-    let bancoDeDados;
-    const openRequest = indexedDB.open("img_db", 1);
-    openRequest.addEventListener("error", () => {
-        imagem.src = src;
-        console.error("Banco de dados falhou ao abrir.");
-    });
-    openRequest.addEventListener("success", () => {
-        bancoDeDados = openRequest.result;
-        const objectStore = bancoDeDados
-            .transaction("img_os")
-            .objectStore("img_os");
-        const getRequest = objectStore.get(1);
-        getRequest.addEventListener("success", (e) => {
-            if (!e?.target?.result?.img) {
-                imagem.src = src;
-                return;
-            }
-            const fr = new FileReader();
-            fr.onload = () => {
-                imagem.src = fr.result;
-            };
-            fr.readAsDataURL(e.target.result.img);
+            elementoImagem.src = imagem
+                ? `assets/users/${imagem}`
+                : "assets/icons/account.svg";
         });
-    });
-    openRequest.addEventListener("upgradeneeded", (e) => {
-        bancoDeDados = e.target.result;
-        const objectStore = bancoDeDados.createObjectStore("img_os", {
-            keyPath: "id",
-        });
-    });
-    setTimeout(() => {});
-    botaoEnviarFoto.addEventListener("change", (e) => {
-        const transaction = bancoDeDados.transaction(["img_os"], "readwrite");
-        const objectStore = transaction.objectStore("img_os");
-        objectStore.put({ img: e.target.files[0], id: 1 });
-        transaction.addEventListener("complete", () => {
-            const transaction = bancoDeDados.transaction(
-                ["img_os"],
-                "readwrite"
-            );
-            const objectStore = transaction.objectStore("img_os");
-            const getRequest = objectStore.get(1);
-            getRequest.addEventListener("success", (e) => {
-                const fr = new FileReader();
-                fr.onload = () => {
-                    imagem.src = fr.result;
-                };
-                fr.readAsDataURL(e.target.result.img);
-            });
-        });
-        transaction.addEventListener("error", () => {
-            console.error("Transação não executada com sucesso");
-        });
-    });
 };
 
 const pegarProdutosCompletos = (dados, tipo) => {
@@ -146,11 +78,15 @@ const exibirItensCarrinho = (dados, tipo, id, mensagem) => {
 };
 
 const exibirItens = (tipo, id, mensagem) => {
-    fetch(`http://localhost:3000/usuario/${tipo}/` + localStorage.getItem("usuarioLogado"))
-        .then(res => res.json())
-        .then(res => {
+    fetch(
+        `http://localhost:3000/usuario/${tipo}/` +
+            localStorage.getItem("usuarioLogado")
+    )
+        .then((res) => res.json())
+        .then((res) => {
             const produtosCompletos = res.data;
-            const divProdutos = sectionsCategorias[id].querySelector(".div-produtos");
+            const divProdutos =
+                sectionsCategorias[id].querySelector(".div-produtos");
             for (let produto of produtosCompletos) {
                 const divProduto = criarProduto(produto);
                 divProdutos.append(divProduto);
@@ -159,13 +95,33 @@ const exibirItens = (tipo, id, mensagem) => {
                 const pMensagemVazio = criarMensagem(mensagem);
                 divProdutos.append(pMensagemVazio);
             }
-        })
-
+        });
 };
 
 const iniciarPaginaConta = (dados) => {
     exibirDadosConta();
-    exibirImagem();
+
+    const botaoEnviarFoto = document.querySelector("#inp-foto-conta");
+    botaoEnviarFoto.addEventListener("change", async (e) => {
+        const imagemElement = document.querySelector(".img-account");
+        const imagem = e.target.files[0];
+        const fr = new FileReader();
+        fr.onload = () => {
+            imagemElement.src = fr.result;
+        };
+        fr.readAsDataURL(imagem);
+
+        const userId = localStorage.getItem("usuarioLogado");
+        const formData = new FormData();
+        formData.append("image", imagem);
+        const response = await fetch(
+            "http://localhost:3000/usuario/foto/atualizar/" + userId,
+            {
+                method: "PUT",
+                body: formData,
+            }
+        );
+    });
 
     exibirItens("favoritos", 0, "Você não tem itens favoritos");
     exibirItensCarrinho(dados, "carrinho", 1, "Seu carrinho está vazio");
