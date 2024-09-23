@@ -17,7 +17,7 @@ Esta é a documentação da loja virtual _Loja Loja: A Loja mais Loja de Todas_.
     - [Requisitos Funcionais](#requisitos-funcionais)
     - [Requisitos Não Funcionais](#requisitos-não-funcionais)
 1. [Objetivos](#objetivos)
-1. [Linguagens Utilizadas](#linguagens-utilizadas)
+1. [LLinguagens, Bibliotecas, Frameworks e Recursos Utilizados](#linguagens-bibliotecas-frameworks-e-recursos-utilizados)
 1. [Design](#design)
 1. [Ideias de Produtos](#ideias-de-produtos)
 1. [Explicação do Código](#explicação-do-código)
@@ -201,9 +201,10 @@ O objetivo do projeto é criar uma loja virtual com um banco de dados funcional.
     -   html2pdf;
     -   nodemon;
     -   dotenv;
-    -   mysql2; e
-    -   cors.
--   MySQL.
+    -   mysql2;
+    -   cors; e
+    -   multer
+-   MySQL;
 -   APIs:
     -   viacep.
 
@@ -335,6 +336,10 @@ Contém os comando SQL necessários para criar o banco de dados relacional MySQL
 
 Contém o modelo do banco de dados, que foi usado de base para a criação do banco.
 
+#### .env.example
+
+Contém as variáveis de ambiente necessárias para o funcionamento do servidor. Depende de questões do desenvolvedor, que deve criar um arquivo .env com essas variáveis, mudando os valores conforme o necessário.
+
 #### src
 
 Contém os arquivos JavaScript usados no backend. No caso:
@@ -354,6 +359,7 @@ users - Usuários da aplicação. Contém os atributos:
 -   password - Senha;
 -   cpf;
 -   role - Cargo, que pode ser "U" (usuário) ou "A" (administrador);
+-   image - URL da imagem de perfil do usuário
 -   created_at - Tempo de criação; e
 -   updated_at - Tempo de última alteração.
 
