@@ -1,7 +1,6 @@
 // * Inicialização
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
 require("dotenv").config();
 
 const port = process.env.PORT;
@@ -10,25 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const multer = require("multer");
-const storageProduct = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "../frontend/assets/products");
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
-    },
-});
-const uploadProduct = multer({ storage: storageProduct });
-const storageUser = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "../frontend/assets/users");
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
-    },
-});
-const uploadUser = multer({ storage: storageUser });
+const { uploadProduct, uploadUser } = require("./multer");
 
 app.listen(port, () => console.log(`Rodando na porta ${port}`));
 
