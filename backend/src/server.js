@@ -710,3 +710,11 @@ app.get("/usuario/historico/:id", (req, res) => {
         });
     });
 });
+
+
+// Imagens
+
+app.use("/uploads/products", express.static(__dirname + "\\public\\products"));
+
+
+app.use("/uploads/users", express.static(__dirname + "\\public\\users"));

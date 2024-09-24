@@ -7,7 +7,7 @@ const pegarProduto = (dados) => {
 
 const atualizarImagemProduto = (produto) => {
     const imagem = document.querySelector(".imagem-pagina-produto");
-    imagem.src = "assets/products/" + produto?.image;
+    imagem.src = "http://localhost:3000/uploads/products/" + produto?.image;
     imagem.alt = "Imagem de " + (produto?.name ?? "Produto Desconhecido");
     if (produto.stock_quantity === 0) {
         imagem.classList.add("esgotado");

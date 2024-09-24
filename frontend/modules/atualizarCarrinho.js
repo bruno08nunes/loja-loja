@@ -11,7 +11,7 @@ const criarMensagemCarrinhoVazio = () => {
 
 const criarImagemProdutoCarrinho = (produto) => {
     const img = document.createElement("img");
-    img.src = `assets/products/${produto.image}`;
+    img.src = `http://localhost:3000/uploads/products/${produto.image}`;
     img.alt = "Imagem de " + produto.name;
     img.classList.add("img-produto-carrinho");
     return img;

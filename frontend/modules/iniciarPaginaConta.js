@@ -44,7 +44,7 @@ const exibirDadosConta = () => {
             elementoEmail.textContent = email;
 
             elementoImagem.src = imagem
-                ? `assets/users/${imagem}`
+                ? `http://localhost:3000/uploads/users//${imagem}`
                 : "assets/icons/account.svg";
         });
 };

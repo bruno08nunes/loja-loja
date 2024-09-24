@@ -119,7 +119,7 @@ if (usuarioId && usuarioId !== null) {
             if (header) {
                 const imagem = header.querySelector("img[alt=Conta]");
                 imagem.classList.add("img-conta");
-                imagem.src = image ? `assets/users/${image}` : "assets/icons/account.svg";
+                imagem.src = image ? `http://localhost:3000/uploads/users//${image}` : "assets/icons/account.svg";
             }
         });
 }

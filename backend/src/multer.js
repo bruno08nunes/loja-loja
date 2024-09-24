@@ -1,7 +1,7 @@
 const multer = require("multer");
 const storageProduct = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "../frontend/assets/products");
+        cb(null, "./src/public/products");
     },
     filename: function (req, file, cb) {
         const nomeArquivo = file.originalname.trim().replaceAll(" ", "_");
@@ -12,7 +12,7 @@ const uploadProduct = multer({ storage: storageProduct });
 
 const storageUser = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "../frontend/assets/users");
+        cb(null, "./src/public/users");
     },
     filename: function (req, file, cb) {
         const nomeArquivo = file.originalname.trim().replaceAll(" ", "_");
