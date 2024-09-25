@@ -125,7 +125,7 @@ app.put("/usuario/atualizar/:id", (req, res) => {
     ];
 
     const query =
-        "UPDATE users SET first_name = ?, family_name = ?, cpf = ?, email = ?, password = ?, updated_at = now() WHERE id = ?;";
+        "UPDATE users SET first_name = ?, family_name = ?, cpf = ?, email = ?, password = ? WHERE id = ?;";
 
     connection.query(query, params, (err, results) => {
         if (err) {
@@ -151,7 +151,7 @@ app.put(
         const params = [req.file.filename, req.params.id];
 
         const query =
-            "UPDATE users SET image = ?, updated_at = now() WHERE id = ?;";
+            "UPDATE users SET image = ? WHERE id = ?;";
 
         connection.query(query, params, (err, results) => {
             if (err) {
@@ -295,7 +295,7 @@ app.put("/produto/atualizar/:id", uploadProduct.single("image"), (req, res) => {
     ];
 
     const query =
-        "UPDATE products SET name = ?, description = ?, price = ?, promotional_price = ?, stock_quantity = ?, image = ?, updated_at = now() WHERE id = ?;";
+        "UPDATE products SET name = ?, description = ?, price = ?, promotional_price = ?, stock_quantity = ?, image = ? WHERE id = ?;";
 
     connection.query(query, params, (err, results) => {
         if (err) {

@@ -11,7 +11,7 @@ create table users (
     role enum("A", "U") default "U",
     image varchar(255),
 	created_at timestamp default current_timestamp,
-    updated_at timestamp default current_timestamp
+    updated_at timestamp default current_timestamp on update current_timestamp
 );
 
 INSERT INTO users(first_name, family_name, email, password, cpf, role)
@@ -73,7 +73,7 @@ create table products (
 	stock_quantity int not null,
     image varchar(255),
 	created_at timestamp default current_timestamp,
-    updated_at timestamp default current_timestamp
+    updated_at timestamp default current_timestamp on update current_timestamp
 );
 
 insert into products(name, description, price, promotional_price, stock_quantity, image)
@@ -119,7 +119,8 @@ create table orders_has_products (
 create table categories (
 	id int primary key auto_increment,
     name varchar(45) not null unique,
-    description varchar(120)
+    description varchar(120),
+    index (name)
 );
  
 insert into categories(name)
@@ -229,7 +230,7 @@ create table reviews (
     foreign key (id_users) references users(id) on delete cascade,
     foreign key (id_products) references products(id) on delete cascade,
 	created_at timestamp default current_timestamp,
-    updated_at timestamp default current_timestamp
+    updated_at timestamp default current_timestamp on update current_timestamp
 );
 
 insert into reviews(id_users, id_products, rating, comment)

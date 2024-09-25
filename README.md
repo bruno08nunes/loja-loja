@@ -312,7 +312,6 @@ Pasta que contém as imagens, vídeos e fontes usadas. Separada em
 
 -   fonts - Fontes
 -   examples - Prints do site para documentação
--   products - imagem dos produtos
 -   icons - ícones como carrinho, coração, conta, entre outros
 -   background.svg - Fundo do hero do index
 -   favicon.png - Imagem favicon do site
@@ -344,8 +343,10 @@ Contém as variáveis de ambiente necessárias para o funcionamento do servidor.
 
 Contém os arquivos JavaScript usados no backend. No caso:
 
--   db_config.js - Contém as configurações para acessar o banco de dados; e
--   server.js - Contém as rotas usadas para acessar o banco.
+-   db_config.js - Contém as configurações para acessar o banco de dados;
+-   server.js - Contém as rotas usadas para acessar o banco;
+-   multer.js - Contém o middleware multer, para salvar imagens no servidor; e
+-   public - Pasta com as imagens salvas no servidor. Dividida em products (imagens dos produtos) e users (foto de perfil de usuários).
 
 ## Banco de Dados
 
