@@ -279,31 +279,14 @@ const criarInputComentario = (produto) => {
     divComentar.classList.add("div-comentar");
 
     const imagem = document.createElement("img");
-    imagem.src = "";
-    let bancoDeDados;
-    const openRequest = indexedDB.open("img_db", 1);
-    openRequest.addEventListener("error", () => {
-        imagem.src = "assets/icons/account.svg";
-        console.error("Banco de dados falhou ao abrir.");
-    });
-    openRequest.addEventListener("success", () => {
-        bancoDeDados = openRequest.result;
-        const objectStore = bancoDeDados
-            .transaction("img_os")
-            .objectStore("img_os");
-        const getRequest = objectStore.get(1);
-        getRequest.addEventListener("success", (e) => {
-            if (!e?.target?.result?.img) {
-                imagem.src = "assets/icons/account.svg";
-                return;
-            }
-            const fr = new FileReader();
-            fr.onload = () => {
-                imagem.src = fr.result;
-            };
-            fr.readAsDataURL(e.target.result.img);
+    imagem.src = "assets/icons/account.svg";
+    const userId = localStorage.getItem("usuarioLogado");
+    fetch(`http://localhost:3000/usuario/informacoes/${userId}`)
+        .then((res) => res.json())
+        .then((res) => {
+            const {image} = res.data[0];
+            imagem.src = image ? `http://localhost:3000/uploads/users//${image}` : "assets/icons/account.svg";
         });
-    });
 
     const form = document.createElement("form");
 
@@ -364,7 +347,7 @@ const criarInputComentario = (produto) => {
     fetch("http://localhost:3000/usuario/historico/" + localStorage.getItem("usuarioLogado"))
         .then(res => res.json())
         .then(res => {
-            const contemNoHistorico = res.data.some((item) => item.id_products === produto.id)
+            const contemNoHistorico = res.data.some((item) => item.id === produto.id);
             if (!contemNoHistorico)  {
                 botao.disabled = true;
             }

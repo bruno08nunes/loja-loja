@@ -170,7 +170,7 @@ Esta seção mostra as funcionalidades que o site precisa ter.
 -   [rf9] - Página de cadastro no site, com nome completo, email e senha. Essas informações ficam salvas no banco de dados;
 -   [rf10] - Página de login, com as informações cadastradas anteriormente;
 -   [rf11] - Página de atualização de perfilt, sendo possível mudar as informações e deletar a conta;
--   [rf12] - Página de perfil, que você pode colocar uma foto (fica salva no IndexedDB), ver lista de desejo, carrinho e algumas de suas informações;
+-   [rf12] - Página de perfil, que você pode colocar uma foto, ver lista de desejo, carrinho e algumas de suas informações;
 -   [rf13] - Gerar PDF com informações de compra;
 -   [rf14] - Usuários administradores poderem fazer o CRUD de produtos e categorias; e
 -   [rf15] - Usuários poderem favoritas produtos.
@@ -304,7 +304,7 @@ O código é separado em diversos módulos, que apararecem na pasta módulos. H�
 
 São separados também em criarProduto, que é usado na página principal e na conta e atualizarCarrinho que é usado em todas as páginas.
 
-No arquivo principal (script.js) é feita uma requisição para o banco de dados, iniciando a página, funcionalidades para o header, footer e carrinho, inicialização do indexedDB e verificação se o usuário é um administrador ou não..
+No arquivo principal (script.js) é feita uma requisição para o banco de dados, iniciando a página, funcionalidades para o header, footer e carrinho e verificação se o usuário é um administrador ou não..
 
 #### assets
 
@@ -591,7 +591,7 @@ Exemplo de Corpo: {
 
 Método: GET
 
-Rota: /categoria/produto/selecionar/:id
+Rota: /produto/categoria/:id
 
 ### Favoritar Produto
 
@@ -603,14 +603,6 @@ Exemplo de Corpo: {
     "usuario": 1,
     "produto": 1
 }
-
-### Verificar se o produto está favoritado pelo usuário
-
-Método: GET
-
-Rota: /favoritos/produto
-
-É necessário passar como search, usuario e produto como ids.
 
 ### Verificar todos os favoritos do usuário
 

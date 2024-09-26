@@ -46,7 +46,7 @@ const iniciarPaginaPrincipal = (dados) => {
             continue;
         }
 
-        fetch("http://localhost:3000/categoria/produto/selecionar/" + categoria)
+        fetch("http://localhost:3000/produto/categoria/" + categoria)
             .then(res => res.json())
             .then(res => {
                 produtosCategoria = [];

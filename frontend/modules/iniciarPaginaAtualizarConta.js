@@ -2,19 +2,6 @@ const deslogar = () => {
     localStorage.setItem("usuarioLogado", null);
     localStorage.setItem("estaLogado", "false");
     
-    let bancoDeDados;
-    const openRequest = indexedDB.open("img_db", 1);
-    openRequest.addEventListener("error", () => {
-        console.error("Banco de dados falhou ao abrir.");
-    });
-    openRequest.addEventListener("success", () => {
-        bancoDeDados = openRequest.result;
-        const objectStore = bancoDeDados
-            .transaction("img_os", "readwrite")
-            .objectStore("img_os");
-        const deleteRequest = objectStore.delete(1);
-    });
-    
     location.pathname = "frontend";
 }
 
