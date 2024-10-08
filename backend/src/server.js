@@ -11,6 +11,32 @@ app.use(express.json());
 
 app.listen(port, () => console.log(`Rodando na porta ${port}`));
 
+// * swagger
+
+const swaggerUi = require("swagger-ui-express");
+const swaggerJSDoc = require("swagger-jsdoc");
+
+const swaggerOptions = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "my API",
+            version: "1.0.0",
+            description: "A simple Express APi with…",
+        },
+        servers: [
+            {
+                url: "http://localhost:3000",
+            },
+        ],
+    },
+    apis: ["./src/routes/*.js"],
+};
+
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 // * Importação de Rotas
 
 const usuarios = require("./routes/usuarios");

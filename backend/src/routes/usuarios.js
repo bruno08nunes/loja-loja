@@ -4,6 +4,27 @@ const connection = require("../db_config");
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /usuario/cadastrar:
+ *     post:
+ *         summary: Cadastra usuário no banco de dados
+ *         response:
+ *              201:
+ *                  description: Informações vinda do banco do usuário cadastrado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *                              items:
+ *                                  type: object
+ *              400:
+ *                  description: Informações de erro do banco de dados
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+*/
 router.post("/usuario/cadastrar", (req, res) => {
     const params = [
         req.body.nome,
