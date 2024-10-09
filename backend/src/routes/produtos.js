@@ -414,7 +414,7 @@ router.get("/produto/informacoes/:id", (req, res) => {
     const params = [req.params.id];
 
     const query =
-        "SELECT name, description, price, promotional_price, rating, stock_quantity, image WHERE id = ?;";
+        "SELECT name, description, price, promotional_price, stock_quantity, image from products WHERE id = ?;";
 
     connection.query(query, params, (err, results) => {
         if (err) {
