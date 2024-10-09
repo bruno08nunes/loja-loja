@@ -10,6 +10,7 @@ const router = express.Router();
  *     post:
  *         summary: Cadastrar usuário no banco de dados
  *         description: Faz o cadastro de usuário no banco de dados da aplicação
+ *         tags: [Usuários]
  *         requestBody:
  *              required: true
  *              content:
@@ -169,6 +170,7 @@ router.post("/usuario/cadastrar", (req, res) => {
  *     post:
  *         summary: Login de usuário
  *         description: Faz o login do usuário na aplicação
+ *         tags: [Usuários]
  *         requestBody:
  *              required: true
  *              content:
@@ -323,103 +325,105 @@ router.post("/usuario/login", (req, res) => {
 /**
  * @swagger
  * /usuario/informacoes/{id}:
- *     get:
- *         summary: Pegar informações de usuário
- *         description: Pega informações de usuários (Nome, Sobrenome, Email, Cargo e Imagem)
- *         parameters:
- *             - in: path
- *             name: id
- *             required: true
- *             description: ID numérico que representa um usuário
+ *   get:
+ *     summary: Pegar informações de usuário
+ *     description: Pega informações de um usuário (Nome, Sobrenome, Email, Cargo e Imagem)
+ *     tags: [Usuários]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID numérico que representa um usuário
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Informações vindas do banco de dados
+ *         content:
+ *           application/json:
  *             schema:
- *                  type: integer
- *         responses:
- *              200:
- *                  description: Informações vinda do banco de dados
- *                  content:
- *                      application/json:
- *                          schema:
- *                              type: object
- *                              properties:
- *                                  success:
- *                                      type: boolean
- *                                      description: Status de sucesso
- *                                      example: true
- *                                  message:
- *                                      type: string
- *                                      description: Mensagem informando o status
- *                                      example: "Informações consultadas"
- *                                  data:
- *                                      type: array
- *                                      description: Informações de usuário
- *                                      items:
- *                                          type: object
- *                                          properties:
- *                                              first_name:
- *                                                  type: string
- *                                                  description: Nome do usuário
- *                                                  example: "Bruno"
- *                                              family_name:
- *                                                  type: string
- *                                                  description: Sobrenome do usuário
- *                                                  example: "Nunes"
- *                                              email:
- *                                                  type: string
- *                                                  description: Email do usuário
- *                                                  example: "exemplo@email.com"
- *                                              cpf:
- *                                                  type: string
- *                                                  description: CPF do usuário
- *                                                  example: "12345678910"
- *                                              role:
- *                                                  type: string
- *                                                  description: Função do usuário no sistema
- *                                                  example: "U"
- *                                              image:
- *                                                  type: string
- *                                                  nullable: true
- *                                                  description: URL da imagem do usuário (se houver)
- *                                                  example: null
- *              400:
- *                  description: Informações de erro do banco de dados
- *                  content:
- *                      application/json:
- *                          schema:
- *                              type: object
- *                              properties:
- *                                  success:
- *                                      type: boolean
- *                                      description: Status de sucesso
- *                                      example: false
- *                                  message:
- *                                      type: string
- *                                      description: Mensagem informando o status
- *                                      example: "Não foi possível consultar informações do usuário"
- *                                  data:
- *                                      type: object
- *                                      description: Valor de erro retornado do banco de dados
- *                                      properties:
- *                                          code:
- *                                              type: string
- *                                              description: Código de erro do banco de dados
- *                                              example: "ER_BAD_FIELD_ERROR"
- *                                          errno:
- *                                              type: integer
- *                                              description: Número do erro
- *                                              example: 1054
- *                                          sqlState:
- *                                              type: string
- *                                              description: Estado SQL
- *                                              example: "42S22"
- *                                          sqlMessage:
- *                                              type: string
- *                                              description: Mensagem de erro SQL
- *                                              example: "Unknown column 'id' in 'where clause'"
- *                                          sql:
- *                                              type: string
- *                                              description: Comando SQL que causou o erro
- *                                              example: "SELECT * FROM users WHERE id = 9999;"
-*/
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Status de sucesso
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem informando o status
+ *                   example: "Informações consultadas"
+ *                 data:
+ *                   type: array
+ *                   description: Informações de usuário
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       first_name:
+ *                         type: string
+ *                         description: Nome do usuário
+ *                         example: "Bruno"
+ *                       family_name:
+ *                         type: string
+ *                         description: Sobrenome do usuário
+ *                         example: "Nunes"
+ *                       email:
+ *                         type: string
+ *                         description: Email do usuário
+ *                         example: "exemplo@email.com"
+ *                       cpf:
+ *                         type: string
+ *                         description: CPF do usuário
+ *                         example: "12345678910"
+ *                       role:
+ *                         type: string
+ *                         description: Função do usuário no sistema
+ *                         example: "U"
+ *                       image:
+ *                         type: string
+ *                         nullable: true
+ *                         description: URL da imagem do usuário (se houver)
+ *                         example: null
+ *       400:
+ *         description: Informações de erro do banco de dados
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Status de sucesso
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem informando o status
+ *                   example: "Não foi possível consultar informações do usuário"
+ *                 data:
+ *                   type: object
+ *                   description: Valor de erro retornado do banco de dados
+ *                   properties:
+ *                     code:
+ *                       type: string
+ *                       description: Código de erro do banco de dados
+ *                       example: "ER_BAD_FIELD_ERROR"
+ *                     errno:
+ *                       type: integer
+ *                       description: Número do erro
+ *                       example: 1054
+ *                     sqlState:
+ *                       type: string
+ *                       description: Estado SQL
+ *                       example: "42S22"
+ *                     sqlMessage:
+ *                       type: string
+ *                       description: Mensagem de erro SQL
+ *                       example: "Unknown column 'id' in 'where clause'"
+ *                     sql:
+ *                       type: string
+ *                       description: Comando SQL que causou o erro
+ *                       example: "SELECT * FROM users WHERE id = 9999;"
+ */
+
 router.get("/usuario/informacoes/:id", (req, res) => {
     const params = [req.params.id];
 
@@ -443,6 +447,135 @@ router.get("/usuario/informacoes/:id", (req, res) => {
     });
 });
 
+/**
+ * @swagger
+ * /usuario/atualizar/{id}:
+ *   put:
+ *     summary: Atualizar informações de um usuário
+ *     description: Atualiza as informações de um usuário no banco de dados
+ *     tags: [Usuários]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID numérico que representa o usuário a ser atualizado
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nome:
+ *                 type: string
+ *                 description: Nome do usuário
+ *                 example: "Bruno"
+ *               sobrenome:
+ *                 type: string
+ *                 description: Sobrenome do usuário
+ *                 example: "Nunes"
+ *               cpf:
+ *                 type: string
+ *                 description: CPF do usuário
+ *                 example: "12345678910"
+ *               email:
+ *                 type: string
+ *                 description: Email do usuário
+ *                 example: "exemplo@email.com"
+ *               senha:
+ *                 type: string
+ *                 description: Nova senha do usuário
+ *                 example: "admin123"
+ *     responses:
+ *       200:
+ *         description: Usuário atualizado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Status de sucesso
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem informando o status
+ *                   example: "Usuário atualizado"
+ *                 data:
+ *                   type: object
+ *                   description: Informações retornadas pela query de atualização
+ *                   properties:
+ *                     fieldCount:
+ *                       type: integer
+ *                       description: Contagem de campos afetados
+ *                       example: 0
+ *                     affectedRows:
+ *                       type: integer
+ *                       description: Número de linhas afetadas pela query
+ *                       example: 1
+ *                     insertId:
+ *                       type: integer
+ *                       description: ID inserido (se aplicável)
+ *                       example: 0
+ *                     info:
+ *                       type: string
+ *                       description: Informações sobre a operação realizada
+ *                       example: "Rows matched: 1  Changed: 1  Warnings: 0"
+ *                     serverStatus:
+ *                       type: integer
+ *                       description: Status do servidor
+ *                       example: 2
+ *                     warningStatus:
+ *                       type: integer
+ *                       description: Status de advertência
+ *                       example: 0
+ *                     changedRows:
+ *                       type: integer
+ *                       description: Número de linhas alteradas
+ *                       example: 1
+ *       400:
+ *         description: Erro ao atualizar o usuário
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Status de sucesso
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem de erro informando o problema
+ *                   example: "Erro ao atualizar usuário"
+ *                 data:
+ *                   type: object
+ *                   description: Valor de erro retornado pelo banco de dados
+ *                   properties:
+ *                     code:
+ *                       type: string
+ *                       description: Código de erro do banco de dados
+ *                       example: "ER_DUP_ENTRY"
+ *                     errno:
+ *                       type: integer
+ *                       description: Número do erro
+ *                       example: 1062
+ *                     sqlState:
+ *                       type: string
+ *                       description: Estado SQL
+ *                       example: "23000"
+ *                     sqlMessage:
+ *                       type: string
+ *                       description: Mensagem de erro SQL
+ *                       example: "Duplicate entry 'exemplo@email.com' for key 'users.email'"
+ *                     sql:
+ *                       type: string
+ *                       description: Comando SQL que causou o erro
+ *                       example: "UPDATE users SET first_name = 'Bruno' WHERE id = 1;"
+ */
 router.put("/usuario/atualizar/:id", (req, res) => {
     const params = [
         req.body.nome,
@@ -473,6 +606,119 @@ router.put("/usuario/atualizar/:id", (req, res) => {
     });
 });
 
+/**
+ * @swagger
+ * /usuario/foto/atualizar/{id}:
+ *   put:
+ *     summary: Atualizar foto de perfil do usuário
+ *     description: Atualiza a imagem de perfil de um usuário no banco de dados
+ *     tags: [Usuários]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID numérico que representa o usuário a ser atualizado
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *                 description: Arquivo de imagem do usuário a ser atualizado
+ *     responses:
+ *       200:
+ *         description: Imagem de usuário atualizada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Status de sucesso
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem informando o status
+ *                   example: "Usuário atualizado"
+ *                 data:
+ *                   type: object
+ *                   description: Informações retornadas pela query de atualização
+ *                   properties:
+ *                     fieldCount:
+ *                       type: integer
+ *                       description: Contagem de campos afetados
+ *                       example: 0
+ *                     affectedRows:
+ *                       type: integer
+ *                       description: Número de linhas afetadas pela query
+ *                       example: 1
+ *                     insertId:
+ *                       type: integer
+ *                       description: ID inserido (se aplicável)
+ *                       example: 0
+ *                     info:
+ *                       type: string
+ *                       description: Informações sobre a operação realizada
+ *                       example: "Rows matched: 1  Changed: 1  Warnings: 0"
+ *                     serverStatus:
+ *                       type: integer
+ *                       description: Status do servidor
+ *                       example: 2
+ *                     warningStatus:
+ *                       type: integer
+ *                       description: Status de advertência
+ *                       example: 0
+ *                     changedRows:
+ *                       type: integer
+ *                       description: Número de linhas alteradas
+ *                       example: 1
+ *       400:
+ *         description: Erro ao atualizar a imagem do usuário
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Status de sucesso
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem de erro informando o problema
+ *                   example: "Erro ao atualizar imagem do usuário"
+ *                 data:
+ *                   type: object
+ *                   description: Valor de erro retornado pelo banco de dados
+ *                   properties:
+ *                     code:
+ *                       type: string
+ *                       description: Código de erro do banco de dados
+ *                       example: "ER_DUP_ENTRY"
+ *                     errno:
+ *                       type: integer
+ *                       description: Número do erro
+ *                       example: 1062
+ *                     sqlState:
+ *                       type: string
+ *                       description: Estado SQL
+ *                       example: "23000"
+ *                     sqlMessage:
+ *                       type: string
+ *                       description: Mensagem de erro SQL
+ *                       example: "Duplicate entry for key"
+ *                     sql:
+ *                       type: string
+ *                       description: Comando SQL que causou o erro
+ *                       example: "UPDATE users SET image = 'new_image.png' WHERE id = 1;"
+ */
 router.put(
     "/usuario/foto/atualizar/:id",
     uploadUser.single("image"),
@@ -499,6 +745,105 @@ router.put(
         });
     }
 );
+
+/**
+ * @swagger
+ * /usuario/deletar/{id}:
+ *   delete:
+ *     summary: Deletar usuário
+ *     description: Remove um usuário do banco de dados usando seu ID
+ *     tags: [Usuários]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID numérico que representa o usuário a ser deletado
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Usuário deletado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Status de sucesso
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem informando o status
+ *                   example: "Usuário deletado"
+ *                 data:
+ *                   type: object
+ *                   description: Informações retornadas pela query de exclusão
+ *                   properties:
+ *                     fieldCount:
+ *                       type: integer
+ *                       description: Contagem de campos afetados
+ *                       example: 0
+ *                     affectedRows:
+ *                       type: integer
+ *                       description: Número de linhas afetadas pela query (usuários deletados)
+ *                       example: 1
+ *                     insertId:
+ *                       type: integer
+ *                       description: ID inserido (se aplicável)
+ *                       example: 0
+ *                     info:
+ *                       type: string
+ *                       description: Informações sobre a operação realizada
+ *                       example: "Rows matched: 1  Changed: 1  Warnings: 0"
+ *                     serverStatus:
+ *                       type: integer
+ *                       description: Status do servidor
+ *                       example: 2
+ *                     warningStatus:
+ *                       type: integer
+ *                       description: Status de advertência
+ *                       example: 0
+ *       400:
+ *         description: Erro ao deletar usuário
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Status de sucesso
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem de erro informando o problema
+ *                   example: "Erro ao deletar usuário"
+ *                 data:
+ *                   type: object
+ *                   description: Valor de erro retornado pelo banco de dados
+ *                   properties:
+ *                     code:
+ *                       type: string
+ *                       description: Código de erro do banco de dados
+ *                       example: "ER_ROW_IS_REFERENCED"
+ *                     errno:
+ *                       type: integer
+ *                       description: Número do erro
+ *                       example: 1451
+ *                     sqlState:
+ *                       type: string
+ *                       description: Estado SQL
+ *                       example: "23000"
+ *                     sqlMessage:
+ *                       type: string
+ *                       description: Mensagem de erro SQL
+ *                       example: "Cannot delete or update a parent row"
+ *                     sql:
+ *                       type: string
+ *                       description: Comando SQL que causou o erro
+ *                       example: "DELETE FROM users WHERE id = 1;"
+ */
 
 router.delete("/usuario/deletar/:id", (req, res) => {
     let params = [req.params.id];
