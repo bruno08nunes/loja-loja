@@ -1,6 +1,7 @@
 // * Inicialização
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
 
 const port = process.env.PORT;
@@ -57,5 +58,5 @@ app.use("/", compras);
 
 // * Imagens
 
-app.use("/uploads/products", express.static(__dirname + "\\public\\products"));
-app.use("/uploads/users", express.static(__dirname + "\\public\\users"));
+app.use("/uploads/products", express.static(path.join(__dirname, "public", "products")));
+app.use("/uploads/users", express.static(path.join(__dirname, "public", "users")));
