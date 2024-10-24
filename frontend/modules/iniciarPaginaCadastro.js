@@ -17,7 +17,7 @@ const iniciarPaginaCadastro = () => {
         };
 
         const response = await fetch(
-            "http://localhost:3000/usuario/cadastrar",
+            "https://loja-loja.onrender.com/usuario/cadastrar",
             {
                 method: "POST",
                 headers: {

@@ -26,7 +26,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: "http://localhost:3000",
+                url: "https://loja-loja.onrender.com",
             },
         ],
     },
@@ -35,7 +35,7 @@ const swaggerOptions = {
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // * Importação de Rotas
 

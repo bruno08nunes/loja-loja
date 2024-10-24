@@ -33,7 +33,9 @@ backdrop.addEventListener("click", (e) => {
 
 const usuarioId = localStorage.getItem("usuarioLogado");
 
-const rota = usuarioId ? "http://localhost:3000/produtos/listar?usuario=" + usuarioId : "http://localhost:3000/produtos/listar"
+const rota = usuarioId
+    ? "https://loja-loja.onrender.com/produtos/listar?usuario=" + usuarioId
+    : "https://loja-loja.onrender.com/produtos/listar";
 
 fetch(rota)
     .then((dados) => dados.json())
@@ -95,7 +97,7 @@ if (footer) {
 }
 
 if (usuarioId && usuarioId !== null) {
-    fetch(`http://localhost:3000/usuario/informacoes/${usuarioId}`)
+    fetch(`https://loja-loja.onrender.com/usuario/informacoes/${usuarioId}`)
         .then((res) => res.json())
         .then((resultados) => {
             const nav = document.querySelector(".nav-header");
@@ -119,7 +121,9 @@ if (usuarioId && usuarioId !== null) {
             if (header) {
                 const imagem = header.querySelector("img[alt=Conta]");
                 imagem.classList.add("img-conta");
-                imagem.src = image ? `http://localhost:3000/uploads/users//${image}` : "assets/icons/account.svg";
+                imagem.src = image
+                    ? `https://loja-loja.onrender.com/uploads/users//${image}`
+                    : "assets/icons/account.svg";
             }
         });
 }

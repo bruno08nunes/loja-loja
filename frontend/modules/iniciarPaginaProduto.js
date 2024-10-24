@@ -1,8 +1,12 @@
 const informacoesConta = async () => {
-    return await fetch(`http://localhost:3000/usuario/informacoes/${localStorage.getItem("usuarioLogado")}`)
+    return await fetch(
+        `https://loja-loja.onrender.com/usuario/informacoes/${localStorage.getItem(
+            "usuarioLogado"
+        )}`
+    )
         .then((res) => res.json())
-        .then(res => res.data[0]);
-}
+        .then((res) => res.data[0]);
+};
 
 const pegarProduto = (dados) => {
     const parametrosURL = new URLSearchParams(location.search);
@@ -13,7 +17,8 @@ const pegarProduto = (dados) => {
 
 const atualizarImagemProduto = (produto) => {
     const imagem = document.querySelector(".imagem-pagina-produto");
-    imagem.src = "http://localhost:3000/uploads/products/" + produto?.image;
+    imagem.src =
+        "https://loja-loja.onrender.com/uploads/products/" + produto?.image;
     imagem.alt = "Imagem de " + (produto?.name ?? "Produto Desconhecido");
     if (produto.stock_quantity === 0) {
         imagem.classList.add("esgotado");
@@ -63,10 +68,7 @@ const atualizarAvaliacaoProduto = (produto) => {
         "--porcentagem-nota",
         `${notaEmPorcentagem}%`
     );
-    avaliacaoEstrela.style.setProperty(
-        "--porcentagem-branco",
-        `${0}%`
-    );
+    avaliacaoEstrela.style.setProperty("--porcentagem-branco", `${0}%`);
 };
 
 const atualizarInformacoesProduto = (produto) => {
@@ -114,7 +116,7 @@ const atualizarBotoes = (produto, tipo) => {
 
 const removerDosFavoritos = async (produto, botao) => {
     const resposta = await fetch(
-        `http://localhost:3000/favoritos/produto/remover`,
+        `https://loja-loja.onrender.com/favoritos/produto/remover`,
         {
             method: "DELETE",
             headers: {
@@ -132,26 +134,29 @@ const removerDosFavoritos = async (produto, botao) => {
         alert(resultado.message);
         return;
     }
-    botao.classList.remove("adicionado-ao-carrinho")
+    botao.classList.remove("adicionado-ao-carrinho");
 };
 
 const adicionarAosFavoritos = async (produto, botao) => {
-    const resposta = await fetch(`http://localhost:3000/produto/favoritar`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            usuario: localStorage.getItem("usuarioLogado"),
-            produto: produto.id,
-        }),
-    });
+    const resposta = await fetch(
+        `https://loja-loja.onrender.com/produto/favoritar`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                usuario: localStorage.getItem("usuarioLogado"),
+                produto: produto.id,
+            }),
+        }
+    );
     const resultado = await resposta.json();
 
     if (!resultado.success) {
         alert(resultado.message);
     }
-    botao.classList.add("adicionado-ao-carrinho")
+    botao.classList.add("adicionado-ao-carrinho");
 };
 
 const criarBotaoFavorito = (produto) => {
@@ -281,11 +286,13 @@ const criarInputComentario = (produto) => {
     const imagem = document.createElement("img");
     imagem.src = "assets/icons/account.svg";
     const userId = localStorage.getItem("usuarioLogado");
-    fetch(`http://localhost:3000/usuario/informacoes/${userId}`)
+    fetch(`https://loja-loja.onrender.com/usuario/informacoes/${userId}`)
         .then((res) => res.json())
         .then((res) => {
-            const {image} = res.data[0];
-            imagem.src = image ? `http://localhost:3000/uploads/users//${image}` : "assets/icons/account.svg";
+            const { image } = res.data[0];
+            imagem.src = image
+                ? `https://loja-loja.onrender.com/uploads/users//${image}`
+                : "assets/icons/account.svg";
         });
 
     const form = document.createElement("form");
@@ -299,22 +306,24 @@ const criarInputComentario = (produto) => {
             rating: form.elements["nota"].value,
             comment: form.elements["comentar"].value,
         };
-        
-        fetch("http://localhost:3000/comentarios/postar", {
+
+        fetch("https://loja-loja.onrender.com/comentarios/postar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(informacoes),
-        })
-        
-        const {first_name: reviewer} = await informacoesConta();
-        gerarComentarios([{
-            reviewer,
-            rating: Number(form.elements["nota"].value).toFixed(1),
-            comment: form.elements["comentar"].value,
-            created_at: Date.now()
-        }])
+        });
+
+        const { first_name: reviewer } = await informacoesConta();
+        gerarComentarios([
+            {
+                reviewer,
+                rating: Number(form.elements["nota"].value).toFixed(1),
+                comment: form.elements["comentar"].value,
+                created_at: Date.now(),
+            },
+        ]);
 
         form.reset();
     });
@@ -344,15 +353,19 @@ const criarInputComentario = (produto) => {
     const botao = document.createElement("button");
     botao.textContent = "Comentar";
 
-    fetch("http://localhost:3000/usuario/historico/" + localStorage.getItem("usuarioLogado"))
-        .then(res => res.json())
-        .then(res => {
-            const contemNoHistorico = res.data.some((item) => item.id === produto.id);
-            if (!contemNoHistorico)  {
+    fetch(
+        "https://loja-loja.onrender.com/usuario/historico/" +
+            localStorage.getItem("usuarioLogado")
+    )
+        .then((res) => res.json())
+        .then((res) => {
+            const contemNoHistorico = res.data.some(
+                (item) => item.id === produto.id
+            );
+            if (!contemNoHistorico) {
                 botao.disabled = true;
             }
         });
-
 
     form.append(selectNota, inputComentar, botao);
     divComentar.append(imagem, form);
@@ -384,7 +397,7 @@ const criarComentarios = (produto) => {
         sectionComentarios.append(inputComentario);
     }
 
-    fetch("http://localhost:3000/comentarios/listar/" + produto.id)
+    fetch("https://loja-loja.onrender.com/comentarios/listar/" + produto.id)
         .then((res) => res.json())
         .then((res) => {
             const reviews = res.data;

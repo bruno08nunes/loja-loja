@@ -2,7 +2,7 @@
 const criarElementoImagemProduto = (produto) => {
     const img = document.createElement("img");
     if (produto.image) {
-        img.src = `http://localhost:3000/uploads/products/${produto.image}`;
+        img.src = `https://loja-loja.onrender.com/uploads/products/${produto.image}`;
     }
     img.alt = "Imagem de " + produto.name;
     img.classList.add("img-produto");
@@ -141,7 +141,7 @@ const criarBotaoCarrinho = (produto) => {
 
 const removerDosFavoritos = async (produto) => {
     const resposta = await fetch(
-        `http://localhost:3000/favoritos/produto/remover`,
+        `https://loja-loja.onrender.com/favoritos/produto/remover`,
         {
             method: "DELETE",
             headers: {
@@ -173,16 +173,19 @@ const removerDosFavoritos = async (produto) => {
 };
 
 const adicionarAosFavoritos = async (produto) => {
-    const resposta = await fetch(`http://localhost:3000/produto/favoritar`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            usuario: localStorage.getItem("usuarioLogado"),
-            produto: produto.id,
-        }),
-    });
+    const resposta = await fetch(
+        `https://loja-loja.onrender.com/produto/favoritar`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                usuario: localStorage.getItem("usuarioLogado"),
+                produto: produto.id,
+            }),
+        }
+    );
     const resultado = await resposta.json();
 
     if (!resultado.success) {

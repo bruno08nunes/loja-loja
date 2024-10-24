@@ -2,7 +2,7 @@ import criarProduto from "./criarProduto.js";
 
 const iniciarPaginaPesquisa = (dados) => {
     const usuarioId = localStorage.getItem("usuarioLogado");
-    fetch("http://localhost:3000/usuario/informacoes/" + usuarioId)
+    fetch("https://loja-loja.onrender.com/usuario/informacoes/" + usuarioId)
         .then((res) => res.json())
         .then((res) => {
             if (res.data[0].role !== "A") {

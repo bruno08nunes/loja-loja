@@ -10,16 +10,19 @@ const iniciarPaginaLogin = () => {
 
         const data = {
             email: form.email.value,
-            senha: form.senha.value
+            senha: form.senha.value,
         };
 
-        const response = await fetch("http://localhost:3000/usuario/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
+        const response = await fetch(
+            "https://loja-loja.onrender.com/usuario/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            }
+        );
 
         const resultados = await response.json();
         if (!resultados.success) {

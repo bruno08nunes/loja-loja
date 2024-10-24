@@ -1,16 +1,16 @@
 const deslogar = () => {
     localStorage.setItem("usuarioLogado", null);
     localStorage.setItem("estaLogado", "false");
-    
+
     location.pathname = "frontend";
-}
+};
 
 const iniciarPaginaAtualizarConta = () => {
     const form = document.querySelector(".update-form");
 
     const userId = localStorage.getItem("usuarioLogado");
 
-    fetch(`http://localhost:3000/usuario/informacoes/${userId}`)
+    fetch(`https://loja-loja.onrender.com/usuario/informacoes/${userId}`)
         .then((res) => res.json())
         .then((resultados) => {
             if (!resultados.success || resultados.data.length === 0) {
@@ -22,7 +22,7 @@ const iniciarPaginaAtualizarConta = () => {
                 first_name: nome,
                 family_name: sobrenome,
                 email,
-                cpf
+                cpf,
             } = resultados.data[0];
 
             form.nome.value = nome;
@@ -43,7 +43,7 @@ const iniciarPaginaAtualizarConta = () => {
         };
 
         const response = await fetch(
-            `http://localhost:3000/usuario/atualizar/${userId}`,
+            `https://loja-loja.onrender.com/usuario/atualizar/${userId}`,
             {
                 method: "PUT",
                 headers: {
@@ -60,16 +60,21 @@ const iniciarPaginaAtualizarConta = () => {
         }
         location.pathname = "frontend/pages/account.html";
     });
-    
+
     const deleteButton = document.querySelector(".delete-button");
     deleteButton.addEventListener("click", async (e) => {
-        const querDeletarConta = confirm("Tem certeza que deseja deletar sua conta?");
+        const querDeletarConta = confirm(
+            "Tem certeza que deseja deletar sua conta?"
+        );
         if (!querDeletarConta) {
             return;
         }
-        const response = await fetch(`http://localhost:3000/usuario/deletar/${userId}`, {
-            method: "DELETE"
-        });
+        const response = await fetch(
+            `https://loja-loja.onrender.com/usuario/deletar/${userId}`,
+            {
+                method: "DELETE",
+            }
+        );
         const resultado = await response.json();
         if (!resultado.success) {
             alert("Erro ao deletar usuário");

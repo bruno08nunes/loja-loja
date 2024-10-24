@@ -1,6 +1,6 @@
 const adicionarInformacoesFormulario = () => {
     const userId = localStorage.getItem("usuarioLogado");
-    fetch(`http://localhost:3000/usuario/informacoes/${userId}`)
+    fetch(`https://loja-loja.onrender.com/usuario/informacoes/${userId}`)
         .then((res) => res.json())
         .then((res) => {
             if (!res.success) {
@@ -60,9 +60,7 @@ const criarCabecalhoPDF = async () => {
     return header;
 };
 
-const criarInformacoesCompradorPDF = async (
-    infoFormulario
-) => {
+const criarInformacoesCompradorPDF = async (infoFormulario) => {
     const dadosConta = document.createElement("section");
     dadosConta.classList.add("dados-conta-pdf");
 
@@ -133,9 +131,7 @@ const gerarPDF = async (itensCarrinhos, dados, infoFormulario) => {
         itensCarrinhos.includes(produto.id)
     );
 
-    const dadosConta = await criarInformacoesCompradorPDF(
-        infoFormulario
-    );
+    const dadosConta = await criarInformacoesCompradorPDF(infoFormulario);
 
     const hrDados = document.createElement("hr");
     hrDados.classList.add("hr-pdf");
@@ -231,7 +227,7 @@ const iniciarPaginaFinalizarCompra = (dados) => {
 
         const itensCarrinhos = JSON.parse(localStorage.getItem("carrinho"));
 
-        fetch("http://localhost:3000/comprar", {
+        fetch("https://loja-loja.onrender.com/comprar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -248,10 +244,12 @@ const iniciarPaginaFinalizarCompra = (dados) => {
 
                 const informacoes = {
                     pedido: res.data.insertId,
-                    produtos: dados.filter((dado) => itensCarrinhos.includes(dado.id))
-                }
+                    produtos: dados.filter((dado) =>
+                        itensCarrinhos.includes(dado.id)
+                    ),
+                };
 
-                fetch("http://localhost:3000/comprar/produtos", {
+                fetch("https://loja-loja.onrender.com/comprar/produtos", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -265,16 +263,15 @@ const iniciarPaginaFinalizarCompra = (dados) => {
                             console.error(res.data);
                             return;
                         }
-                        
+
                         localStorage.setItem("carrinho", JSON.stringify([]));
-        
+
                         criarMensagemCompraFinalizada();
-        
+
                         await gerarPDF(itensCarrinhos, dados, infoFormulario);
                         redirecionar();
                     });
             });
-
     });
 };
 

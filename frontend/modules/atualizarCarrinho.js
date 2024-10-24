@@ -11,7 +11,7 @@ const criarMensagemCarrinhoVazio = () => {
 
 const criarImagemProdutoCarrinho = (produto) => {
     const img = document.createElement("img");
-    img.src = `http://localhost:3000/uploads/products/${produto.image}`;
+    img.src = `https://loja-loja.onrender.com/uploads/products/${produto.image}`;
     img.alt = "Imagem de " + produto.name;
     img.classList.add("img-produto-carrinho");
     return img;
@@ -136,7 +136,8 @@ const atualizarCarrinho = (produtos) => {
         produtosNoCarrinho.includes(produto.id)
     );
     precoTotal = produtosCompletosNoCarrinho.reduce(
-        (prev, produto) => prev + (Number(produto.promotional_price ?? produto.price)),
+        (prev, produto) =>
+            prev + Number(produto.promotional_price ?? produto.price),
         0
     );
     for (let produto of produtosCompletosNoCarrinho) {

@@ -7,7 +7,8 @@ const pegarProduto = (dados) => {
 
 const atualizarImagemProduto = (produto) => {
     const imagem = document.querySelector(".imagem-pagina-produto");
-    imagem.src = "http://localhost:3000/uploads/products/" + produto?.image;
+    imagem.src =
+        "https://loja-loja.onrender.com/uploads/products/" + produto?.image;
     imagem.alt = "Imagem de " + (produto?.name ?? "Produto Desconhecido");
     if (produto.stock_quantity === 0) {
         imagem.classList.add("esgotado");
@@ -61,17 +62,20 @@ const atualizarInformacoesProduto = (dados) => {
             precoPromocional: form.preco_promocional.value || "",
             quantidade: form.quantidade.value,
             image: form.image.files[0],
-            old_image: produto.image
+            old_image: produto.image,
         };
         const formData = new FormData();
         for (let prop in data) {
             formData.append(prop, data[prop]);
         }
 
-        fetch("http://localhost:3000/produto/atualizar/" + produto.id, {
-            method: "PUT",
-            body: formData,
-        })
+        fetch(
+            "https://loja-loja.onrender.com/produto/atualizar/" + produto.id,
+            {
+                method: "PUT",
+                body: formData,
+            }
+        )
             .then((res) => res.json())
             .then((res) => {
                 if (!res.success) {
@@ -85,11 +89,11 @@ const atualizarInformacoesProduto = (dados) => {
 
     const buttonDelete = document.querySelector(".button-delete");
     buttonDelete.addEventListener("click", (e) => {
-        fetch("http://localhost:3000/produto/deletar/" + produto.id, {
-            method: "DELETE"
+        fetch("https://loja-loja.onrender.com/produto/deletar/" + produto.id, {
+            method: "DELETE",
         })
-            .then(res => res.json())
-            .then(res => {
+            .then((res) => res.json())
+            .then((res) => {
                 if (!res.success) {
                     alert("Não foi possível deletar o produto");
                     console.error(res.data);
@@ -103,7 +107,7 @@ const atualizarInformacoesProduto = (dados) => {
 
 const iniciarPaginaGerenciarProdutos = (produtos) => {
     const usuarioId = localStorage.getItem("usuarioLogado");
-    fetch("http://localhost:3000/usuario/informacoes/" + usuarioId)
+    fetch("https://loja-loja.onrender.com/usuario/informacoes/" + usuarioId)
         .then((res) => res.json())
         .then((res) => {
             if (res.data[0].role !== "A") {

@@ -14,7 +14,7 @@ botaoDeslogar?.addEventListener("click", deslogar);
 
 const exibirDadosConta = () => {
     const userId = localStorage.getItem("usuarioLogado");
-    fetch(`http://localhost:3000/usuario/informacoes/${userId}`)
+    fetch(`https://loja-loja.onrender.com/usuario/informacoes/${userId}`)
         .then((res) => res.json())
         .then((resultados) => {
             const nomeConta = document.querySelector(".name-account");
@@ -44,7 +44,7 @@ const exibirDadosConta = () => {
             elementoEmail.textContent = email;
 
             elementoImagem.src = imagem
-                ? `http://localhost:3000/uploads/users//${imagem}`
+                ? `https://loja-loja.onrender.com/uploads/users//${imagem}`
                 : "assets/icons/account.svg";
         });
 };
@@ -79,7 +79,7 @@ const exibirItensCarrinho = (dados, tipo, id, mensagem) => {
 
 const exibirItens = (tipo, id, mensagem) => {
     fetch(
-        `http://localhost:3000/usuario/${tipo}/` +
+        `https://loja-loja.onrender.com/usuario/${tipo}/` +
             localStorage.getItem("usuarioLogado")
     )
         .then((res) => res.json())
@@ -115,7 +115,7 @@ const iniciarPaginaConta = (dados) => {
         const formData = new FormData();
         formData.append("image", imagem);
         const response = await fetch(
-            "http://localhost:3000/usuario/foto/atualizar/" + userId,
+            "https://loja-loja.onrender.com/usuario/foto/atualizar/" + userId,
             {
                 method: "PUT",
                 body: formData,

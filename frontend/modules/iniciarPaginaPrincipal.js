@@ -18,46 +18,48 @@ const iniciarPaginaPrincipal = (dados) => {
         let produtosCategoria;
         const divProdutos = section.querySelector(".div-produtos");
         if (categoria === "Melhor Avaliado") {
-            let rota = localStorage.getItem("usuarioLogado") ? "http://localhost:3000/produtos/listar/melhores?usuario=" + localStorage.getItem("usuarioLogado") : "http://localhost:3000/produtos/listar/melhores"
+            let rota = localStorage.getItem("usuarioLogado")
+                ? "https://loja-loja.onrender.com/produtos/listar/melhores?usuario=" +
+                  localStorage.getItem("usuarioLogado")
+                : "https://loja-loja.onrender.com/produtos/listar/melhores";
             fetch(rota)
-                .then(res => res.json())
-                .then(res => {
+                .then((res) => res.json())
+                .then((res) => {
                     criarProdutos(res.data, divProdutos);
-                })
+                });
             continue;
         }
-        
+
         if (categoria === "Mais Baratos") {
             produtosCategoria = dados.toSorted(
                 (a, b) =>
                     (a.promotional_price ?? a.price) -
-                (b.promotional_price ?? b.price)
-            );
-            criarProdutos(produtosCategoria, divProdutos);
-            continue;
-        }
-        
-        if (categoria === "Em Promoção") {
-            produtosCategoria = dados.filter(
-                (dado) =>
-                    dado.promotional_price !== null
+                    (b.promotional_price ?? b.price)
             );
             criarProdutos(produtosCategoria, divProdutos);
             continue;
         }
 
-        fetch("http://localhost:3000/produto/categoria/" + categoria)
-            .then(res => res.json())
-            .then(res => {
+        if (categoria === "Em Promoção") {
+            produtosCategoria = dados.filter(
+                (dado) => dado.promotional_price !== null
+            );
+            criarProdutos(produtosCategoria, divProdutos);
+            continue;
+        }
+
+        fetch("https://loja-loja.onrender.com/produto/categoria/" + categoria)
+            .then((res) => res.json())
+            .then((res) => {
                 produtosCategoria = [];
-                for (let {name} of res.data) {
+                for (let { name } of res.data) {
                     for (let pos in dados) {
                         if (name === dados[pos].name) {
                             produtosCategoria.push(dados[pos]);
                         }
                     }
                 }
-                criarProdutos(produtosCategoria, divProdutos)
+                criarProdutos(produtosCategoria, divProdutos);
             });
     }
 
