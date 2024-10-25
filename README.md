@@ -692,6 +692,24 @@ Por padrão, os códigos do projeto devem seguir:
     -   Nome das entidades e tabelas separadas por snake_case; e
     -   Criação lógica do banco, seguindo os padrões para a criação.
 
+## Deploy
+
+### Repositório Remoto
+
+O repositório remoto está no Github: <https://github.com/bruno08nunes/loja-loja>
+
+### Deploy do Frontend
+
+Para o deploy do frontend foi usada a plataforma Netlify. É acessível através do link: <https://loja-loja-bruno08nunes.netlify.app/>
+
+### Deploy do Backend
+
+Para o deploy do backend foi usada a plataforma Render.
+
+### Deploy do Banco de Dados
+
+Para o deploy do banco de dados foi usada a plataforma freesqldatabase
+
 ## Imagens
 
 ![Imagem página inicial do site Loja Loja](frontend/assets/examples/example1.png)
