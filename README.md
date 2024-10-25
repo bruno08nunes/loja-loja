@@ -29,6 +29,11 @@ Esta é a documentação da loja virtual _Loja Loja: A Loja mais Loja de Todas_.
     1. [Relações](#relações)
 1. [Coleção Postman (Rotas Servidor)](#coleção-postman-rotas-servidor)
 1. [Formatação e Convenções](#formatação-e-convenções)
+1. [Deploy](#deploy)
+    1. [Repositório Remoto](#repositório-remoto)
+    1. [Frontend](#deploy-do-frontend)
+    1. [Backend](#deploy-do-backend)
+    1. [Banco de Dados](#deploy-do-banco-de-dados)
 1. [Imagens](#imagens)
 
 ## Descrição
@@ -57,6 +62,7 @@ _Loja Loja: A Loja mais Loja de Todas_ é uma loja virtual em que é possível v
     -   [x] Rotas criadas com Node.js e Express
     -   [x] Reformulação do front-end para requisições ao servidor
 -   [x] Testes
+-   [x] Deploy
 
 ## Desenvolvimento
 
