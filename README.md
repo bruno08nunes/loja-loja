@@ -34,6 +34,7 @@ Esta é a documentação da loja virtual _Loja Loja: A Loja mais Loja de Todas_.
     1. [Frontend](#deploy-do-frontend)
     1. [Backend](#deploy-do-backend)
     1. [Banco de Dados](#deploy-do-banco-de-dados)
+    1. [Variáveis de Ambiente](#definindo-as-variáveis-de-ambiente)
 1. [Imagens](#imagens)
 
 ## Descrição
@@ -706,15 +707,70 @@ O repositório remoto está no Github: <https://github.com/bruno08nunes/loja-loj
 
 ### Deploy do Frontend
 
-Para o deploy do frontend foi usada a plataforma Netlify. É acessível através do link: <https://loja-loja-bruno08nunes.netlify.app/>
+Para o deploy do frontend foi usada a plataforma Netlify.
+
+Nela, é necessário primeiramente fazer o login na aplicação usando o Github. Depois é necessário clicar em adicionar site e depois em adicionar projeto existente.
+
+Serão mostrados os repositórios existentes. Você deve escolher um deles para o deploy.
+
+É necessário colocar o nome do site, que terá um domínio padrão.
+
+É necessário escolher:
+* Branch - main
+* Diretório base - frontend
+
+E para um deploy de HTML, CSS e JS é isso.
+
+Após clicar no botão é necessário apenas esperar.
+
+Após tudo ter terminado é necessário apenas clicar no link e será possível abrir a aplicação.
+
+É acessível através do link: <https://loja-loja-bruno08nunes.netlify.app/>
 
 ### Deploy do Backend
 
 Para o deploy do backend foi usada a plataforma Render.
 
+É necessário fazer o login com o Github.
+
+Na parte de Dashboard é necessário escolher Web Services para o deploy do backend e utilizar o Github para selecionar o repositório desejado.
+
+Nas configurações é necessário escolher:
+* Nome - loja-loja
+* Linguagem usada - Node.js
+* Branch - main
+* Diretório raiz - backend
+* Comando de iniciar a aplicação - npm start
+* O plano - Gratuito
+
+As variáveis de ambiente serão configuradas após o deploy do banco de dados.
+
+Agora o deploy está pronto. Será gerado um erro após um tempo, por não conseguir se conectar com o banco de dados.
+
 ### Deploy do Banco de Dados
 
-Para o deploy do banco de dados foi usada a plataforma freesqldatabase
+Para o deploy do banco de dados foi usada a plataforma freesqldatabase.
+
+Você deve definir o servidor mais próximo, no caso América do Sul.
+
+Abaixo disso, ficam as informações da conta e mais abaixo é possível criar o banco de dados.
+
+Ao criar o banco, são mostradas as informações do banco de dados que devem ser colocadas nas variáveis de ambiente da plataforma de deploy do backend (Render). Além disso, a senha é passada por email, podendo ser necessário recarregar a página para receber.
+
+Para conseguir usar o banco de dados é necessário acessar o phpMyAdmin, colocando as informações mostradas no freesqldatabase, no caso:
+* URL do servidor
+* Usuário
+* Senha
+
+Após, só é necessário acessar a parte de SQL e colocar o código necessário para o banco de dados, que estará pronto para uso. Aqui na aplicação, o código está presente em /backend/db.sql.
+
+### Definindo as Variáveis de Ambiente
+
+Agora com o banco de dados criado, é possível acessar o Render novamente, na parte de Environment.
+
+No código, é acessado as variáveis de ambiente no arquivo /backend/src/server.js através da biblioteca dotenv.
+
+Agora é necessário colocar o nome da chave, que deve seguir o exemplo de /backend/.env.example e o valor que pode ser visto no freesqldatabase.
 
 ## Imagens
 
